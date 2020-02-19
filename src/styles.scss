@@ -2,25 +2,8 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.imgPrincipal{
-    background-image: url("assets/img/herramientas.png");
-    // background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-}
-.cajaPadre{
-    width: 25%;
-    height: 50%;
-    background-color: #ff7e00;
-    .hijo1{
-        width: 100%;
-        background-color: red;
-    }
-    .hijo2{
-        width: 100%;
-        background-color: blue;
-    }
-}
 
+.controleContainer > *{
+    width: 100%;
+}
 

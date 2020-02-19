@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
 
 @Component({
   selector: 'app-adminlayout',
   templateUrl: './adminlayout.component.html',
-  styleUrls: ['./adminlayout.component.css']
+  styleUrls: ['./adminlayout.component.scss']
 })
 export class AdminlayoutComponent implements OnInit {
-  opened = false;
+  opened: true;
   panelOpenState = false;
-  constructor() { }
+  constructor() {
 
-  ngOnInit() {
   }
+  ngOnInit() {
 
+  }
 }

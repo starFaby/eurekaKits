@@ -1,13 +1,24 @@
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatExpansionModule, MatSidenavModule, MatListModule,
-         MatIconModule, MatToolbarModule } from '@angular/material';
+import {
+  MatButtonModule, MatExpansionModule, MatSidenavModule, MatListModule,
+  MatIconModule, MatToolbarModule, MatFormFieldModule, MatRadioModule,
+  MatSelectModule, MatInputModule, MatGridListModule, MatCardModule
+} from '@angular/material';
+import { LayoutModule } from '@angular/cdk/layout';
 const MaterialComponents = [
   MatButtonModule,
   MatExpansionModule,
   MatSidenavModule,
   MatListModule,
   MatIconModule,
-  MatToolbarModule
+  MatToolbarModule,
+  LayoutModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatRadioModule,
+  MatSelectModule,
+  MatGridListModule,
+  MatCardModule
 ];
 @NgModule({
   imports: [MaterialComponents],
