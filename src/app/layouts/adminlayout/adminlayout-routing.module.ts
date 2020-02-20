@@ -9,6 +9,5 @@ export const AdminlayoutRoutingModule: Routes = [
     {path: '' , component: StartComponent},
     {path: 'productos' , component: ProductosComponent},
     {path: 'categorias' , component: CategoriaComponent},
-    {path: 'categoriaForm' , component: CategoriaformComponent},
     {path: 'categoriaList' , component: CategorialistComponent}
 ];

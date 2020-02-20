@@ -9,6 +9,7 @@ import { MaterialModule } from 'src/app/imports/material.module';
 import { CategoriaComponent } from 'src/app/views/categoria/categoria.component';
 import { CategorialistComponent } from 'src/app/views/categoria/categorialist/categorialist.component';
 import { CategoriaformComponent } from 'src/app/views/categoria/categoriaform/categoriaform.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,7 +23,12 @@ import { CategoriaformComponent } from 'src/app/views/categoria/categoriaform/ca
   imports: [
     CommonModule,
     RouterModule.forChild(AdminlayoutRoutingModule),
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  entryComponents: [
+    CategoriaformComponent
   ]
 })
 export class AdminlayoutModule { }

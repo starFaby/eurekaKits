@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import {
   MatButtonModule, MatExpansionModule, MatSidenavModule, MatListModule,
   MatIconModule, MatToolbarModule, MatFormFieldModule, MatRadioModule,
-  MatSelectModule, MatInputModule, MatGridListModule, MatCardModule
+  MatSelectModule, MatInputModule, MatGridListModule, MatCardModule,
+  MatTableModule, MatPaginatorModule, MatDialogModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 const MaterialComponents = [
@@ -18,7 +19,10 @@ const MaterialComponents = [
   MatRadioModule,
   MatSelectModule,
   MatGridListModule,
-  MatCardModule
+  MatCardModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatDialogModule
 ];
 @NgModule({
   imports: [MaterialComponents],
