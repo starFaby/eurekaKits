@@ -19,30 +19,14 @@
         <h6 class="text-center">List alumnos</h6>
         <div>
             <div class="mat-elevation-z8 ">
-                <mat-table [dataSource]="listEstudiante" matSort>
-                    <ng-container matColumnDef="cedula">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Cedula</mat-header-cell>
-                        <mat-cell *matCellDef="let element">{{ element.cedula}}</mat-cell>
-                    </ng-container>
+                <mat-table [dataSource]="listCategoria" matSort>
                     <ng-container matColumnDef="nombre">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>nombre</mat-header-cell>
                         <mat-cell *matCellDef="let element">{{ element.nombre}}</mat-cell>
                     </ng-container>
-                    <ng-container matColumnDef="apellido">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>apellido</mat-header-cell>
-                        <mat-cell *matCellDef="let element">{{ element.apellido}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="direccion">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>direccion</mat-header-cell>
-                        <mat-cell *matCellDef="let element">{{ element.direccion}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="genero">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>genero</mat-header-cell>
-                        <mat-cell *matCellDef="let element">{{ element.genero}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="fechaN">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>fechaN</mat-header-cell>
-                        <mat-cell *matCellDef="let element">{{ element.fechaN}}</mat-cell>
+                    <ng-container matColumnDef="image">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>image</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{element.image}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="estado">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>estado</mat-header-cell>
@@ -51,10 +35,13 @@
                     <ng-container matColumnDef="actions">
                         <mat-header-cell *matHeaderCellDef></mat-header-cell>
                         <mat-cell *matCellDef="let row">
-                            <button mat-icon-button >
+                            <button mat-icon-button>
+                                <mat-icon>visibility</mat-icon>
+                            </button>
+                            <button mat-icon-button (click)="onEdit(row)">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button mat-icon-button color="warn" >
+                            <button mat-icon-button color="warn" (click)="onDelete(row.idCategoria)">
                                 <mat-icon>delete</mat-icon>
                             </button>
                         </mat-cell>
@@ -71,10 +58,11 @@
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-                    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': listEstudiante !== null}">
+                    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': listCategoria !== null}">
                     </mat-footer-row>
                     <mat-footer-row *matFooterRowDef="['noData']"
-                        [ngClass]="{'hide': !(listEstudiante != null && listEstudiante.data.length===0)}"></mat-footer-row>
+                        [ngClass]="{'hide': !(listCategoria != null && listCategoria.data.length===0)}">
+                    </mat-footer-row>
                 </mat-table>
                 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5"></mat-paginator>
             </div>

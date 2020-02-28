@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CategoriaformComponent } from './views/categoria/categoriaform/categoriaform.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CategoriaService } from './services/categoria.service';
 
 @NgModule({
   declarations: [
@@ -28,9 +30,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [CategoriaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
