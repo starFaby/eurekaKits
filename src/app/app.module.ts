@@ -11,7 +11,6 @@ import { MaterialModule } from './imports/material.module';
 import { AdminlayoutComponent } from './layouts/adminlayout/adminlayout.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { CategoriaformComponent } from './views/categoria/categoriaform/categoriaform.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoriaService } from './services/categoria.service';
 

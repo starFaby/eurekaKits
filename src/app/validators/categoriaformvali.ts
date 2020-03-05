@@ -8,9 +8,9 @@ export class Categoriaformvali {
 
     formCategoria: FormGroup;
     constructor(private formBuilder: FormBuilder) {
-        this.onValidatorCliente();
+        this.onValidatorCategoria();
     }
-    onValidatorCliente() {
+    onValidatorCategoria() {
         this.formCategoria = this.formBuilder.group({
             idCategoria: [null],
             nombre: ['', Validators.required],
@@ -22,7 +22,7 @@ export class Categoriaformvali {
         this.formCategoria.setValue({
             idCategoria: null,
             nombre: '',
-            image: File,
+            image: '',
             estado: ''
         });
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { CategoriaformComponent } from '../categoriaform/categoriaform.component';
 import { CategoriaService } from 'src/app/services/categoria.service';
@@ -52,13 +52,24 @@ export class CategorialistComponent implements OnInit {
     dialogConfig.width = '60%';
     this.dialog.open(CategoriaformComponent, dialogConfig);
   }
-  onEdit(row) {
+  async onEdit(row) {
+    const fileR = 'http://localhost:3000' + row.image;
+    const response = await fetch(fileR);
+    const data = await response.blob();
+    const metadata = {
+      type: 'image/jpeg'
+    };
+    this.file = new File([data], row.nombre, metadata);
+    console.log('============>>>>');
+    console.log(this.file);
     this.categoria = {
       idCategoria: row.idCategoria,
       nombre: row.nombre,
       image: this.file,
       estado: row.estado
     };
+    console.log('soy la imagen que me muestra');
+    console.log(this.categoria.image);
     console.log('soy el row ');
     console.log(row);
     console.log(' soy categoria');

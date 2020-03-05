@@ -20,7 +20,7 @@ export class CategoriaformComponent implements OnInit {
     private matDialogRef: MatDialogRef<CategoriaformComponent>,
     private categoriaService: CategoriaService
   ) {
-    this.formCategoria = categoriaformvali.formCategoria;
+    this.formCategoria = this.categoriaformvali.formCategoria;
   }
 
   ngOnInit() {

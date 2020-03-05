@@ -10,6 +10,8 @@ import { CategoriaComponent } from 'src/app/views/categoria/categoria.component'
 import { CategorialistComponent } from 'src/app/views/categoria/categorialist/categorialist.component';
 import { CategoriaformComponent } from 'src/app/views/categoria/categoriaform/categoriaform.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductolistComponent } from 'src/app/views/productos/productolist/productolist.component';
+import { ProductoformComponent } from 'src/app/views/productos/productoform/productoform.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ProductosComponent,
     CategoriaComponent,
     CategoriaformComponent,
-    CategorialistComponent
+    CategorialistComponent,
+    ProductolistComponent,
+    ProductoformComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +32,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   entryComponents: [
-    CategoriaformComponent
+    CategoriaformComponent,
+    ProductoformComponent
   ]
 })
 export class AdminlayoutModule { }
