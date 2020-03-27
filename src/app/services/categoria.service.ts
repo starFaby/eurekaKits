@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Categoria } from '../models/categoria';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriaService {
-  API_URI = 'http://localhost:3000/api';
+  API_URI = environment.URL_SERVICE;
+  API_URI_IMAGE = environment.URL_SERVICE_IMAGE;
   constructor(private http: HttpClient) { }
   onGetCategorias() { //  Observable<any>
    return this.http.get(`${this.API_URI}/categoria`);

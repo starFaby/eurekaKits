@@ -13,6 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoriaService } from './services/categoria.service';
+import { CateproduService } from './services/cateprodu.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { CategoriaService } from './services/categoria.service';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [CategoriaService],
+  providers: [CategoriaService, CateproduService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

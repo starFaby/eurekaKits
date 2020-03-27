@@ -22,7 +22,7 @@
                 <mat-table [dataSource]="listProductos" matSort>
                     <ng-container matColumnDef="categoria">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>categoria</mat-header-cell>
-                        <mat-cell *matCellDef="let element">{{ element.idCategoria}}</mat-cell>
+                        <mat-cell *matCellDef="let element">{{ element.idcategoria}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="nombre">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>nombre</mat-header-cell>
@@ -70,10 +70,10 @@
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-                    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': listCategoria !== null}">
+                    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': listProductos !== null}">
                     </mat-footer-row>
                     <mat-footer-row *matFooterRowDef="['noData']"
-                        [ngClass]="{'hide': !(listCategoria != null && listCategoria.data.length===0)}">
+                        [ngClass]="{'hide': !(listProductos != null && listProductos.data.length===0)}">
                     </mat-footer-row>
                 </mat-table>
                 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5"></mat-paginator>

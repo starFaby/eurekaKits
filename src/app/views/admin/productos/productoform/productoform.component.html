@@ -2,14 +2,17 @@
     <mat-grid-list cols="2" rowHeight="430px">
         <mat-grid-tile>
             <div class="controleContainer">
-                <mat-form-field [hidden]="true"> <!--[hidden]="true"-->
+                <mat-form-field [hidden]="true">
+                    <!--[hidden]="true"-->
                     <input type="text" formControlName="idProducto" matInput placeholder="idProducto">
                     <mat-error>El campo $key es obligatorio</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Categoria</mat-label>
-                    <mat-select formControlName="idCategoria" matInput >
-                        <mat-option *ngFor="let item of arrayCategoria" value="{{item.idCategoria}}">{{item.nombre}}</mat-option>
+                    <mat-select formControlName="idCategoria" matInput>
+                        <mat-option *ngFor="let item of arrayCategoria" [value]="item.idcategoria">
+                            {{ item.nombre }}
+                        </mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field>
@@ -27,14 +30,14 @@
                 <mat-form-field>
                     <input formControlName="stock" matInput placeholder="stock">
                 </mat-form-field>
-                    <label for="">Estado</label>
-                    <mat-radio-group  formControlName="estado" matInput>
-                        <mat-radio-button value="1">Activo</mat-radio-button>
-                        <mat-radio-button value="2">Inactivo</mat-radio-button>
-                    </mat-radio-group>
+                <label for="">Estado</label>
+                <mat-radio-group formControlName="estado" matInput>
+                    <mat-radio-button value="1">Activo</mat-radio-button>
+                    <mat-radio-button value="2">Inactivo</mat-radio-button>
+                </mat-radio-group>
                 <div class="row">
                     <div class="col">
-                        <button type="submit"  class="btn btn-primary btn-lg btn-block"
+                        <button type="submit" class="btn btn-primary btn-lg btn-block"
                             [disabled]="formProducto.invalid">Save</button>
                     </div>
                     <div class="col">

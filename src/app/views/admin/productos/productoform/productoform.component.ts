@@ -52,6 +52,7 @@ export class ProductoformComponent implements OnInit {
     }
   }
   onSubmit() {
+    console.log(this.productoformvali.formProducto.value);
     if (this.productoformvali.formProducto.valid) {
       if (this.productoformvali.formProducto.get('idProducto').value == null) {
         const newProducto: Producto = {
@@ -85,15 +86,14 @@ export class ProductoformComponent implements OnInit {
         console.log(newProducto);
         this.productoService.onUpdateProductos(idProducto, newProducto).subscribe(
           res => {
-            console.log(res);
+            this.productoformvali.formProducto.reset();
+            this.productoformvali.oninitializeFomrGroup();
+            this.onClose();
           },
           err => {
             console.log(err);
           }
         );
-        this.productoformvali.formProducto.reset();
-        this.productoformvali.oninitializeFomrGroup();
-        this.onClose();
       }
     }
   }

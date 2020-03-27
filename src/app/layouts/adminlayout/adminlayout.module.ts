@@ -4,14 +4,17 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AdminlayoutRoutingModule } from './adminlayout-routing.module';
 import { StartComponent } from 'src/app/views/start/start.component';
-import { ProductosComponent } from 'src/app/views/productos/productos.component';
 import { MaterialModule } from 'src/app/imports/material.module';
-import { CategoriaComponent } from 'src/app/views/categoria/categoria.component';
-import { CategorialistComponent } from 'src/app/views/categoria/categorialist/categorialist.component';
-import { CategoriaformComponent } from 'src/app/views/categoria/categoriaform/categoriaform.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProductolistComponent } from 'src/app/views/productos/productolist/productolist.component';
-import { ProductoformComponent } from 'src/app/views/productos/productoform/productoform.component';
+import { ProductosComponent } from 'src/app/views/admin/productos/productos.component';
+import { CategoriaComponent } from 'src/app/views/admin/categoria/categoria.component';
+import { CategoriaformComponent } from 'src/app/views/admin/categoria/categoriaform/categoriaform.component';
+import { CategorialistComponent } from 'src/app/views/admin/categoria/categorialist/categorialist.component';
+import { ProductolistComponent } from 'src/app/views/admin/productos/productolist/productolist.component';
+import { ProductoformComponent } from 'src/app/views/admin/productos/productoform/productoform.component';
+import { ClientcategoriaComponent } from 'src/app/views/home/clientcategoria/clientcategoria.component';
+import { ClientcateproduComponent } from 'src/app/views/home/clientcateprodu/clientcateprodu.component';
+import { ClientprodComponent } from 'src/app/views/home/clientprod/clientprod.component';
 
 
 @NgModule({
@@ -22,7 +25,10 @@ import { ProductoformComponent } from 'src/app/views/productos/productoform/prod
     CategoriaformComponent,
     CategorialistComponent,
     ProductolistComponent,
-    ProductoformComponent
+    ProductoformComponent,
+    ClientcategoriaComponent,
+    ClientcateproduComponent,
+    ClientprodComponent
   ],
   imports: [
     CommonModule,
