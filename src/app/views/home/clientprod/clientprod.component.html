@@ -1,1 +1,17 @@
-<p>clientprod works!</p>
+<div class="row" *ngIf="!product; else mainContent">
+    <h2>Loading...</h2>
+</div>
+<ng-template #mainContent>
+    <div class="row">
+        <div class="col-md-4 p-4">
+            <mat-card class="cardImage"> <!--(click)="onSelectedProducto(item.idproducto)"-->
+                <mat-card-header>
+                    <mat-card-title></mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <img mat-card-image [src]="API_URI_IMAGE+product.image" alt="Photo">
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</ng-template>

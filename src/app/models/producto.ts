@@ -6,5 +6,5 @@ export interface Producto {
     precio: string;
     stock: string;
     estado: string;
-   // created_at: string;
+    created_at?: Date;
 }

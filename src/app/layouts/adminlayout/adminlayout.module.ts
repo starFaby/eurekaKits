@@ -15,6 +15,7 @@ import { ProductoformComponent } from 'src/app/views/admin/productos/productofor
 import { ClientcategoriaComponent } from 'src/app/views/home/clientcategoria/clientcategoria.component';
 import { ClientcateproduComponent } from 'src/app/views/home/clientcateprodu/clientcateprodu.component';
 import { ClientprodComponent } from 'src/app/views/home/clientprod/clientprod.component';
+import { NoproductComponent } from 'src/app/views/noproduct/noproduct.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ClientprodComponent } from 'src/app/views/home/clientprod/clientprod.co
     ProductoformComponent,
     ClientcategoriaComponent,
     ClientcateproduComponent,
-    ClientprodComponent
+    ClientprodComponent,
+    NoproductComponent
   ],
   imports: [
     CommonModule,

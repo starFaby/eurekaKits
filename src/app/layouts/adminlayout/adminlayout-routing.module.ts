@@ -7,6 +7,7 @@ import { ProductolistComponent } from 'src/app/views/admin/productos/productolis
 import { ClientcategoriaComponent } from 'src/app/views/home/clientcategoria/clientcategoria.component';
 import { ClientcateproduComponent } from 'src/app/views/home/clientcateprodu/clientcateprodu.component';
 import { ClientprodComponent } from 'src/app/views/home/clientprod/clientprod.component';
+import { NoproductComponent } from 'src/app/views/noproduct/noproduct.component';
 
 export const AdminlayoutRoutingModule: Routes = [
     {path: '' , component: StartComponent},
@@ -16,5 +17,6 @@ export const AdminlayoutRoutingModule: Routes = [
     {path: 'productoList' , component: ProductolistComponent},
     {path: 'clientCategoriaoList' , component: ClientcategoriaComponent},
     {path: 'clientCateprodu/:id' , component: ClientcateproduComponent},
-    {path: 'clientProd/:id' , component: ClientprodComponent}
+    {path: 'clientProd/:id' , component: ClientprodComponent},
+    {path: 'noProduct' , component: NoproductComponent}
 ];

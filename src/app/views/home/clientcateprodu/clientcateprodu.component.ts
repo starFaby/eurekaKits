@@ -21,18 +21,27 @@ export class ClientcateproduComponent implements OnInit {
       params => {
         this.id = params['id'];
         this.cateproduService.onGetProducto(this.id).subscribe(
-          res =>  {
-            this.cateProd = res;
+          res => {
+            if (Object.keys(res).length > 0) { // Object.keys(res) length
+              this.cateProd = res;
+            } else  {
+              console.log('no datos 1');
+              this.router.navigate(['/noProduct']);
+            }
           },
-          err =>  console.log(err)
+          err => {
+            this.router.navigate(['/noProduct']);
+          }
         );
       },
-      err => console.log(err)
+      err => {
+        console.log(err);
+      }
     );
   }
 
-  /*onSelectedProducto(id: string) {
-    console.log(id);
-  }*/
+  onSelectedProducto(id: string) {
+    this.router.navigate(['/clientProd', id]);
+  }
 
 }

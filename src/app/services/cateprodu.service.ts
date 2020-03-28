@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class CateproduService {
-
+  cateProduc: Cateprod;
   constructor(private http: HttpClient) { }
   API_URI = environment.URL_SERVICE;
   API_URI_IMAGE = environment.URL_SERVICE_IMAGE;

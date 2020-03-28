@@ -4,7 +4,6 @@ import { Categoriaformvali } from 'src/app/validators/categoriaformvali';
 import { MatDialogRef } from '@angular/material';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/app/models/categoria';
-import { CategorialistComponent } from '../categorialist/categorialist.component';
 
 @Component({
   selector: 'app-categoriaform',

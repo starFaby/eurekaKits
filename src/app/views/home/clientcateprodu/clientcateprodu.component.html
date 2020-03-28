@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-4 p-4" *ngFor="let item of cateProd">
-        <mat-card class="cardImage"> <!--(click)="onSelectedProducto(item.idproducto)"-->
+        <mat-card class="cardImage" (click)="onSelectedProducto(item.idproducto)"> <!--(click)="onSelectedProducto(item.idproducto)"-->
             <mat-card-header>
                 <mat-card-title>{{item.nombre}}</mat-card-title>
             </mat-card-header>

@@ -2,18 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Producto } from '../models/producto';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductoService {
-  API_URI = 'http://localhost:3000/api';
+  API_URI = environment.URL_SERVICE;
+  API_URI_IMAGE = environment.URL_SERVICE_IMAGE;
   constructor(private http: HttpClient) { }
   onGetProductos() { //  Observable<any>
     return this.http.get(`${this.API_URI}/producto`);
    }
    onGetProducto(id: string) {
-    return this.http.get(`${this.API_URI}/producto/${id}`);
+    return this.http.get<Producto>(`${this.API_URI}/producto/${id}`);
    }
    onDeleteProductos(id: string): Observable<any> {
     return this.http.delete(`${this.API_URI}/producto/${id}`);

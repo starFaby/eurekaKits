@@ -1,10 +1,12 @@
-export class Cateprod {
-    idproducto?: number;
+export interface Cateprod {
+    lenght: number;
+    idproducto?: any;
     idcategoria: string;
     nombre: string;
-    image: string;
-    precio: number;
-    stock: number;
-    estado: number;
+    image: File;
+    precio: string;
+    stock: string;
+    estado: string;
+    // tslint:disable-next-line:variable-name
     created_at?: Date;
 }

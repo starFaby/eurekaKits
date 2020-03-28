@@ -3,5 +3,5 @@ export interface Categoria {
     nombre: string;
     image: File;
     estado: string;
-   // created_at: Date;
+    created_at?: Date;
 }

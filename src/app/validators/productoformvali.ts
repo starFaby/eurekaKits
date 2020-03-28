@@ -15,9 +15,9 @@ export class Productoformvali {
             idCategoria: ['', Validators.required],
             nombre: ['', Validators.required],
             image: ['', Validators.required],
-            precio: ['', Validators.required],
-            stock: ['', Validators.required],
-            estado: ['', Validators.required],
+            precio: [0, Validators.required],
+            stock: [0, Validators.required],
+            estado: [0, Validators.required],
         });
     }
     oninitializeFomrGroup() {
@@ -26,9 +26,9 @@ export class Productoformvali {
             idCategoria: '',
             nombre: '',
             image: '',
-            precio: '',
-            stock: '',
-            estado: ''
+            precio: 0,
+            stock: 0,
+            estado: 0
         });
     }
 }
