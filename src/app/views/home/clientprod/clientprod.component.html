@@ -2,16 +2,56 @@
     <h2>Loading...</h2>
 </div>
 <ng-template #mainContent>
-    <div class="row">
-        <div class="col-md-4 p-4">
-            <mat-card class="cardImage"> <!--(click)="onSelectedProducto(item.idproducto)"-->
-                <mat-card-header>
-                    <mat-card-title></mat-card-title>
-                </mat-card-header>
+    <mat-grid-list cols="3">
+        <mat-grid-tile>
+            <mat-card class="cardImage">
                 <mat-card-content>
                     <img mat-card-image [src]="API_URI_IMAGE+product.image" alt="Photo">
                 </mat-card-content>
             </mat-card>
-        </div>
-    </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-card>
+                <div class="row">
+                    <div class="col-xl-12 text-center">
+                        <p class="titleProducts">{{product.nombre}}</p> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><button>-</button></p>
+                    </div>
+                    <div class="col">
+                        <p><button>+</button></p>
+                    </div>
+                    <div class="col">
+                        <p>Precio</p>
+                    </div>
+                    <div class="col">
+                        Monto
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{product.precio}}
+                        <span>$</span>
+                    </div>
+                    <div class="col">
+                        {{product.precio}}
+                        <span>$</span>
+                    </div>
+                    <div class="col">
+                        {{product.precio}}
+                        <span>$</span>
+                    </div>
+                    <div class="col">
+                        {{product.precio}}
+                        <span>$</span>
+                    </div>
+                </div>
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan] = "2" [rowspan] = "1"><mat-card>Tile 2 </mat-card></mat-grid-tile>
+    </mat-grid-list>
 </ng-template>
+

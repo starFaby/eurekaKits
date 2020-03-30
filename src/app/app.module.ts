@@ -14,6 +14,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoriaService } from './services/categoria.service';
 import { CateproduService } from './services/cateprodu.service';
+import { BacktoDirective } from './directive/backto.directive';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CateproduService } from './services/cateprodu.service';
     FooterComponent,
     AdminlayoutComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    BacktoDirective
   ],
   imports: [
     BrowserModule,
