@@ -1,10 +1,10 @@
 export interface DetalleVenta {
-    iddetalleventa?: number;
-    id_factura: number;
-    id_producto: number;
+    iddetalleventa?: string;
+    idfactura: string;
+    idproducto: string;
     cantidad: string;
-    precio: number;
-    total: number;
-    estado: number;
+    precio: string;
+    total: string;
+    estado: string;
     created_at?: Date;
 }

@@ -56,7 +56,7 @@ export class ProductoformComponent implements OnInit {
     if (this.productoformvali.formProducto.valid) {
       if (this.productoformvali.formProducto.get('idProducto').value == null) {
         const newProducto: Producto = {
-          idCategoria: this.productoformvali.formProducto.get('idCategoria').value,
+          idcategoria: this.productoformvali.formProducto.get('idcategoria').value,
           nombre: this.productoformvali.formProducto.get('nombre').value,
           image: this.file,
           precio: this.productoformvali.formProducto.get('precio').value,
@@ -76,7 +76,7 @@ export class ProductoformComponent implements OnInit {
         const idProducto = this.productoformvali.formProducto.get('idProducto').value;
         console.log(idProducto);
         const newProducto: Producto = {
-          idCategoria: this.productoformvali.formProducto.get('idCategoria').value,
+          idcategoria: this.productoformvali.formProducto.get('idCategoria').value,
           nombre: this.productoformvali.formProducto.get('nombre').value,
           image: this.file,
           precio: this.productoformvali.formProducto.get('precio').value,

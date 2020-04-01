@@ -1,6 +1,6 @@
 export interface Producto {
-    idProducto?: any;
-    idCategoria: string;
+    idproducto?: any;
+    idcategoria: string;
     nombre: string;
     image: File;
     precio: string;

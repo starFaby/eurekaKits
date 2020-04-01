@@ -2,9 +2,11 @@
     <h2>Loading...</h2>
 </div>
 <ng-template #mainContent>
+    <form [formGroup]="formDetaVenta" (ngSubmit)="onSubmit()" enctype="multipart/form-data"> 
     <mat-grid-list cols="2">
         <mat-grid-tile>
             <mat-card class="cardImage">
+                <input type="text" [hidden]="true" formControlName="idproducto"  [(ngModel)]="product.idproducto">
                 <mat-card-content>
                     <img mat-card-image [src]="API_URI_IMAGE+product.image" alt="Photo">
                 </mat-card-content>
@@ -16,7 +18,7 @@
                 <div class="row">
                     <div class="col-md-4 text-center ml-auto">
                         <h2>N° Factura</h2>
-                        <input type="text" class="inputOculto" value="1" disabled>
+                        <input type="text" formControlName="idfactura" class="inputOculto" [(ngModel)]="numFactura">
                     </div>
                 </div>
                 <div class="row">
@@ -36,16 +38,21 @@
                         <button mat-mini-fab color="primary" class="m-1" (click)="onCountA()">+</button>
                     </div>
                     <div class="col">
-                        <input class="inputOculto" type="text" value="{{cont}}" disabled>
+                        <input class="inputOculto" formControlName="cantidad" type="text"  [(ngModel)]="cont" disabled>
                     </div>
                     <div class="col">
-                        <input class="inputOculto" type="text" value="{{product.precio}}" disabled> <span>$</span>
+                        <input class="inputOculto" formControlName="precio" type="text"  [(ngModel)]="product.precio" disabled> <span>$</span>
                     </div>
                     <div class="col">
-                        <input class="inputOculto" type="text" value="{{monto || product.precio}}" disabled> <span>$</span>
+                        <input class="inputOculto" formControlName="total" type="text"  [(ngModel)]="monto || product.precio" disabled> <span>$</span>
                     </div>
-                    <div class="col-md-12">
-                        <button  mat-fab color="primary" type="button" class="m-2">Comprar</button>
+                    <input type="text" [hidden]="true"  formControlName="estado" class="inputOculto" [(ngModel)]="estado" >
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button  mat-fab color="primary" type="submit" [disabled]="formDetaVenta.invalid">Buy</button><!--[disabled]="formDetaVenta.invalid"-->
+                    </div>
+                    <div class="col">
                         <button  mat-fab color="primary" type="button" class="m-2" (click)="onCreate()"><mat-icon>visibility</mat-icon></button>
                     </div>
                 </div>
@@ -68,7 +75,9 @@
                         </mat-tab-group>
                     </div>
                 </div>
+                
             </mat-card>
         </mat-grid-tile>
     </mat-grid-list>
+</form>
 </ng-template>

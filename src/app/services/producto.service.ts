@@ -22,7 +22,7 @@ export class ProductoService {
    }
    onSaveProductos(producto: Producto) {
      const fd = new FormData();
-     fd.append('idCategoria', producto.idCategoria);
+     fd.append('idcategoria', producto.idcategoria);
      fd.append('nombre', producto.nombre);
      fd.append('image', producto.image);
      fd.append('precio', producto.precio);
@@ -33,7 +33,7 @@ export class ProductoService {
    }
    onUpdateProductos(id: string, producto: Producto): Observable<any> {
      const fd = new FormData();
-     fd.append('idCategoria', producto.idCategoria);
+     fd.append('idcategoria', producto.idcategoria);
      fd.append('nombre', producto.nombre);
      fd.append('image', producto.image);
      fd.append('precio', producto.precio);

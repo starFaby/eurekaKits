@@ -62,8 +62,8 @@ export class ProductolistComponent implements OnInit {
     };
     this.file = new File([data], row.nombre, metadata);
     this.producto = {
-      idProducto: row.idProducto,
-      idCategoria: row.idCategoria,
+      idproducto: row.idProducto,
+      idcategoria: row.idCategoria,
       nombre: row.nombre,
       image: this.file,
       precio: row.precio,
