@@ -2,7 +2,7 @@
     <h2>Loading...</h2>
 </div>
 <ng-template #mainContent>
-    <mat-grid-list cols="3">
+    <mat-grid-list cols="2">
         <mat-grid-tile>
             <mat-card class="cardImage">
                 <mat-card-content>
@@ -12,46 +12,63 @@
         </mat-grid-tile>
         <mat-grid-tile>
             <mat-card>
+                <!--Numero de la factura-->
                 <div class="row">
-                    <div class="col-xl-12 text-center">
-                        <p class="titleProducts">{{product.nombre}}</p> 
+                    <div class="col-md-4 text-center ml-auto">
+                        <h2>N° Factura</h2>
+                        <input type="text" class="inputOculto" value="1" disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <h2>{{product.nombre}}</h2>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <label for="">
+                            <h5>Productos Disponibles</h5>
+                        </label>
+                        <p class="">{{product.stock}}</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <p><button>-</button></p>
+                        <button mat-mini-fab color="warn" class="m-1" (click)="onCountD()">-</button>
+                        <button mat-mini-fab color="primary" class="m-1" (click)="onCountA()">+</button>
                     </div>
                     <div class="col">
-                        <p><button>+</button></p>
+                        <input class="inputOculto" type="text" value="{{cont}}" disabled>
                     </div>
                     <div class="col">
-                        <p>Precio</p>
+                        <input class="inputOculto" type="text" value="{{product.precio}}" disabled> <span>$</span>
                     </div>
                     <div class="col">
-                        Monto
+                        <input class="inputOculto" type="text" value="{{monto || product.precio}}" disabled> <span>$</span>
+                    </div>
+                    <div class="col-md-12">
+                        <button  mat-fab color="primary" type="button" class="m-2">Comprar</button>
+                        <button  mat-fab color="primary" type="button" class="m-2" (click)="onCreate()"><mat-icon>visibility</mat-icon></button>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
-                        {{product.precio}}
-                        <span>$</span>
+                    <div class="col-md-12">
+                        <h2>Tipo de pago</h2>
                     </div>
-                    <div class="col">
-                        {{product.precio}}
-                        <span>$</span>
-                    </div>
-                    <div class="col">
-                        {{product.precio}}
-                        <span>$</span>
-                    </div>
-                    <div class="col">
-                        {{product.precio}}
-                        <span>$</span>
+                    <div class="col-mg-12">
+                        <mat-tab-group>
+                            <mat-tab label="Paypal">
+                            <p>faby</p>    
+                            <br>
+                            <p>faby</p>    
+                            <br>
+                            <p>faby</p>    
+                            <br>
+                            </mat-tab>
+                            <mat-tab label="Transeferencia Bancaria"> Content 2 </mat-tab>
+                            <mat-tab label="Efectivo"> Content 3 </mat-tab>
+                        </mat-tab-group>
                     </div>
                 </div>
             </mat-card>
         </mat-grid-tile>
-        <mat-grid-tile [colspan] = "2" [rowspan] = "1"><mat-card>Tile 2 </mat-card></mat-grid-tile>
     </mat-grid-list>
 </ng-template>
-
