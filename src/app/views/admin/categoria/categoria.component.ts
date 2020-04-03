@@ -11,8 +11,4 @@ export class CategoriaComponent implements OnInit {
 
   ngOnInit() {
   }
-  onSubmit(){
-    
-  }
-
 }

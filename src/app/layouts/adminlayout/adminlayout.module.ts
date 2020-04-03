@@ -43,8 +43,7 @@ import { CanastaComponent } from 'src/app/views/home/canasta/canasta.component';
   ],
   entryComponents: [
     CategoriaformComponent,
-    ProductoformComponent,
-    CanastaComponent
+    ProductoformComponent
   ]
 })
 export class AdminlayoutModule { }

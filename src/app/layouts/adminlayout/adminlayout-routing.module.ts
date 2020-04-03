@@ -8,6 +8,7 @@ import { ClientcategoriaComponent } from 'src/app/views/home/clientcategoria/cli
 import { ClientcateproduComponent } from 'src/app/views/home/clientcateprodu/clientcateprodu.component';
 import { ClientprodComponent } from 'src/app/views/home/clientprod/clientprod.component';
 import { NoproductComponent } from 'src/app/views/noproduct/noproduct.component';
+import { CanastaComponent } from 'src/app/views/home/canasta/canasta.component';
 
 export const AdminlayoutRoutingModule: Routes = [
     {path: '' , component: StartComponent},
@@ -18,5 +19,6 @@ export const AdminlayoutRoutingModule: Routes = [
     {path: 'clientCategoriaoList' , component: ClientcategoriaComponent},
     {path: 'clientCateprodu/:id' , component: ClientcateproduComponent},
     {path: 'clientProd/:id' , component: ClientprodComponent},
-    {path: 'noProduct' , component: NoproductComponent}
+    {path: 'noProduct' , component: NoproductComponent},
+    {path: 'canasta' , component: CanastaComponent}
 ];

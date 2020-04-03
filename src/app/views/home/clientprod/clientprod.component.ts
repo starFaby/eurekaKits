@@ -8,6 +8,7 @@ import { CanastaComponent } from '../canasta/canasta.component';
 import { FormGroup } from '@angular/forms';
 import { Detaventaformvali } from 'src/app/validators/detaventaformvali';
 import { DetalleVenta } from 'src/app/models/detalleventa';
+import { Formapago } from 'src/app/models/formapago';
 
 @Component({
   selector: 'app-clientprod',
@@ -21,6 +22,7 @@ export class ClientprodComponent implements OnInit {
   monto;
   estado = 1;
   numFactura = 1;
+  formapago: Formapago[] = [];
   formDetaVenta: FormGroup;
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -70,11 +72,12 @@ export class ClientprodComponent implements OnInit {
     this.monto = this.cont * parseInt(this.product.precio);
   }
   onCreate() {
-    const dialogConfig = new MatDialogConfig();
+    /*const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
-    this.dialog.open(CanastaComponent, dialogConfig);
+    this.dialog.open(CanastaComponent, dialogConfig);*/
+    this.router.navigate(['/canasta']);
   }
   onSubmit() {
     if (this.formDetaVenta.valid) {

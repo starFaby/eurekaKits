@@ -14,7 +14,7 @@ export class DetaventaService {
   constructor(private http: HttpClient) {
    }
   onGetDetaVentas() { //  Observable<any>
-    return this.http.get<DetalleVenta>(`${this.API_URI}/detaVenta`);
+    return this.http.get<DetalleVenta[]>(`${this.API_URI}/detaVenta`);
   }
   onGetDetaVenta(id: string) {
     return this.http.get<DetalleVenta>(`${this.API_URI}/detaVenta/${id}`);
@@ -31,5 +31,8 @@ export class DetaventaService {
     fd.append('total', detalleVenta.total);
     fd.append('estado', detalleVenta.estado);
     return this.http.post(`${this.API_URI}/detaVenta`, fd);
+  }
+  onDetaVentaSuma(id: string) {
+    return this.http.get<DetalleVenta>(`${this.API_URI}/detaVenta/${id}`);
   }
 }
