@@ -1,0 +1,57 @@
+<form [formGroup]="" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <mat-grid-list cols="2" rowHeight="400px">
+        <mat-grid-tile>
+            <div class="controleContainer">
+                <mat-form-field> <!-- [hidden]="true"-->
+                    <input type="text"  matInput placeholder="iddireccion">
+                    <mat-error>El campo $key es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input  matInput placeholder="provincia">
+                </mat-form-field>
+                <mat-form-field>
+                    <input  matInput placeholder="Canton">
+                </mat-form-field>
+                <mat-form-field>
+                    <input  matInput placeholder="Parroquia">
+                </mat-form-field>
+                <mat-form-field>
+                    <input  matInput placeholder="Calle Principal">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="controleContainer">
+                <mat-form-field>
+                    <input  matInput placeholder="Calle Secundaria">
+                </mat-form-field>
+                <mat-form-field>
+                    <input  matInput placeholder="Calle Secundaria">
+                </mat-form-field>
+                <mat-form-field>
+                    <input  matInput placeholder="Calle Transversal">
+                </mat-form-field>
+                <mat-form-field>
+                    <input  matInput placeholder="Descripcion">
+                </mat-form-field>
+                <label for="">Estado</label>
+                <mat-radio-group >
+                    <mat-radio-button value="1">Activo</mat-radio-button>
+                    <mat-radio-button value="2">Inactivo</mat-radio-button>
+                </mat-radio-group>
+                <div class="row">
+                    <div class="col">
+                        <button mat-fab color="primary" type="submit">Submit</button>
+                        <!--[disabled]="formCategoria.invalid"-->
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-warning btn-lg">Clear</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-danger btn-lg" (click)="onCloseDialog()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

@@ -25,9 +25,8 @@
     <mat-toolbar class="example-toolbar colorToolbar">
       <button mat-icon-button (click)="opened = !opened">
         <mat-icon>menu</mat-icon>
-      </button>
-      <span class="fill"></span>
-      <h2>Login</h2>
+      </button >
+      <button class="ml-auto" [routerLink]="['/personaForm']">Login</button>
     </mat-toolbar>
     <main>
       <router-outlet></router-outlet>

@@ -1,0 +1,39 @@
+<form [formGroup]="formTelefono" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <mat-grid-list cols="1" rowHeight="400px">
+        <mat-grid-tile>
+            <div class="controleContainer">
+                <mat-form-field >
+                    <!--[hidden]="true"-->
+                    <input type="text" matInput formControlName="idtelefono" placeholder="idtelefono">
+                    <mat-error>El campo $key es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput formControlName="convencional" placeholder="convencional">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput formControlName="celular1" placeholder="Celular 1">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput formControlName="celular2" placeholder="Celular 2">
+                </mat-form-field>
+                <label for="">Estado</label>
+                <mat-radio-group formControlName="estado">
+                    <mat-radio-button value="1">Activo</mat-radio-button>
+                    <mat-radio-button value="2">Inactivo</mat-radio-button>
+                </mat-radio-group>
+                <div class="row">
+                    <div class="col-md-4">
+                        <button mat-fab color="primary" type="submit" [disabled]="formTelefono.invalid">Submit</button>
+                        <!--[disabled]="formCategoria.invalid"-->
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-warning btn-lg">Clear</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-danger btn-lg" (click)="onCloseDialog()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

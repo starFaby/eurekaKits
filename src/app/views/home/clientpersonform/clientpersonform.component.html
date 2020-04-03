@@ -1,0 +1,79 @@
+<mat-card class="col-md-4 mx-auto my-4">
+    <mat-card-header class="row ">
+        <h2>Me gustaria conocer mas </h2>
+        <h3>sobre ti ☻</h3>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="formPersona" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+            <div class="controleContainer">
+                <mat-form-field>
+                    <mat-label>Id</mat-label> 
+                    <input matInput formControlName="idpersona">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Cedula</mat-label>
+                    <input matInput formControlName="cedula">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label >Nombres</mat-label>
+                    <input matInput formControlName="nombres">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label >Apellidos</mat-label>
+                    <input matInput formControlName="apellidos">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fechanacimiento">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-primary btn-lg" (click)="onOpenFormTelef()">telefon</button>
+                    </div>
+                </div>
+                <mat-form-field>
+                    <mat-label>Select telefono</mat-label>
+                    <mat-select formControlName="idtelefono">
+                        <mat-option value="option">Option</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-primary btn-lg" (click)="onOpenFormDirecc()">telefon</button>
+                    </div>
+                </div>
+                <mat-form-field>
+                    <mat-label>Select direccion</mat-label>
+                    <mat-select formControlName="iddireccion">
+                        <mat-option value="option">Option</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password">
+                </mat-form-field>
+                <label for="">Estado</label>
+                <mat-radio-group matInput formControlName="estado">
+                    <mat-radio-button value="1">Activo</mat-radio-button>
+                    <mat-radio-button value="2">Inactivo</mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <div class="row">
+            <div class="col">
+                <button  mat-fab color="primary" type="submit" [disabled]="formPersona.invalid">Submit</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-warning btn-lg" >Clear</button>
+            </div>
+        </div>
+    </mat-card-actions>
+</mat-card>

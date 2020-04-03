@@ -4,7 +4,6 @@ import { Productoformvali } from 'src/app/validators/productoformvali';
 import { MatDialogRef } from '@angular/material';
 import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
-import { Categoria } from 'src/app/models/categoria';
 import { CategoriaService } from 'src/app/services/categoria.service';
 
 @Component({

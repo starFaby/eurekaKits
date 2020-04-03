@@ -9,6 +9,7 @@ import { ClientcateproduComponent } from 'src/app/views/home/clientcateprodu/cli
 import { ClientprodComponent } from 'src/app/views/home/clientprod/clientprod.component';
 import { NoproductComponent } from 'src/app/views/noproduct/noproduct.component';
 import { CanastaComponent } from 'src/app/views/home/canasta/canasta.component';
+import { ClientpersonformComponent } from 'src/app/views/home/clientpersonform/clientpersonform.component';
 
 export const AdminlayoutRoutingModule: Routes = [
     {path: '' , component: StartComponent},
@@ -20,5 +21,6 @@ export const AdminlayoutRoutingModule: Routes = [
     {path: 'clientCateprodu/:id' , component: ClientcateproduComponent},
     {path: 'clientProd/:id' , component: ClientprodComponent},
     {path: 'noProduct' , component: NoproductComponent},
-    {path: 'canasta' , component: CanastaComponent}
+    {path: 'canasta' , component: CanastaComponent},
+    {path: 'personaForm' , component: ClientpersonformComponent}
 ];

@@ -17,6 +17,9 @@ import { ClientcateproduComponent } from 'src/app/views/home/clientcateprodu/cli
 import { ClientprodComponent } from 'src/app/views/home/clientprod/clientprod.component';
 import { NoproductComponent } from 'src/app/views/noproduct/noproduct.component';
 import { CanastaComponent } from 'src/app/views/home/canasta/canasta.component';
+import { ClientpersonformComponent } from 'src/app/views/home/clientpersonform/clientpersonform.component';
+import { ClienteleformComponent } from 'src/app/views/home/clienteleform/clienteleform.component';
+import { ClientdireccformComponent } from 'src/app/views/home/clientdireccform/clientdireccform.component';
 
 
 @NgModule({
@@ -32,7 +35,10 @@ import { CanastaComponent } from 'src/app/views/home/canasta/canasta.component';
     ClientcateproduComponent,
     ClientprodComponent,
     NoproductComponent,
-    CanastaComponent
+    CanastaComponent,
+    ClientpersonformComponent,
+    ClienteleformComponent,
+    ClientdireccformComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +49,9 @@ import { CanastaComponent } from 'src/app/views/home/canasta/canasta.component';
   ],
   entryComponents: [
     CategoriaformComponent,
-    ProductoformComponent
+    ProductoformComponent,
+    ClienteleformComponent,
+    ClientdireccformComponent
   ]
 })
 export class AdminlayoutModule { }

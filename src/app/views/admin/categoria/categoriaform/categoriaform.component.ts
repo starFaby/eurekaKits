@@ -7,7 +7,7 @@ import { Categoria } from 'src/app/models/categoria';
 
 @Component({
   selector: 'app-categoriaform',
-  templateUrl: './categoriaform.component.html',
+  templateUrl: './categoriaform.component.html', 
   styleUrls: ['./categoriaform.component.scss']
 })
 export class CategoriaformComponent implements OnInit {
