@@ -2,7 +2,7 @@
     <mat-grid-list cols="1" rowHeight="400px">
         <mat-grid-tile>
             <div class="controleContainer">
-                <mat-form-field >
+                <mat-form-field [hidden]="true">
                     <!--[hidden]="true"-->
                     <input type="text" matInput formControlName="idtelefono" placeholder="idtelefono">
                     <mat-error>El campo $key es obligatorio</mat-error>

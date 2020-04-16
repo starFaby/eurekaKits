@@ -20,6 +20,7 @@ import { CanastaComponent } from 'src/app/views/home/canasta/canasta.component';
 import { ClientpersonformComponent } from 'src/app/views/home/clientpersonform/clientpersonform.component';
 import { ClienteleformComponent } from 'src/app/views/home/clienteleform/clienteleform.component';
 import { ClientdireccformComponent } from 'src/app/views/home/clientdireccform/clientdireccform.component';
+import { LoginComponent } from 'src/app/views/login/login.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { ClientdireccformComponent } from 'src/app/views/home/clientdireccform/c
     CanastaComponent,
     ClientpersonformComponent,
     ClienteleformComponent,
-    ClientdireccformComponent
+    ClientdireccformComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,

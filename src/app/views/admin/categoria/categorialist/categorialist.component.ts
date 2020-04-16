@@ -4,6 +4,7 @@ import { CategoriaformComponent } from '../categoriaform/categoriaform.component
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoriaformvali } from 'src/app/validators/categoriaformvali';
 import { Categoria } from 'src/app/models/categoria';
+import { LoginComponent } from 'src/app/views/login/login.component';
 
 @Component({
   selector: 'app-categorialist',
@@ -51,6 +52,13 @@ export class CategorialistComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
     this.dialog.open(CategoriaformComponent, dialogConfig);
+  }
+  onCreateLogin() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    this.dialog.open(LoginComponent, dialogConfig);
   }
   async onEdit(row) {
     const fileR = 'http://localhost:3000' + row.image;

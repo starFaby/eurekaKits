@@ -15,9 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoriaService } from './services/categoria.service';
 import { CateproduService } from './services/cateprodu.service';
 import { BacktoDirective } from './directive/backto.directive';
-import { ClientpersonformComponent } from './views/home/clientpersonform/clientpersonform.component';
-import { ClienteleformComponent } from './views/home/clienteleform/clienteleform.component';
-import { ClientdireccformComponent } from './views/home/clientdireccform/clientdireccform.component';
+import { AuthService } from './services/auth.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +35,7 @@ import { ClientdireccformComponent } from './views/home/clientdireccform/clientd
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [CategoriaService, CateproduService],
+  providers: [CategoriaService, CateproduService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,13 +1,15 @@
-<mat-card class="col-md-4 mx-auto my-4">
-    <mat-card-header class="row ">
-        <h2>Me gustaria conocer mas </h2>
-        <h3>sobre ti ☻</h3>
+<mat-card class="col-md-4 mx-auto my-4 ">
+    <mat-card-header class="row">
+        <div class="col-md-12 text-center">
+            <h2>Me gustaria conocer mas </h2>
+            <h3>sobre ti ☻</h3>
+        </div>
     </mat-card-header>
     <mat-card-content>
         <form [formGroup]="formPersona" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
             <div class="controleContainer">
-                <mat-form-field>
-                    <mat-label>Id</mat-label> 
+                <mat-form-field [hidden]="true">
+                    <mat-label>Id</mat-label>
                     <input matInput formControlName="idpersona">
                 </mat-form-field>
                 <mat-form-field>
@@ -15,11 +17,11 @@
                     <input matInput formControlName="cedula">
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label >Nombres</mat-label>
+                    <mat-label>Nombres</mat-label>
                     <input matInput formControlName="nombres">
                 </mat-form-field>
                 <mat-form-field>
-                    <mat-label >Apellidos</mat-label>
+                    <mat-label>Apellidos</mat-label>
                     <input matInput formControlName="apellidos">
                 </mat-form-field>
                 <mat-form-field>
@@ -30,24 +32,30 @@
                 </mat-form-field>
                 <div class="row">
                     <div class="col">
-                        <button type="button" class="btn btn-primary btn-lg" (click)="onOpenFormTelef()">telefon</button>
+                        <button type="button" class="btn btn-primary btn-lg"
+                            (click)="onOpenFormTelef()">Add telefono</button>
                     </div>
                 </div>
                 <mat-form-field>
                     <mat-label>Select telefono</mat-label>
                     <mat-select formControlName="idtelefono">
-                        <mat-option value="option">Option</mat-option>
+                        <input type="text" class="form-control" placeholder="Search">
+                        <mat-option *ngFor="let item of arregloTelefono" value="{{item.idtelefono}}">
+                            {{item.convencional}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <div class="row">
                     <div class="col">
-                        <button type="button" class="btn btn-primary btn-lg" (click)="onOpenFormDirecc()">telefon</button>
+                        <button type="button" class="btn btn-primary btn-lg"
+                            (click)="onOpenFormDirecc()">Add Direccion</button>
                     </div>
                 </div>
                 <mat-form-field>
                     <mat-label>Select direccion</mat-label>
                     <mat-select formControlName="iddireccion">
-                        <mat-option value="option">Option</mat-option>
+                        <input type="text" class="form-control" placeholder="Search">
+                        <mat-option *ngFor="let item of arregloDireccion" value="{{item.iddireccion}}">
+                            {{item.calleprincipal}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field>
@@ -56,7 +64,11 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Password</mat-label>
-                    <input matInput formControlName="password">
+                    <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
                 </mat-form-field>
                 <label for="">Estado</label>
                 <mat-radio-group matInput formControlName="estado">
@@ -64,16 +76,14 @@
                     <mat-radio-button value="2">Inactivo</mat-radio-button>
                 </mat-radio-group>
             </div>
+            <div class="row">
+                <div class="col">
+                    <button mat-fab color="primary" type="submit" [disabled]="formPersona.invalid">Submit</button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-warning btn-lg" (click)="onGetClear()">Clear</button>
+                </div>
+            </div>
         </form>
     </mat-card-content>
-    <mat-card-actions>
-        <div class="row">
-            <div class="col">
-                <button  mat-fab color="primary" type="submit" [disabled]="formPersona.invalid">Submit</button>
-            </div>
-            <div class="col">
-                <button type="button" class="btn btn-warning btn-lg" >Clear</button>
-            </div>
-        </div>
-    </mat-card-actions>
 </mat-card>

@@ -7,7 +7,7 @@ import { Categoria } from 'src/app/models/categoria';
 
 @Component({
   selector: 'app-categoriaform',
-  templateUrl: './categoriaform.component.html', 
+  templateUrl: './categoriaform.component.html',
   styleUrls: ['./categoriaform.component.scss']
 })
 export class CategoriaformComponent implements OnInit {
@@ -24,11 +24,6 @@ export class CategoriaformComponent implements OnInit {
 
   ngOnInit() {
 
-  }
-  onCloseDialog() {
-    this.categoriaformvali.formCategoria.reset();
-    this.categoriaformvali.oninitializeFomrGroup();
-    this.matDialogRef.close();
   }
   onPhotoSelected(event): void {
     if (event.target.files && event.target.files[0]) {
@@ -52,9 +47,7 @@ export class CategoriaformComponent implements OnInit {
           },
           err => console.log(err)
         );
-        this.categoriaformvali.formCategoria.reset();
-        this.categoriaformvali.oninitializeFomrGroup();
-        this.onClose();
+        this.onCloseCategoriaForm();
       } else {
         const idCategoria = this.categoriaformvali.formCategoria.get('idCategoria').value;
         console.log(idCategoria);
@@ -74,11 +67,11 @@ export class CategoriaformComponent implements OnInit {
         );
         this.categoriaformvali.formCategoria.reset();
         this.categoriaformvali.oninitializeFomrGroup();
-        this.onClose();
+        this.onCloseCategoriaForm();
       }
     }
   }
-  onClose() {
+  onCloseCategoriaForm() {
     this.categoriaformvali.formCategoria.reset();
     this.categoriaformvali.oninitializeFomrGroup();
     this.matDialogRef.close();

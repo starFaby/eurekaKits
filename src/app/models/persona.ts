@@ -5,7 +5,7 @@ export interface Persona {
     cedula: string;
     nombres: string;
     apellidos: string;
-    fechanacimiento: Date;
+    fechanacimiento: any;
     email: string;
     password: string;
     estado: string;

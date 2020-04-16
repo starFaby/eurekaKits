@@ -1,48 +1,48 @@
-<form [formGroup]="" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+<form [formGroup]="formDireccion" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
     <mat-grid-list cols="2" rowHeight="400px">
         <mat-grid-tile>
             <div class="controleContainer">
-                <mat-form-field> <!-- [hidden]="true"-->
-                    <input type="text"  matInput placeholder="iddireccion">
+                <mat-form-field [hidden]="true"> <!-- [hidden]="true"-->
+                    <input type="text" matInput formControlName="iddireccion" placeholder="iddireccion">
                     <mat-error>El campo $key es obligatorio</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                    <input  matInput placeholder="provincia">
+                    <input  matInput formControlName="provincia" placeholder="provincia">
                 </mat-form-field>
                 <mat-form-field>
-                    <input  matInput placeholder="Canton">
+                    <input  matInput formControlName="canton" placeholder="Canton">
                 </mat-form-field>
                 <mat-form-field>
-                    <input  matInput placeholder="Parroquia">
+                    <input  matInput formControlName="parroquia" placeholder="Parroquia">
                 </mat-form-field>
                 <mat-form-field>
-                    <input  matInput placeholder="Calle Principal">
+                    <input  matInput formControlName="sector" placeholder="Sector">
+                </mat-form-field>
+                <mat-form-field>
+                    <input  matInput formControlName="calleprincipal" placeholder="Calle Principal">
                 </mat-form-field>
             </div>
         </mat-grid-tile>
         <mat-grid-tile>
             <div class="controleContainer">
                 <mat-form-field>
-                    <input  matInput placeholder="Calle Secundaria">
+                    <input  matInput formControlName="numeracion" placeholder="Enumeracion">
                 </mat-form-field>
                 <mat-form-field>
-                    <input  matInput placeholder="Calle Secundaria">
+                    <input  matInput formControlName="callesecundaria" placeholder="Calle Secundaria">
                 </mat-form-field>
                 <mat-form-field>
-                    <input  matInput placeholder="Calle Transversal">
-                </mat-form-field>
-                <mat-form-field>
-                    <input  matInput placeholder="Descripcion">
+                    <input  matInput formControlName="descripcion" placeholder="Descripcion">
                 </mat-form-field>
                 <label for="">Estado</label>
-                <mat-radio-group >
+                <mat-radio-group formControlName="estado">
                     <mat-radio-button value="1">Activo</mat-radio-button>
                     <mat-radio-button value="2">Inactivo</mat-radio-button>
                 </mat-radio-group>
                 <div class="row">
                     <div class="col">
-                        <button mat-fab color="primary" type="submit">Submit</button>
-                        <!--[disabled]="formCategoria.invalid"-->
+                        <button mat-fab color="primary" type="submit" [disabled]="formDireccion.invalid">Submit</button>
+                        <!---->
                     </div>
                     <div class="col">
                         <button type="button" class="btn btn-warning btn-lg">Clear</button>
