@@ -9,6 +9,7 @@ import { FormGroup } from '@angular/forms';
 import { Detaventaformvali } from 'src/app/validators/detaventaformvali';
 import { DetalleVenta } from 'src/app/models/detalleventa';
 import { Formapago } from 'src/app/models/formapago';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-clientprod',
@@ -94,7 +95,13 @@ export class ClientprodComponent implements OnInit {
           res => {
             console.log(res);
           },
-          err => console.log(err)
+          err => {
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 401) {
+                this.router.navigate(['/login']);
+              }
+            }
+          }
         );
       }
     }

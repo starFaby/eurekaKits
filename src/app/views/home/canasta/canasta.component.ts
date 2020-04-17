@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatTableDataSource, MatSort, MatPaginator, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { DetalleVenta } from 'src/app/models/detalleventa';
 import { DetaventaService } from 'src/app/services/detaventa.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,10 +17,12 @@ export class CanastaComponent implements OnInit {
   iva: any;
   ivaTotal: any;
   total: any;
-  constructor(private dialog: MatDialog,
-              private detaventaService: DetaventaService
-   // private categoriaformvali: Categoriaformvali
-    ) {}
+  constructor(
+    private dialog: MatDialog,
+    private detaventaService: DetaventaService,
+    private router: Router
+    // private categoriaformvali: Categoriaformvali
+  ) { }
   //  form = this.categoriaformvali.formCategoria;
   listCanasta: MatTableDataSource<any>;
   displayedColumns: string[] = ['idFactura', 'idProducto', 'cantidad', 'precio', 'total', 'actions'];
@@ -40,17 +44,23 @@ export class CanastaComponent implements OnInit {
         this.listCanasta.sort = this.sort;
         this.listCanasta.paginator = this.paginator;
       },
-      err => console.log(err)
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 401) {
+            this.router.navigate(['/login']);
+          }
+        }
+      }
     );
-  /*  this.categoriaService.onGetCategorias().subscribe(
-      res => {
-        this.arreglo = res;
-        this.listCategoria = new MatTableDataSource(this.arreglo);
-        this.listCategoria.sort = this.sort;
-        this.listCategoria.paginator = this.paginator;
-      },
-      err => console.log(err)
-    );*/
+    /*  this.categoriaService.onGetCategorias().subscribe(
+        res => {
+          this.arreglo = res;
+          this.listCategoria = new MatTableDataSource(this.arreglo);
+          this.listCategoria.sort = this.sort;
+          this.listCategoria.paginator = this.paginator;
+        },
+        err => console.log(err)
+      );*/
   }
   searchFiltrer() {
     this.listCanasta.filter = this.searchKey.trim().toLowerCase();
@@ -60,12 +70,12 @@ export class CanastaComponent implements OnInit {
     this.searchFiltrer();
   }
   onCreate() {
-  //  this.categoriaformvali.oninitializeFomrGroup();
-  /*  const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
-    this.dialog.open(CanastaComponent, dialogConfig);*/
+    //  this.categoriaformvali.oninitializeFomrGroup();
+    /*  const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.width = '60%';
+      this.dialog.open(CanastaComponent, dialogConfig);*/
   }
   onDelete(row) {
     this.detaventaService.onDeleteDetaVenta(row).subscribe(
@@ -77,8 +87,8 @@ export class CanastaComponent implements OnInit {
     );
   }
   onCloseDialog() {
-  //  this.categoriaformvali.formCategoria.reset();
-  //  this.categoriaformvali.oninitializeFomrGroup();
-   // this.matDialogRef.close();
+    //  this.categoriaformvali.formCategoria.reset();
+    //  this.categoriaformvali.oninitializeFomrGroup();
+    // this.matDialogRef.close();
   }
 }

@@ -21,6 +21,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestroy {
   hide = true;
+  token;
+  id;
   arregloTelefono: Telefono[];
   arregloDireccion: Direccion[];
   formPersona: FormGroup;
@@ -95,6 +97,10 @@ export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestr
         this.authService.onLoginUp(newPersona).subscribe(
           res => {
             console.log(res);
+            this.id = res['id'];
+            localStorage.setItem('id', this.id);
+            this.token = res['token'];
+            localStorage.setItem('token', this.token);
             this.onGetClear();
           },
           err => {

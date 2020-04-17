@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MatDialog, MatDialogConfig } from '@angular/material';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-adminlayout',
   templateUrl: './adminlayout.component.html',
@@ -9,7 +10,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 export class AdminlayoutComponent implements OnInit {
   opened: true;
   panelOpenState = false;
-  constructor(private location: Location, private dialog: MatDialog) {
+  constructor(private location: Location, public authService: AuthService) {
 
   }
   ngOnInit() {

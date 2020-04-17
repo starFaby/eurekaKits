@@ -8,10 +8,10 @@
             Admin
           </mat-panel-title>
         </mat-expansion-panel-header>
-          <mat-list role="list">
-            <mat-list-item [routerLink]="['/productos']"> Productos</mat-list-item>
-            <mat-list-item [routerLink]="['/categorias']"> Categorias</mat-list-item>
-          </mat-list>
+        <mat-list role="list">
+          <mat-list-item [routerLink]="['/productos']"> Productos</mat-list-item>
+          <mat-list-item [routerLink]="['/categorias']"> Categorias</mat-list-item>
+        </mat-list>
       </mat-expansion-panel>
       <!---->
       <!---->
@@ -22,15 +22,28 @@
     </mat-accordion>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar class="example-toolbar colorToolbar">
-      <button mat-icon-button (click)="opened = !opened">
-        <mat-icon>menu</mat-icon>
-      </button >
-      <button [routerLink]="['/login']">login</button >
+    <mat-toolbar class="colorToolbar">
+      <mat-toolbar-row>
+        <button mat-icon-button (click)="opened = !opened">
+          <mat-icon>list_alt</mat-icon>
+        </button>
+        <span class="spacer"></span>
+        <button mat-icon-button *ngIf="!authService.onLoggedIn()" [routerLink]="['/registForm']">
+          <mat-icon class="example-icon" aria-hidden="false" aria-label="registrer icon">assignment</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf="!authService.onLoggedIn()" [routerLink]="['/login']">
+          <mat-icon class="example-icon" aria-hidden="false" aria-label="user icon">perm_identity</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf="authService.onLoggedIn()" (click)="authService.logout()"  [routerLink]="['/login']">
+          <mat-icon class="example-icon" aria-hidden="false" aria-label="user icon">directions_run</mat-icon>
+        </button>
+      </mat-toolbar-row>
     </mat-toolbar>
     <main>
       <router-outlet></router-outlet>
-      <button  appBackto class="" (click)="backto()"><mat-icon>keyboard_backspace</mat-icon></button>
+      <button appBackto class="" (click)="backto()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
     </main>
   </mat-sidenav-content>
 </mat-sidenav-container>

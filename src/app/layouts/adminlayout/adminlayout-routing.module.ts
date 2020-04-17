@@ -11,6 +11,7 @@ import { NoproductComponent } from 'src/app/views/noproduct/noproduct.component'
 import { CanastaComponent } from 'src/app/views/home/canasta/canasta.component';
 import { ClientpersonformComponent } from 'src/app/views/home/clientpersonform/clientpersonform.component';
 import { LoginComponent } from 'src/app/views/login/login.component';
+import { AuthGuard } from 'src/app/guard/auth.guard';
 
 export const AdminlayoutRoutingModule: Routes = [
     {path: '' , component: StartComponent},
@@ -22,7 +23,7 @@ export const AdminlayoutRoutingModule: Routes = [
     {path: 'clientCateprodu/:id' , component: ClientcateproduComponent},
     {path: 'clientProd/:id' , component: ClientprodComponent},
     {path: 'noProduct' , component: NoproductComponent},
-    {path: 'canasta' , component: CanastaComponent},
-    {path: 'personaForm' , component: ClientpersonformComponent},
+    {path: 'canasta' , component: CanastaComponent, canActivate: [AuthGuard]},
+    {path: 'registForm' , component: ClientpersonformComponent},
     {path: 'login' , component: LoginComponent}
 ];
