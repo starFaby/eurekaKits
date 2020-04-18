@@ -23,6 +23,9 @@ import { PersonaService } from './services/persona.service';
 import { ProductoService } from './services/producto.service';
 import { TelefonoService } from './services/telefono.service';
 import { AuthGuard } from './guard/auth.guard';
+import { ConsultasService } from './services/consultas.service';
+import { PromoformComponent } from './views/admin/promocion/promoform/promoform.component';
+import { PromolistComponent } from './views/admin/promocion/promolist/promolist.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +49,7 @@ import { AuthGuard } from './guard/auth.guard';
     CategoriaService, CateproduService, AuthService,
     DetaventaService, DireccionService, PersonaService,
     ProductoService, TelefonoService, AuthGuard,
+    ConsultasService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokeninterceptorService,

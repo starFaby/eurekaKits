@@ -21,6 +21,9 @@ import { ClientpersonformComponent } from 'src/app/views/home/clientpersonform/c
 import { ClienteleformComponent } from 'src/app/views/home/clienteleform/clienteleform.component';
 import { ClientdireccformComponent } from 'src/app/views/home/clientdireccform/clientdireccform.component';
 import { LoginComponent } from 'src/app/views/login/login.component';
+import { PromocionComponent } from 'src/app/views/admin/promocion/promocion.component';
+import { PromoformComponent } from 'src/app/views/admin/promocion/promoform/promoform.component';
+import { PromolistComponent } from 'src/app/views/admin/promocion/promolist/promolist.component';
 
 
 @NgModule({
@@ -40,7 +43,10 @@ import { LoginComponent } from 'src/app/views/login/login.component';
     ClientpersonformComponent,
     ClienteleformComponent,
     ClientdireccformComponent,
-    LoginComponent
+    LoginComponent,
+    PromocionComponent,
+    PromoformComponent,
+    PromolistComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +59,8 @@ import { LoginComponent } from 'src/app/views/login/login.component';
     CategoriaformComponent,
     ProductoformComponent,
     ClienteleformComponent,
-    ClientdireccformComponent
+    ClientdireccformComponent,
+    PromoformComponent
   ]
 })
 export class AdminlayoutModule { }

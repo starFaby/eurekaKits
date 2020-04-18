@@ -15,9 +15,10 @@ export class CategorialistComponent implements OnInit {
   arreglo;
   categoria: Categoria;
   file: File;
-  constructor(private dialog: MatDialog,
-              private categoriaService: CategoriaService,
-              private categoriaformvali: Categoriaformvali) { }
+  constructor(
+    private dialog: MatDialog,
+    private categoriaService: CategoriaService,
+    private categoriaformvali: Categoriaformvali) { }
   form = this.categoriaformvali.formCategoria;
   listCategoria: MatTableDataSource<any>;
   displayedColumns: string[] = ['nombre', 'image', 'estado', 'actions'];

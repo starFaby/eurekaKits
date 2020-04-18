@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="col">
+        <button mat-raised-button (click)="onCreate()">
+            <mat-icon>add</mat-icon>Create
+        </button>
+    </div>
+    <div class="col">
+        <mat-form-field class="search-form-field">
+            <input matInput [(ngModel)]="searchKey" placeholder="search" autocomplete="off" (keyup)="searchFiltrer()"
+                class="inputSearch">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h6 class="text-center">List alumnos</h6>
+        <div>
+            <div class="mat-elevation-z8 ">
+                <mat-table [dataSource]="listPromo" matSort>
+                    <ng-container matColumnDef="producto">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>producto</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{ element.idproducto}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="descuento">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>descuento</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{element.descuento}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="fechainicio">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>fechainicio</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{ element.fechainicio}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="fechafin">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>fechafin</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{ element.fechafin}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="descripcion">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>descripcion</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{ element.descripcion}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="estado">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>estado</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{ element.estado}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button mat-icon-button>
+                                <mat-icon>visibility</mat-icon>
+                            </button>
+                            <button mat-icon-button (click)="onEdit(row)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button color="warn" (click)="onDelete(row.idCategoria)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="loading">
+                        <mat-footer-cell *matFooterCellDef colspan="6">
+                            Loading data...
+                        </mat-footer-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="noData">
+                        <mat-footer-cell *matFooterCellDef colspan="6">
+                            no data
+                        </mat-footer-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': listPromo !== null}">
+                    </mat-footer-row>
+                    <mat-footer-row *matFooterRowDef="['noData']"
+                        [ngClass]="{'hide': !(listPromo != null && listPromo.data.length===0)}">
+                    </mat-footer-row>
+                </mat-table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5"></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

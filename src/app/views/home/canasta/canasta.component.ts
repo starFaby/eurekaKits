@@ -4,6 +4,12 @@ import { DetalleVenta } from 'src/app/models/detalleventa';
 import { DetaventaService } from 'src/app/services/detaventa.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import jwt from 'jwt-decode';
+import { PersonaService } from 'src/app/services/persona.service';
+import { Persona } from 'src/app/models/persona';
+import { Consultas } from 'src/app/models/consultas';
+import { ConsultasService } from 'src/app/services/consultas.service';
 
 
 @Component({
@@ -17,10 +23,14 @@ export class CanastaComponent implements OnInit {
   iva: any;
   ivaTotal: any;
   total: any;
+  id;
+  persona: Consultas[];
   constructor(
     private dialog: MatDialog,
     private detaventaService: DetaventaService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private consultasService: ConsultasService
     // private categoriaformvali: Categoriaformvali
   ) { }
   //  form = this.categoriaformvali.formCategoria;
@@ -30,7 +40,26 @@ export class CanastaComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   searchKey: string;
   ngOnInit() {
+    this.onGetId();
+    this.onGetPersona();
     this.onGetDetaVentaAll();
+  }
+  onGetId() {
+    const token = this.authService.onGetToken();
+    const aux = jwt(token);
+    this.id = aux.subject;
+    console.log(this.id);
+  }
+  onGetPersona() {
+    this.consultasService.onGetPersonapdt(this.id).subscribe(
+      res => {
+        console.log(res);
+        this.persona = res;
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
   onGetDetaVentaAll() {
     this.detaventaService.onGetDetaVentas().subscribe(

@@ -8,7 +8,7 @@ import { Persona } from '../models/persona';
   providedIn: 'root'
 })
 export class PersonaService {
-/*  API_URI = environment.URL_SERVICE;
+  API_URI = environment.URL_SERVICE;
   API_URI_IMAGE = environment.URL_SERVICE_IMAGE;
   constructor(private http: HttpClient) { }
   onGetPersonas() { //  Observable<any>
@@ -45,5 +45,5 @@ export class PersonaService {
      fd.append('password', persona.password);
      fd.append('estado', persona.estado);
      return this.http.put(`${this.API_URI}/persona/${id}`, fd);
-   }*/
+   }
 }

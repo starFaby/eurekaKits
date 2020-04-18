@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Persona } from '../models/persona';
 import { Login } from '../models/login';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -39,15 +40,9 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('id');
-    this.onGetId();
     // this.router.navigate(['/personForm']);
   }
   onGetToken() {
     return localStorage.getItem('token');
-  }
-  onGetId() {
-    console.log('este es la id del usuario en general y donde sea');
-    console.log(localStorage.getItem('id'));
-    return localStorage.getItem('id');
   }
 }

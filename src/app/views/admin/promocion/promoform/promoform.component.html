@@ -1,0 +1,59 @@
+<form [formGroup]="formPromo" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <mat-grid-list cols="2" rowHeight="300px">
+        <mat-grid-tile>
+            <div class="controleContainer">
+                <mat-form-field [hidden]="true">
+                    <input type="text" formControlName="idpromociones" matInput placeholder="idpromociones">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Producto</mat-label>
+                    <mat-select formControlName="idproducto" matInput>
+                        <mat-option *ngFor="let item of arrayProducto" [value]="item.idcategoria">
+                            {{ item.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="descuento" matInput placeholder="Descuento">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Fecha Inicio</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fechainicio">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Fecha Fin</mat-label>
+                    <input matInput [matDatepicker]="picker1" formControlName="fechafin">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="controleContainer">
+                <mat-form-field>
+                    <textarea matInput formControlName="descripcion" placeholder="descripcion" placeholder="descripcion"
+                        cdkTextareaAutosize cdkAutosizeMinRows="4.3" cdkAutosizeMaxRows="4.3">
+                    </textarea>
+                </mat-form-field>
+                <label for="">Estado</label>
+                <mat-radio-group formControlName="estado">
+                    <mat-radio-button value="1">Activo</mat-radio-button>
+                    <mat-radio-button value="2">Inactivo</mat-radio-button>
+                </mat-radio-group>
+                <div class="row">
+                    <div class="col">
+                        <button mat-fab color="primary" type="submit" [disabled]="formPromo.invalid">Submit</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-warning btn-lg">Clear</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-danger btn-lg" (click)="onClosePromoForm()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>
