@@ -8,7 +8,7 @@
                 <mat-form-field>
                     <mat-label>Producto</mat-label>
                     <mat-select formControlName="idproducto" matInput>
-                        <mat-option *ngFor="let item of arrayProducto" [value]="item.idcategoria">
+                        <mat-option *ngFor="let item of arregloProducto" [value]="item.idproducto">
                             {{ item.nombre }}
                         </mat-option>
                     </mat-select>

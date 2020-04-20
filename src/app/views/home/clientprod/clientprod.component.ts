@@ -10,6 +10,8 @@ import { Detaventaformvali } from 'src/app/validators/detaventaformvali';
 import { DetalleVenta } from 'src/app/models/detalleventa';
 import { Formapago } from 'src/app/models/formapago';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Numfactura } from 'src/app/models/numfactura';
+import { ConsultasService } from 'src/app/services/consultas.service';
 
 @Component({
   selector: 'app-clientprod',
@@ -22,21 +24,46 @@ export class ClientprodComponent implements OnInit {
   cont = 1;
   monto;
   estado = 1;
-  numFactura = 1;
+  numFactura;
   formapago: Formapago[] = [];
   formDetaVenta: FormGroup;
-  constructor(private activatedRoute: ActivatedRoute,
-              private router: Router,
-              private productoService: ProductoService,
-              private dialog: MatDialog,
-              private detaventaformvali: Detaventaformvali,
-              private detaventaService: DetaventaService
-    ) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private productoService: ProductoService,
+    private dialog: MatDialog,
+    private detaventaformvali: Detaventaformvali,
+    private detaventaService: DetaventaService,
+    private consultasService: ConsultasService
+  ) {
     this.formDetaVenta = this.detaventaformvali.formDetaVenta;
   }
   API_URI_IMAGE = this.productoService.API_URI_IMAGE;
   ngOnInit() {
+    this.onGetNumFactura();
     this.onGetProducto();
+  }
+  onGetNumFactura() {
+    this.consultasService.onGetNumFact().subscribe(
+      res => {
+        console.log(res);
+        this.onPrueba(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  onPrueba(res: Numfactura[]) {
+    res.map(t => {
+      if (t.numfactura == null) {
+        this.numFactura = '1';
+        console.log('Estoy nulo', t.numfactura);
+      } else {
+        this.numFactura = t.numfactura;
+        console.log('estoy lleno', t.numfactura);
+      }
+    });
   }
   onGetProducto() {
     this.activatedRoute.params.subscribe(
@@ -47,10 +74,22 @@ export class ClientprodComponent implements OnInit {
             this.product = res;
             console.log('======>  ', this.product);
           },
-          err => console.log(err)
+          err => {
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 404) {
+                console.log('No existe productos');
+              }
+            }
+          }
         );
       },
-      err => console.log(err)
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 404) {
+            console.log('No existe productos');
+          }
+        }
+      }
     );
   }
   onCountA() {
@@ -89,7 +128,7 @@ export class ClientprodComponent implements OnInit {
           cantidad: this.formDetaVenta.get('cantidad').value,
           precio: this.formDetaVenta.get('precio').value,
           total: this.formDetaVenta.get('total').value,
-          estado: this.formDetaVenta.get('total').value
+          estado: this.formDetaVenta.get('estado').value
         };
         this.detaventaService.onSaveDetaVenta(newDetalleVenta).subscribe(
           res => {

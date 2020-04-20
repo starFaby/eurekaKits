@@ -10,6 +10,7 @@ import { PersonaService } from 'src/app/services/persona.service';
 import { Persona } from 'src/app/models/persona';
 import { Consultas } from 'src/app/models/consultas';
 import { ConsultasService } from 'src/app/services/consultas.service';
+import { Fecha } from 'src/app/validators/fecha';
 
 
 @Component({
@@ -25,14 +26,18 @@ export class CanastaComponent implements OnInit {
   total: any;
   id;
   persona: Consultas[];
+  fechaFact: any;
   constructor(
     private dialog: MatDialog,
     private detaventaService: DetaventaService,
     private router: Router,
     private authService: AuthService,
-    private consultasService: ConsultasService
+    private consultasService: ConsultasService,
+    private fecha: Fecha
     // private categoriaformvali: Categoriaformvali
-  ) { }
+  ) { 
+   this.fechaFact = this.fecha.dateExat();
+  }
   //  form = this.categoriaformvali.formCategoria;
   listCanasta: MatTableDataSource<any>;
   displayedColumns: string[] = ['idFactura', 'idProducto', 'cantidad', 'precio', 'total', 'actions'];
@@ -61,8 +66,9 @@ export class CanastaComponent implements OnInit {
       }
     );
   }
+
   onGetDetaVentaAll() {
-    this.detaventaService.onGetDetaVentas().subscribe(
+    this.consultasService.onGetDetaVentadvp().subscribe(
       res => {
         this.detalleVenta = res;
         this.suma = this.detalleVenta.map(t => t.total).reduce((acc, value) => acc + value);
@@ -75,8 +81,8 @@ export class CanastaComponent implements OnInit {
       },
       err => {
         if (err instanceof HttpErrorResponse) {
-          if (err.status === 401) {
-            this.router.navigate(['/login']);
+          if (err.status === 404) {
+            console.log('No existe datos');
           }
         }
       }

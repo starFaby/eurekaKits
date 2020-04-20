@@ -5,6 +5,8 @@ import { MatDialog, MatTableDataSource, MatSort, MatPaginator, MatDialogConfig }
 import { Promoformvali } from 'src/app/validators/promoformvali';
 import { FormGroup } from '@angular/forms';
 import { PromoformComponent } from '../promoform/promoform.component';
+import { ConsultasService } from 'src/app/services/consultas.service';
+import { Promocionpp } from 'src/app/models/promocionpp';
 
 @Component({
   selector: 'app-promolist',
@@ -13,12 +15,13 @@ import { PromoformComponent } from '../promoform/promoform.component';
 })
 export class PromolistComponent implements OnInit {
   formPromo: FormGroup;
-  promocion: Promocion[];
+  promocion: Promocionpp[];
   constructor
     (
       private dialog: MatDialog,
       private promocionService: PromocionService,
-      private promoformvali: Promoformvali
+      private promoformvali: Promoformvali,
+      private consultasService: ConsultasService
     ) {
     this.formPromo = this.promoformvali.formPromo;
   }
@@ -31,7 +34,7 @@ export class PromolistComponent implements OnInit {
     this.onGetCategoriasAll();
   }
   onGetCategoriasAll() {
-    this.promocionService.onGetPromociones().subscribe(
+    this.consultasService.onGetPromocionpp().subscribe(
       res => {
         this.promocion = res;
         this.listPromo = new MatTableDataSource(this.promocion);
@@ -57,9 +60,10 @@ export class PromolistComponent implements OnInit {
     this.dialog.open(PromoformComponent, dialogConfig);
   }
   async onEdit(row) {
+    console.log(row);
     const newPromocion: Promocion = {
       idpromociones: row.idpromociones,
-      idproducto: row.idproducto,
+      idproducto: null,
       descuento: row.descuento,
       fechainicio: row.fechainicio,
       fechafin: row.fechafin,

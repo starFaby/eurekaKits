@@ -28,7 +28,6 @@ export class Promoformvali {
             fechafin: '',
             descripcion: '',
             estado: ''
-
         });
     }
 }

@@ -22,7 +22,7 @@
                 <mat-table [dataSource]="listPromo" matSort>
                     <ng-container matColumnDef="producto">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>producto</mat-header-cell>
-                        <mat-cell *matCellDef="let element">{{ element.idproducto}}</mat-cell>
+                        <mat-cell *matCellDef="let element">{{ element.nombre}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="descuento">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>descuento</mat-header-cell>
@@ -53,7 +53,7 @@
                             <button mat-icon-button (click)="onEdit(row)">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button mat-icon-button color="warn" (click)="onDelete(row.idCategoria)">
+                            <button mat-icon-button color="warn" (click)="onDelete(row.idpromociones)">
                                 <mat-icon>delete</mat-icon>
                             </button>
                         </mat-cell>

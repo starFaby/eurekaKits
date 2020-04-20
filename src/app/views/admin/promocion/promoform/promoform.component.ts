@@ -4,6 +4,9 @@ import { FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { PromocionService } from 'src/app/services/promocion.service';
 import { Promocion } from 'src/app/models/promocion';
+import { ProductoService } from 'src/app/services/producto.service';
+import { Producto } from 'src/app/models/producto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-promoform',
@@ -12,16 +15,19 @@ import { Promocion } from 'src/app/models/promocion';
 })
 export class PromoformComponent implements OnInit {
   formPromo: FormGroup;
-  arrayProducto;
+  arregloProducto: Producto[];
   constructor(
     private promoformvali: Promoformvali,
     private matDialogRef: MatDialogRef<PromoformComponent>,
-    private promocionService: PromocionService
+    private promocionService: PromocionService,
+    private productoService: ProductoService,
+    private router: Router
   ) {
     this.formPromo = this.promoformvali.formPromo;
-   }
+  }
 
   ngOnInit() {
+    this.onGetProducto();
   }
   onSubmit() {
     if (this.formPromo.valid) {
@@ -43,7 +49,7 @@ export class PromoformComponent implements OnInit {
         this.onClosePromoForm();
       } else {
         const idPromociones = this.formPromo.get('idpromociones').value;
-        console.log(idPromociones);
+        console.log('fromulario', idPromociones);
         const newPromocion: Promocion = {
           idproducto: this.formPromo.get('idproducto').value,
           descuento: this.formPromo.get('descuento').value,
@@ -52,7 +58,7 @@ export class PromoformComponent implements OnInit {
           descripcion: this.formPromo.get('descripcion').value,
           estado: this.formPromo.get('estado').value,
         };
-        console.log(newPromocion);
+        console.log('fromulario', newPromocion);
         this.promocionService.onUpdatePromocion(idPromociones, newPromocion).subscribe(
           res => {
             console.log(res);
@@ -71,5 +77,18 @@ export class PromoformComponent implements OnInit {
     this.promoformvali.formPromo.reset();
     this.promoformvali.oninitializeFomrGroup();
     this.matDialogRef.close();
+    this.router.navigate(['/promoList']);
   }
+  onGetProducto() {
+    this.productoService.onGetProductos().subscribe(
+      res => {
+        this.arregloProducto = res;
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
+
 }

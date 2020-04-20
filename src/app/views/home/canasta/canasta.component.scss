@@ -1,3 +1,13 @@
 .example-container {
     height: auto;
   }
+  .autoBrito {
+    font-size: 4.5em;
+  }
+  .hide{
+    display: none;
+  }
+  mat-footer-row mat-footer-cell {
+    justify-content: center;
+    font-style: italic;
+  }

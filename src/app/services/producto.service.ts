@@ -12,7 +12,7 @@ export class ProductoService {
   API_URI_IMAGE = environment.URL_SERVICE_IMAGE;
   constructor(private http: HttpClient) { }
   onGetProductos() { //  Observable<any>
-    return this.http.get(`${this.API_URI}/producto`);
+    return this.http.get<Producto[]>(`${this.API_URI}/producto`);
    }
    onGetProducto(id: string) {
     return this.http.get<Producto>(`${this.API_URI}/producto/${id}`);

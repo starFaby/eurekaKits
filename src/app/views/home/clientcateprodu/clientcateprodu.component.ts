@@ -26,11 +26,10 @@ export class ClientcateproduComponent implements OnInit {
               this.cateProd = res;
             } else  {
               console.log('no datos 1');
-              this.router.navigate(['/noProduct']);
             }
           },
           err => {
-            this.router.navigate(['/noProduct']);
+            console.log(err);
           }
         );
       },

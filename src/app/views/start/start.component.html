@@ -1,15 +1,51 @@
-  <div class="imgPrincipal d-flex justify-content-center align-items-center">
-    <div class="row cajaPadre d-flex justify-content-center align-items-center">
-      <div class="hijo1 d-flex justify-content-center">
-        Ventas 100% seguras
-      </div>
-      <div class="hijo2">
-        <a href="" class="d-flex justify-content-center">
-          <img src="../../../assets/img/carrito.jpg" alt="" width="30%" height="30%"></a>
-          <button [routerLink]="['/clientCategoriaoList']">Comprar</button>
-      </div>
+<div class="row imgPrincipal m-0 justify-content-center align-items-center vh-100 text-center">
+  <div class="row  col-md-6">
+    <div class="col-md-12">
+      <h2 class="fontSize3 opacityCero">Ventas 100% seguras</h2>
+    </div>
+    <div class="col-md-12">
+      <mat-icon class="shopping">shopping_cart</mat-icon>
+    </div>
+    <div class="col-md-12 d-flex justify-content-center">
+      <button mat-fab color="primary" type="submit" [routerLink]="['/clientCategoriaoList']">Ir</button>
     </div>
   </div>
-  <h2>PROMOCIONES</h2>
-  
-
+</div>
+<h2 class="fontSize3 text-center">PROMOCIONES</h2>
+<div class="row" *ngIf="!promociones; else mainContent">
+  <div class="col-md-4 p-4 text-center">
+    <mat-card class="cardImage">
+      <!-- (click)="onSelectedCategoria(item.arreglo)"-->
+      <mat-card-header>
+        <mat-card-title>Ups..!</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <h2>Lo siento. No existen promociones</h2>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<ng-template #mainContent>
+  <div class="row">
+    <div class="col-md-4 p-4" *ngFor="let item of promociones">
+      <mat-card class="cardImage">
+        <mat-card-header>
+          <div class="row">
+            <div class="col-md-3 mr-auto">
+              <h6 class="ribbon">{{item.descuento}}%</h6>
+            </div>
+            <div class="col-md-3 ml-auto">
+              <mat-card-title>{{item.nombre}}</mat-card-title>
+            </div>
+          </div>
+        </mat-card-header>
+        <mat-card-content>
+          <img mat-card-image [src]="API_URI_IMAGE+item.image" alt="Image" width="200" height="200">
+        </mat-card-content>
+        <mat-card-footer>
+          
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>

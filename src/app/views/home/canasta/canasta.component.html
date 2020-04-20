@@ -1,92 +1,181 @@
 <div class="row">
     <div class="col-md-12">
-        <h2>{{ persona | json }}</h2>
-    </div>
-    <div class="col-md-12">
-        <mat-form-field class="search-form-field">
-            <input matInput [(ngModel)]="searchKey" placeholder="search" autocomplete="off" (keyup)="searchFiltrer()"
-                class="inputSearch">
-            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
-                <mat-icon>close</mat-icon>
-            </button>
-        </mat-form-field>
-    </div>
-</div>
-<div class="card">
-    <div class="card-body">
-        <h6 class="text-center">Canasta</h6>
-        <div class="example-container">
-            <div class="mat-elevation-z8 ">
-                <mat-table [dataSource]="listCanasta" matSort>
-                    <ng-container matColumnDef="idFactura">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>idFactura</mat-header-cell>
-                        <mat-cell *matCellDef="let element">{{ element.idfactura}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="idProducto">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>idProducto</mat-header-cell>
-                        <mat-cell *matCellDef="let element">{{element.idproducto}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="cantidad">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>cantidad</mat-header-cell>
-                        <mat-cell *matCellDef="let element">{{ element.cantidad}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="precio">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>precio</mat-header-cell>
-                        <mat-cell *matCellDef="let element">{{ element.precio}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="total">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>total</mat-header-cell>
-                        <mat-cell *matCellDef="let element">{{ element.total}}</mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="actions">
-                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                        <mat-cell *matCellDef="let row" >
-                            <button mat-icon-button> 
-                                <mat-icon>visibility</mat-icon>
-                            </button>
-                            <button mat-icon-button color="warn" (click)="onDelete(row.iddetalleventa)">
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="loading">
-                        <mat-footer-cell *matFooterCellDef colspan="6">
-                            Loading data...
-                        </mat-footer-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="noData">
-                        <mat-footer-cell *matFooterCellDef colspan="6">
-                            no data
-                        </mat-footer-cell>
-                    </ng-container>
-                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-                </mat-table>
-                <div class="row ">
-                    <div class="col-md-5 ml-auto">
-                        <table>
-                            <tbody>
-                              <tr>
-                                <td>SubTotal</td>
-                                <td class="text-center">{{ suma }}</td>
-                              </tr>
-                              <tr>
-                                <td>Dto</td>
-                                <td class="text-center"></td>
-                              </tr>
-                              <tr>
-                                <td>IVA</td>
-                                <td class="text-center">{{ ivaTotal }}</td>
-                              </tr>
-                              <tr>
-                                <td>Total</td>
-                                <td class="text-center">{{ total }}</td>
-                              </tr>
-                            </tbody>
-                          </table>
+        <div class="card p-4 my-2">
+            <div class="card-body">
+                <mat-card>
+                    <div class="row text-center">
+                        <div class="col-md-8">
+                            <h1 class="autoBrito">AUTOMATISMOS BRITO</h1>
+                            <h2>VENTA AL POR MAYOR DE EQUIPO DE SEGURIDAD</h2>
+                            <h4>Brito Saltos Roberto ALfonso</h4>
+                            <h6>Documento Categorizado: NO</h6>
+                            <h4>Nueva Tola Baja 2, Caran N3-131 y Juan Abel Echevería</h4>
+                            <h4>Telf: 2581389 * Cel. 0995054605 Quito-Ecuador</h4>
+                            <h4>email: automatismosbrito@hotmail.com</h4>
+                        </div>
+                        <div class="col-md-4">
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>RUC: 1709765067001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>FACTURA 001 - 001</td>
+                                    </tr>
+                                    <tr class="text-danger">
+                                        <td>N° 000000266</td>
+                                    </tr>
+                                    <tr>
+                                        <table class="table table-borderless">
+                                            <td>
+                                                <tr>
+                                                    <td>Aut.SRI. 1114971823</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>FECHA DE AUTORIZACION: 29-MAYO-2014</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>FECHA DE CADUCIDAD: 29-AGOSTO-2014</td>
+                                                </tr>
+                                            </td>
+                                        </table>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <!--    <div class="col-md-12">
+                <mat-form-field class="search-form-field">
+                    <input matInput [(ngModel)]="searchKey" placeholder="search" autocomplete="off" (keyup)="searchFiltrer()"
+                        class="inputSearch">
+                    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+        -->
+    <div class="card p-2 mx-3 col-md-12">
+        <mat-card class="mx-3">
+            <div class="row" *ngFor="let item of persona">
+                <div class="col-md-6">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>CLIENTE:</th>
+                                <td>{{item.nombres}} {{item.apellidos}}</td>
+                            </tr>
+                            <tr>
+                                <th>DIRECCION:</th>
+                                <td>{{item.sector}}: {{item.calleprincipal}} {{item.callesecundaria}}</td>
+                            </tr>
+                            <tr>
+                                <th>TELEFONO:</th>
+                                <td>{{item.convencional}} / {{item.celular1}}/{{item.celular2}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5"></mat-paginator>
+                <div class="col-md-6">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>RUC/CED:</th>
+                                <td>{{item.cedula}}</td>
+                            </tr>
+                            <tr>
+                                <th>FECHA:</th>
+                                <td>{{fechaFact}}</td>
+                            </tr>
+                            <tr>
+                                <th>FORMA DE PAGO:</th>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </mat-card>
+        <div class="card-body">
+            <div class="example-container">
+                <div class="mat-elevation-z8 ">
+                    <mat-table [dataSource]="listCanasta" matSort>
+                        <ng-container matColumnDef="idFactura">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>idFactura</mat-header-cell>
+                            <mat-cell *matCellDef="let element">{{ element.idfactura}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="idProducto">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>idProducto</mat-header-cell>
+                            <mat-cell *matCellDef="let element">{{element.idproducto}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="cantidad">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>cantidad</mat-header-cell>
+                            <mat-cell *matCellDef="let element">{{ element.cantidad}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="precio">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>precio</mat-header-cell>
+                            <mat-cell *matCellDef="let element">{{ element.precio}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="total">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>total</mat-header-cell>
+                            <mat-cell *matCellDef="let element">{{ element.total}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="actions">
+                            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <button mat-icon-button>
+                                    <mat-icon>visibility</mat-icon>
+                                </button>
+                                <button mat-icon-button color="warn" (click)="onDelete(row.iddetalleventa)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="loading">
+                            <mat-footer-cell *matFooterCellDef colspan="6">
+                                Loading data...
+                            </mat-footer-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="noData">
+                            <mat-footer-cell *matFooterCellDef colspan="6">
+                                no data
+                            </mat-footer-cell>
+                        </ng-container>
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': listCanasta!=null}"></mat-footer-row>
+                        <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide': !(listCanasta!=null && listCanasta.data.length==0)}"></mat-footer-row>
+                    </mat-table>
+                    <div class="row ">
+                        <div class="col-md-5 ml-auto">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>SubTotal</td>
+                                        <td class="text-center">{{ suma }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dto</td>
+                                        <td class="text-center"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>IVA</td>
+                                        <td class="text-center">{{ ivaTotal }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td class="text-center">{{ total }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5"></mat-paginator>
+                </div>
             </div>
         </div>
     </div>

@@ -1,28 +1,21 @@
-.imgPrincipal {
-  background-image: url("../../../assets/img/herramientas.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
-  height: 700px;
-}
-.cajaPadre {
-  width: 25%;
-  height: 50%;
-  background-color: #ff7e00;
-  .hijo1 {
-    width: 100%;
-    background-color: red;
-  }
-  .hijo2 {
-    width: 100%;
-    background-color: blue;
-  }
-}
 
-h2 {
-  text-transform: uppercase;
-  font-size: 300%;
-  line-height: 0.75;
-  margin: 10px 0;
-  text-align: center;
+.fontSize3 {
+  font-size: 3.5em;
+}
+.shopping{
+  font-size: 15em;
+  z-index: 1;
+}
+.cardImage{
+  cursor: pointer;
+}
+.cardImage:hover{
+  border: 1px solid #000;
+}
+.ribbon {
+  width: 0px;
+  height: 80px;
+  // border-left: 50px solid #d9534f;
+  border-right: 50px solid #d9534f;
+  border-bottom: 50px solid transparent;
 }
