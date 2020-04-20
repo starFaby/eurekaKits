@@ -147,10 +147,24 @@
                         </ng-container>
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-                        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': listCanasta!=null}"></mat-footer-row>
-                        <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide': !(listCanasta!=null && listCanasta.data.length==0)}"></mat-footer-row>
+                        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': listCanasta!=null}">
+                        </mat-footer-row>
+                        <mat-footer-row *matFooterRowDef="['noData']"
+                            [ngClass]="{'hide': !(listCanasta!=null && listCanasta.data.length==0)}"></mat-footer-row>
                     </mat-table>
                     <div class="row ">
+                        <div class="col-md-7">
+                            <ul class="lineasS">
+                                <li>Son</li>
+                                <li class="dropdown-divider"></li>
+                                <li>.</li>
+                                <li class="dropdown-divider"></li>
+                                <li>Observaciones</li>
+                                <li class="dropdown-divider"></li>
+                                <li>.</li>
+                                <li class="dropdown-divider"></li>
+                            </ul>
+                        </div>
                         <div class="col-md-5 ml-auto">
                             <table>
                                 <tbody>
@@ -174,8 +188,55 @@
                             </table>
                         </div>
                     </div>
+                    <mat-card>
+                        <div class="col-md-12">
+                            <b>LUMA SERVICIOS -</b> Martines Avendaño José Raul - <b>RUC. </b>1709764466001 <b>-
+                                Aut.SRI.</b> 10521 - (S 022693 GR) - Telf. 2 231071 - Del 261 al 270
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-md-4">
+                                <div class="cuadrado">
+                                    <hr class="topear">
+                                    <p class="topear2">ELABORADO POR</p>
+                                </div>
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="cuadrado">
+                                    <hr class="topear">
+                                    <P class="topear">APROBADO POR</P>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="cuadrado">
+                                    <hr class="topear">
+                                    <P class="topear">RECIBI CONFORME</P>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
                     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5"></mat-paginator>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card p-4 my-2">
+            <div class="card-body">
+                <mat-card>
+                    <div class="row">
+                        Con la entrega de esta Factura el cliente reconoce su obligacion incondicional de pago
+                        a la fecha de vencimiento.........................................tambien se obliga a pagar
+                        en caso de mora el interes de ..................., las partes le dan a este instrumento de
+                        caracter ejecutivo
+                        por ser pura, simple y de plazo vencido.
+                        Se sujeta a los jueces de lo civil de la provincia de pichincha y/o al tramite que elija el
+                        acreedor,para cuyo efecto
+                        renuncia fuero, domicilio y vencidad.
+                        Eximese de presentación para aceptación y pago, asi como de aviso por falta de estos hechos.
+                        Salida de mercadería y recibida conforme, no se aceptan reclamos ni devoluciones.
+                    </div>
+                </mat-card>
             </div>
         </div>
     </div>

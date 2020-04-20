@@ -11,3 +11,21 @@
     justify-content: center;
     font-style: italic;
   }
+  .lineasS > li{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  .cuadrado{
+    width: 25em;
+    height: 10em;
+    border: 1px solid #000;
+  }
+  .topear{
+    position: relative;
+    top: 5em;
+  }
+  .topear2{
+    position: relative;
+    top: 5em;
+  }

@@ -28,7 +28,7 @@
 <ng-template #mainContent>
   <div class="row">
     <div class="col-md-4 p-4" *ngFor="let item of promociones">
-      <mat-card class="cardImage">
+      <mat-card class="cardImage" (click)="onSelectedProducto(item.idproducto)">
         <mat-card-header>
           <div class="row">
             <div class="col-md-3 mr-auto">
@@ -43,7 +43,10 @@
           <img mat-card-image [src]="API_URI_IMAGE+item.image" alt="Image" width="200" height="200">
         </mat-card-content>
         <mat-card-footer>
-          
+          <div class="d-flex bd-highlight mb-3">
+            <div class="mr-auto p-2 bd-highlight"><span class="bold">Inicio:</span> {{item.fechainicio | date}}</div>
+            <div class="p-2 bd-highlight"><span class="bold">Fin:</span> {{item.fechafin | date}}</div>
+          </div>
         </mat-card-footer>
       </mat-card>
     </div>
