@@ -26,6 +26,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { ConsultasService } from './services/consultas.service';
 import { PromoformComponent } from './views/admin/promocion/promoform/promoform.component';
 import { PromolistComponent } from './views/admin/promocion/promolist/promolist.component';
+import { ClientformapagoComponent } from './views/home/clientformapago/clientformapago.component';
 @NgModule({
   declarations: [
     AppComponent,

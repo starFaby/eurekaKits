@@ -24,6 +24,7 @@ import { LoginComponent } from 'src/app/views/login/login.component';
 import { PromocionComponent } from 'src/app/views/admin/promocion/promocion.component';
 import { PromoformComponent } from 'src/app/views/admin/promocion/promoform/promoform.component';
 import { PromolistComponent } from 'src/app/views/admin/promocion/promolist/promolist.component';
+import { ClientformapagoComponent } from 'src/app/views/home/clientformapago/clientformapago.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { PromolistComponent } from 'src/app/views/admin/promocion/promolist/prom
     LoginComponent,
     PromocionComponent,
     PromoformComponent,
-    PromolistComponent
+    PromolistComponent,
+    ClientformapagoComponent
   ],
   imports: [
     CommonModule,

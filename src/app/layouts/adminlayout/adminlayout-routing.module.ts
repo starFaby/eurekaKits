@@ -13,6 +13,7 @@ import { ClientpersonformComponent } from 'src/app/views/home/clientpersonform/c
 import { LoginComponent } from 'src/app/views/login/login.component';
 import { AuthGuard } from 'src/app/guard/auth.guard';
 import { PromocionComponent } from 'src/app/views/admin/promocion/promocion.component';
+import { ClientformapagoComponent } from 'src/app/views/home/clientformapago/clientformapago.component';
 
 export const AdminlayoutRoutingModule: Routes = [
     {path: '' , component: StartComponent},
@@ -29,4 +30,5 @@ export const AdminlayoutRoutingModule: Routes = [
     {path: 'login' , component: LoginComponent},
     {path: 'promo' , component: PromocionComponent},
     {path: 'promoList' , component: PromocionComponent},
+    {path: 'formaPago' , component: ClientformapagoComponent}
 ];
