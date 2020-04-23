@@ -23,7 +23,7 @@
                                         <td>FACTURA 001 - 001</td>
                                     </tr>
                                     <tr class="text-danger">
-                                        <td>N° 000000266</td>
+                                        <input type="text" [(ngModel)]="numFactura">
                                     </tr>
                                     <tr>
                                         <table class="table table-borderless">
@@ -170,7 +170,7 @@
                                 <tbody>
                                     <tr>
                                         <td>SubTotal</td>
-                                        <td class="text-center">{{ suma }}</td>
+                                        <td class="text-center">{{ subTotal }}</td>
                                     </tr>
                                     <tr>
                                         <td>Dto</td>
@@ -246,7 +246,8 @@
                 <mat-card>
                     <div class="row">
                         <div class="col-md-3 mx-auto">
-                            <button type="button" class="btn btn-primary btn-block" [routerLink]="['/formaPago']" >Forma de pago</button>
+                            <button type="button" class="btn btn-primary btn-block"  (click)="onSubmit()" >Archivar Factura</button> <!--[routerLink]="['/formaPago']"-->
+                            <button type="button" class="btn btn-primary btn-block"  (click)="onSubmitPrueba()" >Prueba</button> <!--[routerLink]="['/formaPago']"-->
                         </div>
                     </div>
                 </mat-card>

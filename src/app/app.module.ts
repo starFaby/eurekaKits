@@ -24,9 +24,7 @@ import { ProductoService } from './services/producto.service';
 import { TelefonoService } from './services/telefono.service';
 import { AuthGuard } from './guard/auth.guard';
 import { ConsultasService } from './services/consultas.service';
-import { PromoformComponent } from './views/admin/promocion/promoform/promoform.component';
-import { PromolistComponent } from './views/admin/promocion/promolist/promolist.component';
-import { ClientformapagoComponent } from './views/home/clientformapago/clientformapago.component';
+import { FormapagoService } from './services/formapago.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +48,7 @@ import { ClientformapagoComponent } from './views/home/clientformapago/clientfor
     CategoriaService, CateproduService, AuthService,
     DetaventaService, DireccionService, PersonaService,
     ProductoService, TelefonoService, AuthGuard,
-    ConsultasService,
+    ConsultasService, FormapagoService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokeninterceptorService,

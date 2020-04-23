@@ -6,21 +6,50 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <mat-form-field>
-                <mat-label>Select direccion</mat-label>
-                <mat-select>
-                    <mat-option>v</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="col-md-6">
-            <button>Ver Factura</button>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-5 mx-auto">
+                <form [formGroup]="formFormPago" (ngSubmit)="onSubmit1()" enctype="multipart/form-data">
+                    <mat-card>
+                        <mat-card-content>
+                            <div class="controleContainer my-2">
+                                <mat-form-field [hidden]="true">
+                                    <input type="text" formControlName="idformapago" matInput placeholder="idformapago">
+                                    <mat-error>El campo $key es obligatorio</mat-error>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Select Factura</mat-label>
+                                    <mat-select formControlName="idfactura">
+                                        <mat-option>00025</mat-option>
+                                        <mat-option>00025</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Select forma de pago</mat-label>
+                                    <mat-select formControlName="nombre">
+                                        <mat-option *ngFor="let item of arrayFormaPago" [value]="item.id">{{item.nombre}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <label for="">Estado</label>
+                                <mat-radio-group formControlName="estado">
+                                    <mat-radio-button value="1">Activo</mat-radio-button>
+                                    <mat-radio-button value="2">Inactivo</mat-radio-button>
+                                </mat-radio-group>
+                                <div class="row">
+                                    <div class="col">
+                                        <button mat-fab color="primary" type="submit"
+                                            [disabled]="formFormPago.invalid">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </form>
+            </div>
         </div>
     </div>
     <div class="col-md-12 p-4">
-        <mat-tab-group>
+        <mat-tab-group mat-align-tabs="center">
             <mat-tab label="Paypal">
                 <!--********************Paypal********************************-->
                 <input type="text">
@@ -32,14 +61,29 @@
                     <div class="col-md-10 mx-auto my-2">
                         <mat-card>
                             <div class="row">
+                                <div class="col-mg-3 mx-auto">
+                                    <h2 class="text-center">Datos Generales</h2>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <mat-card-content>
-                                        ver
+                                        <b>Nombres:</b>
+                                        <h5>Ing</h5>
+                                        <b>Apellidos:</b>
+                                        <h5>Ing</h5>
+                                        <b>Cedula:</b>
+                                        <h5>17</h5>
                                     </mat-card-content>
                                 </div>
                                 <div class="col-md-6">
                                     <mat-card-content>
-                                        ver
+                                        <b>Tipo de Cuenta:</b>
+                                        <h5>Ing</h5>
+                                        <b>Numero de Cuenta:</b>
+                                        <h5>Ing</h5>
+                                        <b>Banco:</b>
+                                        <h5>Pichincha</h5>
                                     </mat-card-content>
                                 </div>
                             </div>
@@ -57,7 +101,6 @@
                                 <mat-form-field>
                                     <mat-label>Select Factura</mat-label>
                                     <mat-select formControlName="idfactura">
-                                        <input type="text" class="form-control" placeholder="Search">
                                         <mat-option></mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -76,13 +119,6 @@
                                     <div class="col">
                                         <button mat-fab color="primary" type="submit"
                                             [disabled]="formTransBanc.invalid">Submit</button>
-                                    </div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-warning btn-lg">Clear</button>
-                                    </div>
-                                    <div class="col">
-                                        <button type="button" class="btn btn-danger btn-lg"
-                                            (click)="onGetClearTB()">Close</button>
                                     </div>
                                 </div>
                             </div>

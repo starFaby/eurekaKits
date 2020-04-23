@@ -1,4 +1,7 @@
 export interface Formapago {
-    id: any;
-    pago: any;
+    idformapago?: string;
+    idfactura: string;
+    nombre: string;
+    estado: string;
+    created_at?: string;
 }
