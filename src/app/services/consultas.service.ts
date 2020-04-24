@@ -9,6 +9,7 @@ import { Numfactura } from '../models/numfactura';
 import { Promocionppi } from '../models/promocionppi';
 import { Productouni } from '../models/productouni';
 import { Idfactura } from '../models/idfactura';
+import { Promouni } from '../models/promouni';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,9 @@ export class ConsultasService {
    }
    onGetPromocionppi() {
     return this.http.get<Promocionppi[]>(`${this.API_URI}/consultas/promoppi`);
+   }
+   onGetPromocionuni(id: string) {
+    return this.http.get<Promouni[]>(`${this.API_URI}/consultas/promouni/${id}`);
    }
    onGetDetaVentadvp() {
     return this.http.get<DetalleVenta[]>(`${this.API_URI}/consultas/devedvp`);

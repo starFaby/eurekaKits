@@ -24,13 +24,12 @@ export class ClientprodComponent implements OnInit {
   productuni: Productouni[];
   idFactura: Idfactura[];
   cont = 1;
-  monto;
-  estado = 1;
+  dto = 1;
   numFactura;
   detalleVenta: DetalleVenta = {
     idfactura: '',
     idproducto: '',
-    cantidad: '',
+    cantidad: 1,
     precio: '',
     total: 0,
     estado: '',
@@ -49,7 +48,6 @@ export class ClientprodComponent implements OnInit {
   }
   API_URI_IMAGE = this.productoService.API_URI_IMAGE;
   ngOnInit() {
-    this.onGetNumFactura();
     this.onGetProductouni();
     this.onGetIdFactura();
   }
@@ -59,8 +57,10 @@ export class ClientprodComponent implements OnInit {
         this.idFactura = res.map(t => t);
         console.log(this.idFactura);
         if (this.idFactura[0].idfactura == null) {
+          this.detalleVenta.idfactura = '1';
           console.log('estoy vacio');
         } else {
+          this.detalleVenta.idfactura = this.idFactura[0].idfactura;
           console.log('estoy lleno');
         }
       },
@@ -101,6 +101,11 @@ export class ClientprodComponent implements OnInit {
         this.consultasService.onGetproductouni(this.id).subscribe(
           res => {
             this.productuni = res.map(t => t);
+            this.detalleVenta.idproducto = this.productuni[0].idproducto;
+            this.detalleVenta.estado = this.productuni[0].estado;
+            this.detalleVenta.precio = this.productuni[0].precio;
+            this.detalleVenta.total = this.productuni[0].precio;
+            console.log(this.productuni);
           },
           err => {
             if (err instanceof HttpErrorResponse) {
@@ -120,6 +125,7 @@ export class ClientprodComponent implements OnInit {
       }
     );
   }
+
   onCountA() {
     this.cont++;
     // tslint:disable-next-line:radix
@@ -127,6 +133,7 @@ export class ClientprodComponent implements OnInit {
       // tslint:disable-next-line:radix
       this.cont = parseInt(this.productuni[0].stock);
     }
+    this.detalleVenta.cantidad = this.cont;
     // tslint:disable-next-line:radix
     this.detalleVenta.total = this.cont * parseInt(this.productuni[0].precio);
 
@@ -136,8 +143,9 @@ export class ClientprodComponent implements OnInit {
     if (this.cont < 1) {
       this.cont = 1;
     }
+    this.detalleVenta.cantidad = this.cont;
     // tslint:disable-next-line:radix
-    //  this.monto = this.cont * parseInt(this.product.precio);
+    this.detalleVenta.total = this.cont * parseInt(this.productuni[0].precio);
   }
   onCreate() {
     /*const dialogConfig = new MatDialogConfig();

@@ -27,7 +27,7 @@ export class StartComponent implements OnInit {
     );
   }
   onSelectedProducto(id: string) {
-    this.router.navigate(['/clientProd', id]);
+    this.router.navigate(['/clientPromo', id]);
   }
 
 }

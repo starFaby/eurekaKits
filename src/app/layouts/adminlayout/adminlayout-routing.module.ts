@@ -14,6 +14,7 @@ import { LoginComponent } from 'src/app/views/login/login.component';
 import { AuthGuard } from 'src/app/guard/auth.guard';
 import { PromocionComponent } from 'src/app/views/admin/promocion/promocion.component';
 import { ClientformapagoComponent } from 'src/app/views/home/clientformapago/clientformapago.component';
+import { ClientpromoComponent } from 'src/app/views/home/clientpromo/clientpromo.component';
 
 export const AdminlayoutRoutingModule: Routes = [
     {path: '' , component: StartComponent},
@@ -30,5 +31,6 @@ export const AdminlayoutRoutingModule: Routes = [
     {path: 'login' , component: LoginComponent},
     {path: 'promo' , component: PromocionComponent},
     {path: 'promoList' , component: PromocionComponent},
-    {path: 'formaPago' , component: ClientformapagoComponent}
+    {path: 'formaPago' , component: ClientformapagoComponent},
+    {path: 'clientPromo/:id' , component: ClientpromoComponent}
 ];
