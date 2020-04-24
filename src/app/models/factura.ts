@@ -1,11 +1,11 @@
 export interface Factura {
-    idfactura?: string;
-    id_persona: string;
-    numfactura: string;
-    subtotal: string;
-    dto: string;
-    iva: string;
-    total: string;
-    estado: string;
+    idfactura?: any;
+    idpersona: any;
+    numfactura: any;
+    subtotal: any;
+    dto: any;
+    iva: any;
+    total: any;
+    estado: any;
     created_at?: Date;
 }

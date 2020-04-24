@@ -7,6 +7,8 @@ import { Promocionpp } from '../models/promocionpp';
 import { DetalleVenta } from '../models/detalleventa';
 import { Numfactura } from '../models/numfactura';
 import { Promocionppi } from '../models/promocionppi';
+import { Productouni } from '../models/productouni';
+import { Idfactura } from '../models/idfactura';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +31,11 @@ export class ConsultasService {
    }
    onGetNumFact() {
     return this.http.get<Numfactura[]>(`${this.API_URI}/consultas/numfact`);
+   }
+   onGetIdFact() {
+    return this.http.get<Idfactura[]>(`${this.API_URI}/consultas/idfact`);
+   }
+   onGetproductouni(id: string) {
+    return this.http.get<Productouni[]>(`${this.API_URI}/consultas/productouni/${id}`);
    }
 }

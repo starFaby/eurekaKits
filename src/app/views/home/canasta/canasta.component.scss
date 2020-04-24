@@ -1,31 +1,36 @@
 .example-container {
-    height: auto;
-  }
-  .autoBrito {
-    font-size: 4.5em;
-  }
-  .hide{
-    display: none;
-  }
-  mat-footer-row mat-footer-cell {
-    justify-content: center;
-    font-style: italic;
-  }
-  .lineasS > li{
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  .cuadrado{
-    width: 25em;
-    height: 10em;
-    border: 1px solid #000;
-  }
-  .topear{
-    position: relative;
-    top: 5em;
-  }
-  .topear2{
-    position: relative;
-    top: 5em;
-  }
+  height: auto;
+}
+.autoBrito {
+  font-size: 4.5em;
+}
+.hide {
+  display: none;
+}
+mat-footer-row mat-footer-cell {
+  justify-content: center;
+  font-style: italic;
+}
+.lineasS > li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.cuadrado {
+  width: 25em;
+  height: 10em;
+  border: 1px solid #000;
+}
+.topear {
+  position: relative;
+  top: 5em;
+}
+.topear2 {
+  position: relative;
+  top: 5em;
+}
+.inputModify {
+  border: 0px solid #fff;
+  text-align: center;
+  background: #fff;
+}

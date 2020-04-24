@@ -1,63 +1,73 @@
-<div class="row" *ngIf="!product; else mainContent">
+<div class="row" *ngIf="!productuni; else mainContent">
     <h2>Loading...</h2>
 </div>
 <ng-template #mainContent>
-    <form [formGroup]="formDetaVenta" (ngSubmit)="onSubmit()" enctype="multipart/form-data"> 
-    <mat-grid-list cols="2">
-        <mat-grid-tile>
-            <mat-card class="cardImage">
-                <input type="text" [hidden]="true" formControlName="idproducto"  [(ngModel)]="product.idproducto">
-                <mat-card-content>
-                    <img mat-card-image [src]="API_URI_IMAGE+product.image" alt="Photo">
-                </mat-card-content>
-            </mat-card>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <mat-card>
-                <!--Numero de la factura-->
-                <div class="row">
-                    <div class="col-md-4 text-center ml-auto">
-                        <h2>N° Factura</h2>
-                        <input type="text" formControlName="idfactura" class="inputOculto" [(ngModel)]="numFactura">
-                    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row p-4">
+                <div class="col-md-6">
+                    <mat-card>
+                        <mat-card-content>
+                            image
+                        </mat-card-content>
+                    </mat-card>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 text-center">
-                        <h2>{{product.nombre}}</h2>
-                    </div>
-                    <div class="col-md-6 text-center">
-                        <label for="">
-                            <h5>Productos Disponibles</h5>
-                        </label>
-                        <p class="">{{product.stock}}</p>
-                    </div>
+                <div class="col-md-6">
+                    <mat-card>
+                        <mat-card-content>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <div class="row">
+                                        <div class="col-md-6 p-2">
+                                            <h2 class="sizeLetter">nombre producto</h2>
+                                        </div>
+                                        <div class="col-md-6 p-2">
+                                            <div class="col-md-12 border border-dark">
+                                                <h2 class="sizeLetter">Productos Disponibles</h2>
+                                                <h2 class="sizeLetter">{{productuni[0].stock}}</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <button mat-mini-fab type="button" color="warn" class="m-1"
+                                                (click)="onCountD()">-</button>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button mat-mini-fab type="button" color="primary" class="m-1"
+                                                (click)="onCountA()">+</button>
+                                        </div>
+                                        <div class="col-md-2">
+                                            $<input class="inputOculto sizeLetter" type="text" [(ngModel)]="cont" disabled>
+                                        </div>
+                                        <div class="col-md-2">
+                                            $<input class="inputOculto sizeLetter" type="text" [(ngModel)]="detalleVenta.precio" disabled>
+                                        </div>
+                                        <div class="col-md-2">
+                                            $<input class="inputOculto sizeLetter" type="text" [(ngModel)]="productuni[0].dto" disabled>
+                                        </div>
+                                        <div class="col-md-2">
+                                            $<input class="inputOculto sizeLetter" type="text" [(ngModel)]="detalleVenta.total" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <button mat-fab color="primary" type="submit" class="m-2" (click)="submit()">
+                                            <mat-icon>shopping_cart</mat-icon>
+                                        </button>
+                                        <button mat-fab color="primary" type="button" class="m-2" (click)="onCreate()">
+                                            <mat-icon>visibility</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <button mat-mini-fab type="button" color="warn" class="m-1" (click)="onCountD()">-</button>
-                        <button mat-mini-fab type="button" color="primary" class="m-1" (click)="onCountA()">+</button>
-                    </div>
-                    <div class="col">
-                        <input class="inputOculto" formControlName="cantidad" type="text"  [(ngModel)]="cont" disabled>
-                    </div>
-                    <div class="col">
-                        <input class="inputOculto" formControlName="precio" type="text"  [(ngModel)]="product.precio" disabled> <span>$</span>
-                    </div>
-                    <div class="col">
-                        <input class="inputOculto" formControlName="total" type="text"  [(ngModel)]="monto || product.precio" disabled> <span>$</span>
-                    </div>
-                    <input type="text" [hidden]="true"  formControlName="estado" class="inputOculto" [(ngModel)]="estado" >
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <button  mat-fab color="primary" type="submit" [disabled]="formDetaVenta.invalid"><mat-icon>shopping_cart</mat-icon></button><!--[disabled]="formDetaVenta.invalid"-->
-                    </div>
-                    <div class="col">
-                        <button  mat-fab color="primary" type="button" class="m-2" (click)="onCreate()"><mat-icon>visibility</mat-icon></button>
-                    </div>
-                </div>                
-            </mat-card>
-        </mat-grid-tile>
-    </mat-grid-list>
-</form>
+            </div>
+        </div>
+    </div>
 </ng-template>

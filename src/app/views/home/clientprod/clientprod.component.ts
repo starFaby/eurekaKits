@@ -8,10 +8,11 @@ import { CanastaComponent } from '../canasta/canasta.component';
 import { FormGroup } from '@angular/forms';
 import { Detaventaformvali } from 'src/app/validators/detaventaformvali';
 import { DetalleVenta } from 'src/app/models/detalleventa';
-import { Formapago } from 'src/app/models/formapago';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Numfactura } from 'src/app/models/numfactura';
 import { ConsultasService } from 'src/app/services/consultas.service';
+import { Productouni } from 'src/app/models/productouni';
+import { Idfactura } from 'src/app/models/idfactura';
 
 @Component({
   selector: 'app-clientprod',
@@ -20,12 +21,20 @@ import { ConsultasService } from 'src/app/services/consultas.service';
 })
 export class ClientprodComponent implements OnInit {
   id: string;
-  product: Producto;
+  productuni: Productouni[];
+  idFactura: Idfactura[];
   cont = 1;
   monto;
   estado = 1;
   numFactura;
-  formapago: Formapago[] = [];
+  detalleVenta: DetalleVenta = {
+    idfactura: '',
+    idproducto: '',
+    cantidad: '',
+    precio: '',
+    total: 0,
+    estado: '',
+  };
   formDetaVenta: FormGroup;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -41,7 +50,27 @@ export class ClientprodComponent implements OnInit {
   API_URI_IMAGE = this.productoService.API_URI_IMAGE;
   ngOnInit() {
     this.onGetNumFactura();
-    this.onGetProducto();
+    this.onGetProductouni();
+    this.onGetIdFactura();
+  }
+  onGetIdFactura() {
+    this.consultasService.onGetIdFact().subscribe(
+      res => {
+        this.idFactura = res.map(t => t);
+        console.log(this.idFactura);
+        if (this.idFactura[0].idfactura == null) {
+          console.log('estoy vacio');
+        } else {
+          console.log('estoy lleno');
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  onGetIdFacturaConsult(res) {
+    // this.idFactura
   }
   onGetNumFactura() {
     this.consultasService.onGetNumFact().subscribe(
@@ -57,22 +86,21 @@ export class ClientprodComponent implements OnInit {
   onPrueba(res: Numfactura[]) {
     res.map(t => {
       if (t.numfactura == null) {
-        this.numFactura = '1';
+        this.detalleVenta.idfactura = '1';
         console.log('Estoy nulo', t.numfactura);
       } else {
-        this.numFactura = t.numfactura;
+        this.detalleVenta.idfactura = t.numfactura;
         console.log('estoy lleno', t.numfactura);
       }
     });
   }
-  onGetProducto() {
+  onGetProductouni() {
     this.activatedRoute.params.subscribe(
       params => {
         this.id = params['id'];
-        this.productoService.onGetProducto(this.id).subscribe(
+        this.consultasService.onGetproductouni(this.id).subscribe(
           res => {
-            this.product = res;
-            console.log('======>  ', this.product);
+            this.productuni = res.map(t => t);
           },
           err => {
             if (err instanceof HttpErrorResponse) {
@@ -95,12 +123,12 @@ export class ClientprodComponent implements OnInit {
   onCountA() {
     this.cont++;
     // tslint:disable-next-line:radix
-    if (this.cont > parseInt(this.product.stock)) {
+    if (this.cont > parseInt(this.productuni[0].stock)) {
       // tslint:disable-next-line:radix
-      this.cont = parseInt(this.product.stock);
+      this.cont = parseInt(this.productuni[0].stock);
     }
     // tslint:disable-next-line:radix
-    this.monto = this.cont * parseInt(this.product.precio);
+    this.detalleVenta.total = this.cont * parseInt(this.productuni[0].precio);
 
   }
   onCountD() {
@@ -109,7 +137,7 @@ export class ClientprodComponent implements OnInit {
       this.cont = 1;
     }
     // tslint:disable-next-line:radix
-    this.monto = this.cont * parseInt(this.product.precio);
+    //  this.monto = this.cont * parseInt(this.product.precio);
   }
   onCreate() {
     /*const dialogConfig = new MatDialogConfig();
@@ -118,6 +146,9 @@ export class ClientprodComponent implements OnInit {
     dialogConfig.width = '60%';
     this.dialog.open(CanastaComponent, dialogConfig);*/
     this.router.navigate(['/canasta']);
+  }
+  submit() {
+    console.log(this.detalleVenta);
   }
   onSubmit() {
     if (this.formDetaVenta.valid) {

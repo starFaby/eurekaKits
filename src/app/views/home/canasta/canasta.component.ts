@@ -11,6 +11,7 @@ import { ConsultasService } from 'src/app/services/consultas.service';
 import { Fecha } from 'src/app/validators/fecha';
 import { Numfactura } from 'src/app/models/numfactura';
 import { Factura } from 'src/app/models/factura';
+import { FacturaService } from 'src/app/services/factura.service';
 
 
 @Component({
@@ -21,14 +22,18 @@ import { Factura } from 'src/app/models/factura';
 export class CanastaComponent implements OnInit {
   detalleVenta: DetalleVenta[];
   persona: Consultas[];
-  id;
-  subTotal: any;
-  iva: any;
-  ivaTotal: any;
-  total: any;
   fechaFact: any;
-  prueba = 54;
-  numFactura;
+  id;
+  newFactura: Factura = {
+    idpersona: '',
+    numfactura: 0,
+    subtotal: 0,
+    dto: 0,
+    iva: 0,
+    total: 0,
+    estado: '1'
+  };
+
   constructor(
     private dialog: MatDialog,
     private detaventaService: DetaventaService,
@@ -36,6 +41,7 @@ export class CanastaComponent implements OnInit {
     private authService: AuthService,
     private consultasService: ConsultasService,
     private fecha: Fecha,
+    private facturaService: FacturaService
     // private categoriaformvali: Categoriaformvali
   ) {
     this.fechaFact = this.fecha.dateExat();
@@ -51,12 +57,14 @@ export class CanastaComponent implements OnInit {
     this.onGetPersona();
     this.onGetDetaVentaAll();
     this.onGetNumFactura();
+    setInterval(() => { this.onGetNumFactura(); }, 1000);
   }
   onGetId() {
     const token = this.authService.onGetToken();
     const aux = jwt(token);
     this.id = aux.subject;
     console.log(this.id);
+    this.newFactura.idpersona = this.id;
   }
   onGetPersona() {
     this.consultasService.onGetPersonapdt(this.id).subscribe(
@@ -74,10 +82,11 @@ export class CanastaComponent implements OnInit {
     this.consultasService.onGetDetaVentadvp().subscribe(
       res => {
         this.detalleVenta = res;
-        this.subTotal = this.detalleVenta.map(t => t.total).reduce((acc, value) => acc + value);
-        this.iva = this.subTotal * 0.12;
-        this.ivaTotal = (this.subTotal * 0.12).toFixed(2);
-        this.total = this.subTotal + this.iva;
+        this.newFactura.subtotal = this.detalleVenta.map(t => t.total).reduce((acc, value) => acc + value);
+        const auxIva = (this.newFactura.subtotal * 0.12);
+        // tslint:disable-next-line:radix
+        this.newFactura.iva = parseFloat( auxIva.toFixed(2));
+        this.newFactura.total = this.newFactura.subtotal + this.newFactura.iva;
         this.listCanasta = new MatTableDataSource(this.detalleVenta);
         this.listCanasta.sort = this.sort;
         this.listCanasta.paginator = this.paginator;
@@ -103,7 +112,7 @@ export class CanastaComponent implements OnInit {
   onGetNumFactura() {
     this.consultasService.onGetNumFact().subscribe(
       res => {
-        console.log(res);
+       // console.log(res);
         this.onPrueba(res);
       },
       err => {
@@ -114,27 +123,23 @@ export class CanastaComponent implements OnInit {
   onPrueba(res: Numfactura[]) {
     res.map(t => {
       if (t.numfactura == null) {
-        this.numFactura = '1';
-        console.log('Estoy nulo', t.numfactura);
+        this.newFactura.numfactura = '0000001';
+        // console.log('Estoy nulo', t.numfactura);
       } else {
-        this.numFactura = t.numfactura;
-        console.log('estoy lleno', t.numfactura);
+        this.newFactura.numfactura = t.numfactura;
+       //  console.log('estoy lleno', t.numfactura);
       }
     });
   }
-  onSubmitPrueba() {
-    const newFactura: Factura = {
-      id_persona: this.id,
-      numfactura: this.numFactura,
-      subtotal: this.subTotal,
-      dto: '',
-      iva: this.iva,
-      total: this.total,
-      estado: '1',
-    };
-    console.log(newFactura);
-  }
   onSubmit() {
+    this.facturaService.onSaveFactura(this.newFactura).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
   searchFiltrer() {
     this.listCanasta.filter = this.searchKey.trim().toLowerCase();
