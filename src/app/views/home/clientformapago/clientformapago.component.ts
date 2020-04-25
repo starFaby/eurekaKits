@@ -4,6 +4,8 @@ import { Transbancformvali } from 'src/app/validators/transbancformvali';
 import { Transbanc } from 'src/app/models/transbanc';
 import { Formapagoformvali } from 'src/app/validators/formapagoformvali';
 import { Formapago } from 'src/app/models/formapago';
+import { FacturaService } from 'src/app/services/factura.service';
+import { Factura } from 'src/app/models/factura';
 
 @Component({
   selector: 'app-clientformapago',
@@ -15,6 +17,7 @@ export class ClientformapagoComponent implements OnInit {
   formFormPago: FormGroup;
   formTransBanc: FormGroup;
   photoSelected: string | ArrayBuffer;
+  factura: Factura[];
   arrayFormaPago = [
     { id: 1, nombre: 'Paypal' },
     { id: 2, nombre: 'Transferencia Bancaria' },
@@ -22,13 +25,26 @@ export class ClientformapagoComponent implements OnInit {
   ];
   constructor(
     private formapagoformvali: Formapagoformvali,
-    private transbancformvali: Transbancformvali
+    private transbancformvali: Transbancformvali,
+    private facturaService: FacturaService
   ) {
     this.formFormPago = this.formapagoformvali.formFormPago;
     this.formTransBanc = this.transbancformvali.formTransBanc;
   }
 
   ngOnInit() {
+    this.onGetFacturaAll();
+  }
+  onGetFacturaAll() {
+    this.facturaService.onGetFacturaAll().subscribe(
+      res => {
+        console.log(res);
+        this.factura = res.map(t => t);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
   onSubmit1() {
     if (this.formFormPago.valid) {
@@ -39,6 +55,7 @@ export class ClientformapagoComponent implements OnInit {
           estado: this.formFormPago.get('estado').value,
         };
         console.log(newFormapago);
+        this.onGetClearFormaPAgo();
       }
     }
   }
@@ -76,7 +93,8 @@ export class ClientformapagoComponent implements OnInit {
         }
       }*/
   }
-  onGetClearTB() {
+  onGetClearFormaPAgo() {
+    this.formapagoformvali.oninitializeFomrGroup();
   }
   onPhotoSelected(event): void {
     if (event.target.files && event.target.files[0]) {

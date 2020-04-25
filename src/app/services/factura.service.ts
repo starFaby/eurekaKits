@@ -11,6 +11,9 @@ export class FacturaService {
   API_URI = environment.URL_SERVICE;
   API_URI_IMAGE = environment.URL_SERVICE_IMAGE;
   constructor(private http: HttpClient) { }
+   onGetFacturaAll() {
+    return this.http.get<Factura[]>(`${this.API_URI}/factura`);
+   }
    onSaveFactura(factura: Factura) {
      const newFactura: Factura = {
       idpersona: factura.idpersona,

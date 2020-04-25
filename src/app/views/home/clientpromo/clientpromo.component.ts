@@ -145,10 +145,20 @@ export class ClientpromoComponent implements OnInit {
     this.dialog.open(CanastaComponent, dialogConfig);*/
     this.router.navigate(['/canasta']);
   }
-  submit() {
-    console.log(this.detalleVenta);
-  }
   onSubmit() {
+    console.log(this.detalleVenta);
+    this.detaventaService.onSaveDetaVenta(this.detalleVenta).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 401) {
+            this.router.navigate(['/login']);
+          }
+        }
+      }
+    );
   }
 
 }

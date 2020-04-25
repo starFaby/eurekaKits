@@ -135,6 +135,7 @@ export class CanastaComponent implements OnInit {
     this.facturaService.onSaveFactura(this.newFactura).subscribe(
       res => {
         console.log(res);
+        this.router.navigate(['/formaPago']);
       },
       err => {
         console.log(err);

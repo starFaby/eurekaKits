@@ -155,34 +155,20 @@ export class ClientprodComponent implements OnInit {
     this.dialog.open(CanastaComponent, dialogConfig);*/
     this.router.navigate(['/canasta']);
   }
-  submit() {
-    console.log(this.detalleVenta);
-  }
   onSubmit() {
-    if (this.formDetaVenta.valid) {
-      if (this.formDetaVenta.get('iddetalleventa').value == null) {
-        const newDetalleVenta: DetalleVenta = {
-          idfactura: this.formDetaVenta.get('idfactura').value,
-          idproducto: this.formDetaVenta.get('idproducto').value,
-          cantidad: this.formDetaVenta.get('cantidad').value,
-          precio: this.formDetaVenta.get('precio').value,
-          total: this.formDetaVenta.get('total').value,
-          estado: this.formDetaVenta.get('estado').value
-        };
-        this.detaventaService.onSaveDetaVenta(newDetalleVenta).subscribe(
-          res => {
-            console.log(res);
-          },
-          err => {
-            if (err instanceof HttpErrorResponse) {
-              if (err.status === 401) {
-                this.router.navigate(['/login']);
-              }
-            }
+    console.log(this.detalleVenta);
+    this.detaventaService.onSaveDetaVenta(this.detalleVenta).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 401) {
+            this.router.navigate(['/login']);
           }
-        );
+        }
       }
-    }
+    );
   }
 
 }

@@ -20,20 +20,20 @@
                                 <mat-form-field>
                                     <mat-label>Select Factura</mat-label>
                                     <mat-select formControlName="idfactura">
-                                        <mat-option>00025</mat-option>
+                                        <mat-option *ngFor="let item of factura" value="{{item.idfactura}}">{{item.numfactura}}</mat-option>
                                         <mat-option>00025</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>Select forma de pago</mat-label>
                                     <mat-select formControlName="nombre">
-                                        <mat-option *ngFor="let item of arrayFormaPago" [value]="item.id">{{item.nombre}}</mat-option>
+                                        <mat-option *ngFor="let item of arrayFormaPago" [value]="item.nombre">{{item.nombre}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                                 <label for="">Estado</label>
                                 <mat-radio-group formControlName="estado">
                                     <mat-radio-button value="1">Activo</mat-radio-button>
-                                    <mat-radio-button value="2">Inactivo</mat-radio-button>
+                                    <mat-radio-button value="0">Inactivo</mat-radio-button>
                                 </mat-radio-group>
                                 <div class="row">
                                     <div class="col">
