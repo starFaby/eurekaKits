@@ -20,14 +20,15 @@
                                 <mat-form-field>
                                     <mat-label>Select Factura</mat-label>
                                     <mat-select formControlName="idfactura">
-                                        <mat-option *ngFor="let item of factura" value="{{item.idfactura}}">{{item.numfactura}}</mat-option>
-                                        <mat-option>00025</mat-option>
+                                        <mat-option *ngFor="let item of factura" value="{{item.idfactura}}">
+                                            {{item.numfactura}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>Select forma de pago</mat-label>
-                                    <mat-select formControlName="nombre">
-                                        <mat-option *ngFor="let item of arrayFormaPago" [value]="item.nombre">{{item.nombre}}</mat-option>
+                                    <mat-select formControlName="nombre"  (selectionChange)="onValueChange($event)">
+                                        <mat-option *ngFor="let item of arrayFormaPago" [value]="item.id">
+                                            {{item.nombre}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                                 <label for="">Estado</label>
@@ -49,10 +50,9 @@
         </div>
     </div>
     <div class="col-md-12 p-4">
-        <mat-tab-group mat-align-tabs="center">
+        <mat-tab-group mat-align-tabs="center" [selectedIndex]="activeTab">
             <mat-tab label="Paypal">
                 <!--********************Paypal********************************-->
-                <input type="text">
                 <button>comprar</button>
             </mat-tab>
             <mat-tab label="Transferencia Bancaria">
@@ -99,7 +99,7 @@
                                     <mat-error>El campo $key es obligatorio</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <mat-label>Select Factura</mat-label>
+                                    <mat-label>Select Numero de  Factura</mat-label>
                                     <mat-select formControlName="idfactura">
                                         <mat-option></mat-option>
                                     </mat-select>
@@ -132,7 +132,22 @@
             </mat-tab>
             <mat-tab label="Efectivo">
                 <!--********************Efectivo********************************-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row p-4">
+                            <div class="col-md-5 mx-auto">
+                                <mat-card>
+                                    <mat-card-content>
+                                        faby star
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </mat-tab>
         </mat-tab-group>
     </div>
 </div>
+
+<!---***************************************-->

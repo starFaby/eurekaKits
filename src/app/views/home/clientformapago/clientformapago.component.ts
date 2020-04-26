@@ -6,6 +6,7 @@ import { Formapagoformvali } from 'src/app/validators/formapagoformvali';
 import { Formapago } from 'src/app/models/formapago';
 import { FacturaService } from 'src/app/services/factura.service';
 import { Factura } from 'src/app/models/factura';
+import { FormapagoService } from 'src/app/services/formapago.service';
 
 @Component({
   selector: 'app-clientformapago',
@@ -18,6 +19,8 @@ export class ClientformapagoComponent implements OnInit {
   formTransBanc: FormGroup;
   photoSelected: string | ArrayBuffer;
   factura: Factura[];
+  faby = true;
+  activeTab;
   arrayFormaPago = [
     { id: 1, nombre: 'Paypal' },
     { id: 2, nombre: 'Transferencia Bancaria' },
@@ -26,7 +29,8 @@ export class ClientformapagoComponent implements OnInit {
   constructor(
     private formapagoformvali: Formapagoformvali,
     private transbancformvali: Transbancformvali,
-    private facturaService: FacturaService
+    private facturaService: FacturaService,
+    private formapagoService: FormapagoService
   ) {
     this.formFormPago = this.formapagoformvali.formFormPago;
     this.formTransBanc = this.transbancformvali.formTransBanc;
@@ -34,6 +38,11 @@ export class ClientformapagoComponent implements OnInit {
 
   ngOnInit() {
     this.onGetFacturaAll();
+    const valorIndice = this.formFormPago.get('nombre').value;
+    console.log(valorIndice);
+  }
+  onValueChange(event) {
+    this.activeTab = event.value - 1;
   }
   onGetFacturaAll() {
     this.facturaService.onGetFacturaAll().subscribe(
@@ -54,7 +63,14 @@ export class ClientformapagoComponent implements OnInit {
           nombre: this.formFormPago.get('nombre').value,
           estado: this.formFormPago.get('estado').value,
         };
-        console.log(newFormapago);
+        this.formapagoService.onSaveFormaPago(newFormapago).subscribe(
+          res => {
+              console.log(res);
+          },
+          err => {
+            console.log(err);
+          }
+        );
         this.onGetClearFormaPAgo();
       }
     }

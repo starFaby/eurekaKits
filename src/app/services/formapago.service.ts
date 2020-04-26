@@ -12,13 +12,12 @@ export class FormapagoService {
   API_URI = environment.URL_SERVICE;
   API_URI_IMAGE = environment.URL_SERVICE_IMAGE;
   constructor(private http: HttpClient) { }
-   onSaveTransBanc(formapago: Formapago) {
+   onSaveFormaPago(formapago: Formapago) {
      const newFormapago: Formapago = {
       idfactura: formapago.idfactura,
       nombre: formapago.nombre,
       estado: formapago.estado
      };
-     console.log(newFormapago);
-     return this.http.post(`${this.API_URI}/formaPago/tranban`, newFormapago);
+     return this.http.post(`${this.API_URI}/formapago`, newFormapago);
    }
 }
