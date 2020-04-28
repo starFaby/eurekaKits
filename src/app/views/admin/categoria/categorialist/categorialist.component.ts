@@ -72,7 +72,7 @@ export class CategorialistComponent implements OnInit {
     console.log('============>>>>');
     console.log(this.file);
     this.categoria = {
-      idCategoria: row.idCategoria,
+      idcategoria: row.idcategoria,
       nombre: row.nombre,
       image: this.file,
       estado: row.estado

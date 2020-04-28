@@ -31,6 +31,7 @@ export class ProductolistComponent implements OnInit {
     this.productoService.onGetProductos().subscribe(
       res => {
         this.arreglo = res;
+        console.log(this.arreglo);
         this.listProductos = new MatTableDataSource(this.arreglo);
         this.listProductos.sort = this.sort;
         this.listProductos.paginator = this.paginator;
@@ -62,8 +63,8 @@ export class ProductolistComponent implements OnInit {
     };
     this.file = new File([data], row.nombre, metadata);
     this.producto = {
-      idproducto: row.idProducto,
-      idcategoria: row.idCategoria,
+      idproducto: row.idproducto,
+      idcategoria: row.idcategoria,
       nombre: row.nombre,
       image: this.file,
       precio: row.precio,

@@ -18,7 +18,7 @@
                                     <mat-error>El campo $key es obligatorio</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <mat-label>Select Factura</mat-label>
+                                    <mat-label>Select numero Factura</mat-label>
                                     <mat-select formControlName="idfactura">
                                         <mat-option *ngFor="let item of factura" value="{{item.idfactura}}">
                                             {{item.numfactura}}</mat-option>
@@ -93,6 +93,7 @@
                 <form [formGroup]="formTransBanc" (ngSubmit)="onSubmit2()" enctype="multipart/form-data">
                     <mat-grid-list cols="2" rowHeight="300px">
                         <mat-grid-tile>
+                            <h2>Forma de pago</h2>
                             <div class="controleContainer my-2">
                                 <mat-form-field [hidden]="true">
                                     <input type="text" formControlName="idformapago" matInput placeholder="idformapago">
@@ -103,6 +104,10 @@
                                     <mat-select formControlName="idfactura">
                                         <mat-option></mat-option>
                                     </mat-select>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <mat-label>Valor</mat-label>
+                                    <input matInput formControlName="valor">
                                 </mat-form-field>
                                 <div class="container-input-file">
                                     <div class="custom-file">

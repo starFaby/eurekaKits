@@ -34,7 +34,7 @@ export class PromoformComponent implements OnInit {
       if (this.formPromo.get('idpromociones').value == null) {
         const newPromocion: Promocion = {
           idproducto: this.formPromo.get('idproducto').value,
-          descuento: this.formPromo.get('descuento').value,
+          dto: this.formPromo.get('dto').value,
           fechainicio: this.formPromo.get('fechainicio').value,
           fechafin: this.formPromo.get('fechafin').value,
           descripcion: this.formPromo.get('descripcion').value,
@@ -52,7 +52,7 @@ export class PromoformComponent implements OnInit {
         console.log('fromulario', idPromociones);
         const newPromocion: Promocion = {
           idproducto: this.formPromo.get('idproducto').value,
-          descuento: this.formPromo.get('descuento').value,
+          dto: this.formPromo.get('dto').value,
           fechainicio: this.formPromo.get('fechainicio').value,
           fechafin: this.formPromo.get('fechafin').value,
           descripcion: this.formPromo.get('descripcion').value,

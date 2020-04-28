@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Telefonoformvali } from 'src/app/validators/telefonoformvali';
 import { TelefonoService } from 'src/app/services/telefono.service';
 import { Telefono } from 'src/app/models/telefono';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clienteleform',
@@ -12,9 +13,11 @@ import { Telefono } from 'src/app/models/telefono';
 })
 export class ClienteleformComponent implements OnInit {
   formTelefono: FormGroup;
-  constructor(private matDialogRef: MatDialogRef<ClienteleformComponent>,
+  constructor(
+    private matDialogRef: MatDialogRef<ClienteleformComponent>,
     private telefonoformvali: Telefonoformvali,
-    private telefonoService: TelefonoService) {
+    private telefonoService: TelefonoService,
+    private router: Router) {
     this.formTelefono = this.telefonoformvali.formTelefono;
   }
 
@@ -29,6 +32,7 @@ export class ClienteleformComponent implements OnInit {
     if (this.formTelefono.valid) {
       if (this.formTelefono.get('idtelefono').value == null) {
         const newTelefono: Telefono = {
+          domisoci: this.formTelefono.get('domisoci').value,
           convencional: this.formTelefono.get('convencional').value,
           celular1: this.formTelefono.get('celular1').value,
           celular2: this.formTelefono.get('celular2').value,
@@ -37,6 +41,7 @@ export class ClienteleformComponent implements OnInit {
         this.telefonoService.onSaveTelefono(newTelefono).subscribe(
           res => {
             console.log(res);
+            this.router.navigate(['/registForm']);
           },
           err => {
             console.log(err);

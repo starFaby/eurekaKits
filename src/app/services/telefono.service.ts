@@ -12,28 +12,32 @@ export class TelefonoService {
   constructor(private http: HttpClient) { }
   onGetTelefonos() { //  Observable<any>
     return this.http.get<Telefono[]>(`${this.API_URI}/telefono`);
-   }
-   onGetTelefono(id: string) {
+  }
+  onGetTelefono(id: string) {
     return this.http.get<Telefono[]>(`${this.API_URI}/telefono/${id}`);
-   }
-   onDeleteTelefono(id: string): Observable<any> {
+  }
+  onDeleteTelefono(id: string): Observable<any> {
     return this.http.delete(`${this.API_URI}/telefono/${id}`);
-   }
-   onSaveTelefono(telefono: Telefono) {
-     const fd = new FormData();
-     fd.append('convencional', telefono.convencional);
-     fd.append('celular1', telefono.celular1);
-     fd.append('celular2', telefono.celular2);
-     fd.append('estado', telefono.estado);
-     return this.http.post(`${this.API_URI}/telefono`, fd);
-   }
-   onUpdateProductos(id: string, telefono: Telefono): Observable<any> {
-     const fd = new FormData();
-     fd.append('convencional', telefono.convencional);
-     fd.append('celular1', telefono.celular1);
-     fd.append('celular2', telefono.celular2);
-     fd.append('estado', telefono.estado);
-     return this.http.put(`${this.API_URI}/producto/${id}`, fd);
-   }
+  }
+  onSaveTelefono(telefono: Telefono) {
+    const newTelefono: Telefono = {
+      domisoci: telefono.domisoci,
+      convencional: telefono.convencional,
+      celular1: telefono.celular1,
+      celular2: telefono.celular2,
+      estado: telefono.estado
+    };
+    return this.http.post(`${this.API_URI}/telefono`, newTelefono);
+  }
+  onUpdateProductos(id: string, telefono: Telefono): Observable<any> {
+    const newTelefono: Telefono = {
+      domisoci: telefono.domisoci,
+      convencional: telefono.convencional,
+      celular1: telefono.celular1,
+      celular2: telefono.celular2,
+      estado: telefono.estado
+    };
+    return this.http.put(`${this.API_URI}/producto/${id}`, newTelefono);
+  }
 
 }

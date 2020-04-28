@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatDialog, MatTableDataSource, MatSort, MatPaginator, MatDialogConfig, MatDialogRef } from '@angular/material';
-import { DetalleVenta } from 'src/app/models/detalleventa';
+import { DetalleVentas } from 'src/app/models/detalleventa';
 import { DetaventaService } from 'src/app/services/detaventa.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -20,7 +20,7 @@ import { FacturaService } from 'src/app/services/factura.service';
   styleUrls: ['./canasta.component.scss']
 })
 export class CanastaComponent implements OnInit {
-  detalleVenta: DetalleVenta[];
+  detalleVenta: DetalleVentas[];
   persona: Consultas[];
   fechaFact: any;
   id;
@@ -57,7 +57,7 @@ export class CanastaComponent implements OnInit {
     this.onGetPersona();
     this.onGetDetaVentaAll();
     this.onGetNumFactura();
-    setInterval(() => { this.onGetNumFactura(); }, 1000);
+   // setInterval(() => { this.onGetNumFactura(); }, 1000);
   }
   onGetId() {
     const token = this.authService.onGetToken();
@@ -77,7 +77,6 @@ export class CanastaComponent implements OnInit {
       }
     );
   }
-
   onGetDetaVentaAll() {
     this.consultasService.onGetDetaVentadvp().subscribe(
       res => {
@@ -135,6 +134,7 @@ export class CanastaComponent implements OnInit {
     this.facturaService.onSaveFactura(this.newFactura).subscribe(
       res => {
         console.log(res);
+        localStorage.removeItem('idfactura');
         this.router.navigate(['/formaPago']);
       },
       err => {

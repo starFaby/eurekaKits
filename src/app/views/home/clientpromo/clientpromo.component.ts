@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Productouni } from 'src/app/models/productouni';
 import { Idfactura } from 'src/app/models/idfactura';
-import { DetalleVenta } from 'src/app/models/detalleventa';
+import { DetalleVentas } from 'src/app/models/detalleventa';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DetaventaService } from 'src/app/services/detaventa.service';
 import { ConsultasService } from 'src/app/services/consultas.service';
@@ -21,7 +21,7 @@ export class ClientpromoComponent implements OnInit {
   cont = 1;
   dto = 1;
   numFactura;
-  detalleVenta: DetalleVenta = {
+  detalleVenta: DetalleVentas = {
     idfactura: '',
     idproducto: '',
     cantidad: 1,
@@ -94,7 +94,7 @@ export class ClientpromoComponent implements OnInit {
             this.detalleVenta.idproducto = this.promouni[0].idproducto;
             this.detalleVenta.estado = this.promouni[0].estado;
             this.detalleVenta.precio = this.promouni[0].precio;
-            this.detalleVenta.total = this.promouni[0].precio  - (this.promouni[0].precio * (this.promouni[0].descuento / 100));
+            this.detalleVenta.total = this.promouni[0].precio  - (this.promouni[0].precio * (this.promouni[0].dto / 100));
             console.log(this.promouni);
           },
           err => {
@@ -124,7 +124,7 @@ export class ClientpromoComponent implements OnInit {
     }
     this.detalleVenta.cantidad = this.cont;
     // tslint:disable-next-line:max-line-length
-    this.detalleVenta.total = this.cont * parseInt(this.promouni[0].precio) - (this.promouni[0].precio * (this.promouni[0].descuento / 100));
+    this.detalleVenta.total = this.cont * parseInt(this.promouni[0].precio) - (this.promouni[0].precio * (this.promouni[0].dto / 100));
 
   }
   onCountD() {
@@ -135,7 +135,7 @@ export class ClientpromoComponent implements OnInit {
     this.detalleVenta.cantidad = this.cont;
     // tslint:disable-next-line:radix
     // tslint:disable-next-line:max-line-length
-    this.detalleVenta.total = this.cont * parseInt(this.promouni[0].precio) - (this.promouni[0].precio * (this.promouni[0].descuento / 100));
+    this.detalleVenta.total = this.cont * parseInt(this.promouni[0].precio) - (this.promouni[0].precio * (this.promouni[0].dto / 100));
   }
   onCreate() {
     /*const dialogConfig = new MatDialogConfig();

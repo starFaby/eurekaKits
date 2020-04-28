@@ -1,13 +1,14 @@
 export interface Direccion {
-    iddireccion?: string;
-    provincia: string;
-    canton: string;
-    parroquia: string;
-    sector: string;
-    calleprincipal: string;
-    numeracion: string;
-    callesecundaria: string;
-    descripcion: string;
-    estado: string;
+    iddireccion?: any;
+    domisoci: any;
+    provincia: any;
+    canton: any;
+    parroquia: any;
+    sector: any;
+    calleprincipal: any;
+    numeracion: any;
+    callesecundaria: any;
+    descripcion: any;
+    estado: any;
     created_at?: Date;
 }

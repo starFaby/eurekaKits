@@ -1,7 +1,10 @@
 export interface Transbanc {
-    idformapago?: string;
-    idfactura: string;
+    idtransferenciabancaria?: any;
+    idformapago: any;
+    idfactura: any;
+    numerofactura: any;
+    preciofactura: any;
     image: File;
-    estado: string;
+    estado: any;
     created_at?: Date;
 }

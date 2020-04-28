@@ -12,7 +12,7 @@ export class Promoformvali {
         this.formPromo = this.formBuilder.group({
             idpromociones: [null],
             idproducto: ['', Validators.required],
-            descuento: ['', Validators.required],
+            dto: ['', Validators.required],
             fechainicio: ['', Validators.required],
             fechafin: ['', Validators.required],
             descripcion: ['', Validators.required],
@@ -23,7 +23,7 @@ export class Promoformvali {
         this.formPromo.setValue({
             idpromociones: null,
             idproducto: '',
-            descuento: '',
+            dto: '',
             fechainicio: '',
             fechafin: '',
             descripcion: '',

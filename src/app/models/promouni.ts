@@ -5,7 +5,7 @@ export interface Promouni {
     nombre: any;
     image: any;
     precio: any;
-    descuento: any;
+    dto: any;
     stock: any;
     estado: any;
 }

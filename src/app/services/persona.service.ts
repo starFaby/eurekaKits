@@ -13,37 +13,39 @@ export class PersonaService {
   constructor(private http: HttpClient) { }
   onGetPersonas() { //  Observable<any>
     return this.http.get<Persona[]>(`${this.API_URI}/persona`);
-   }
-   onGetPersona(id: string) {
+  }
+  onGetPersona(id: string) {
     return this.http.get<Persona[]>(`${this.API_URI}/persona/${id}`);
-   }
-   onDeletePersona(id: string): Observable<any> {
+  }
+  onDeletePersona(id: string): Observable<any> {
     return this.http.delete(`${this.API_URI}/persona/${id}`);
-   }
-   onSavePersona(persona: Persona) {
-     const fd = new FormData();
-     fd.append('idtelefono', persona.idtelefono);
-     fd.append('iddireccion', persona.iddireccion);
-     fd.append('cedula', persona.cedula);
-     fd.append('nombres', persona.nombres);
-     fd.append('apellidos', persona.apellidos);
-     fd.append('fechanacimiento', persona.fechanacimiento);
-     fd.append('email', persona.email);
-     fd.append('password', persona.password);
-     fd.append('estado', persona.estado);
-     return this.http.post(`${this.API_URI}/persona`, fd);
-   }
-   onUpdatePersona(id: string, persona: Persona): Observable<any> {
-     const fd = new FormData();
-     fd.append('idtelefono', persona.idtelefono);
-     fd.append('iddireccion', persona.iddireccion);
-     fd.append('cedula', persona.cedula);
-     fd.append('nombres', persona.nombres);
-     fd.append('apellidos', persona.apellidos);
-     fd.append('fechanacimiento', persona.fechanacimiento);
-     fd.append('email', persona.email);
-     fd.append('password', persona.password);
-     fd.append('estado', persona.estado);
-     return this.http.put(`${this.API_URI}/persona/${id}`, fd);
-   }
+  }
+  onSavePersona(persona: Persona) {
+    const newPersona: Persona = {
+      idtelefono: persona.idtelefono,
+      iddireccion: persona.iddireccion,
+      cedula: persona.cedula,
+      nombres: persona.nombres,
+      apellidos: persona.apellidos,
+      fechanacimiento: persona.fechanacimiento,
+      email: persona.email,
+      password: persona.password,
+      estado: persona.estado
+    };
+    return this.http.post(`${this.API_URI}/persona`, newPersona);
+  }
+  onUpdatePersona(id: string, persona: Persona): Observable<any> {
+    const newPersona: Persona = {
+      idtelefono: persona.idtelefono,
+      iddireccion: persona.iddireccion,
+      cedula: persona.cedula,
+      nombres: persona.nombres,
+      apellidos: persona.apellidos,
+      fechanacimiento: persona.fechanacimiento,
+      email: persona.email,
+      password: persona.password,
+      estado: persona.estado
+    };
+    return this.http.put(`${this.API_URI}/persona/${id}`, newPersona);
+  }
 }

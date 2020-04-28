@@ -24,6 +24,7 @@ export class ClientcateproduComponent implements OnInit {
           res => {
             if (Object.keys(res).length > 0) { // Object.keys(res) length
               this.cateProd = res;
+              console.log(this.cateProd);
             } else  {
               console.log('no datos 1');
             }

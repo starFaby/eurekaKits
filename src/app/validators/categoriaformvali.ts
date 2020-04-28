@@ -12,7 +12,7 @@ export class Categoriaformvali {
     }
     onValidatorCategoria() {
         this.formCategoria = this.formBuilder.group({
-            idCategoria: [null],
+            idcategoria: [null],
             nombre: ['', Validators.required],
             image: ['', Validators.required],
             estado: ['', Validators.required]
@@ -20,7 +20,7 @@ export class Categoriaformvali {
     }
     oninitializeFomrGroup() {
         this.formCategoria.setValue({
-            idCategoria: null,
+            idcategoria: null,
             nombre: '',
             image: '',
             estado: ''

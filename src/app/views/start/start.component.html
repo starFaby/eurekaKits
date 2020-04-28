@@ -28,11 +28,11 @@
 <ng-template #mainContent>
   <div class="row">
     <div class="col-md-4 p-4" *ngFor="let item of promociones">
-      <mat-card class="cardImage" (click)="onSelectedProducto(item.idproducto)">
+      <mat-card class="cardImage" (click)="onSelectedProducto(item.idpromociones)">
         <mat-card-header>
           <div class="row">
             <div class="col-md-3 mr-auto">
-              <h6 class="ribbon">{{item.descuento}}%</h6>
+              <h6 class="ribbon">{{item.dto}}%</h6>
             </div>
             <div class="col-md-3 ml-auto">
               <mat-card-title>{{item.nombre}}</mat-card-title>

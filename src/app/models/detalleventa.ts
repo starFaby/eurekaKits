@@ -1,7 +1,7 @@
-export interface DetalleVenta {
-    iddetalleventa?: any;
-    idfactura: any;
+export interface DetalleVentas {
+    iddetalleventas?: any;
     idproducto: any;
+    idfactura: any;
     cantidad: any;
     precio: any;
     total: any;

@@ -11,12 +11,12 @@ export class FptransbancService {
   API_URI_IMAGE = environment.URL_SERVICE_IMAGE;
   constructor(private http: HttpClient) { }
    onSaveTransBanc(transbanc: Transbanc) {
-     const newTransbanc: Transbanc = {
+   /*  const newTransbanc: Transbanc = {
       idfactura: transbanc.idfactura,
       image: transbanc.image,
       estado: transbanc.estado
      };
      console.log(newTransbanc);
-     return this.http.post(`${this.API_URI}/formaPago/tranban`, newTransbanc);
+     return this.http.post(`${this.API_URI}/formaPago/tranban`, newTransbanc);*/
    }
 }

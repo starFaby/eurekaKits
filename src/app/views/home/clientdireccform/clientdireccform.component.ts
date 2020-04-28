@@ -12,11 +12,12 @@ import { Direccion } from 'src/app/models/direccion';
 })
 export class ClientdireccformComponent implements OnInit {
   formDireccion: FormGroup;
-  constructor(private matDialogRef: MatDialogRef<ClientdireccformComponent>,
-              private direccionformvali: Direccionformvali,
-              private direccionService: DireccionService) {
-     this.formDireccion = this.direccionformvali.formDireccion;
-   }
+  constructor(
+    private matDialogRef: MatDialogRef<ClientdireccformComponent>,
+    private direccionformvali: Direccionformvali,
+    private direccionService: DireccionService) {
+    this.formDireccion = this.direccionformvali.formDireccion;
+  }
 
   ngOnInit() {
   }
@@ -27,27 +28,29 @@ export class ClientdireccformComponent implements OnInit {
   }
   onSubmit() {
     if (this.formDireccion.valid) {
-      if(this.formDireccion.get('iddireccion').value == null){
-          const newDireccion: Direccion = {
-            provincia: this.formDireccion.get('provincia').value,
-            canton: this.formDireccion.get('canton').value,
-            parroquia: this.formDireccion.get('parroquia').value,
-            sector: this.formDireccion.get('sector').value,
-            calleprincipal: this.formDireccion.get('calleprincipal').value,
-            numeracion: this.formDireccion.get('numeracion').value,
-            callesecundaria: this.formDireccion.get('callesecundaria').value,
-            descripcion: this.formDireccion.get('descripcion').value,
-            estado: this.formDireccion.get('estado').value,
-          };
-          this.direccionService.onSaveDireccion(newDireccion).subscribe(
-            res => {
-              console.log(res);
-            },
-            err => {
-              console.log(err);
-            }
-          );
-          this.onCloseDialog();
+      if (this.formDireccion.get('iddireccion').value == null) {
+        const newDireccion: Direccion = {
+          domisoci: this.formDireccion.get('domisoci').value,
+          provincia: this.formDireccion.get('provincia').value,
+          canton: this.formDireccion.get('canton').value,
+          parroquia: this.formDireccion.get('parroquia').value,
+          sector: this.formDireccion.get('sector').value,
+          calleprincipal: this.formDireccion.get('calleprincipal').value,
+          numeracion: this.formDireccion.get('numeracion').value,
+          callesecundaria: this.formDireccion.get('callesecundaria').value,
+          descripcion: this.formDireccion.get('descripcion').value,
+          estado: this.formDireccion.get('estado').value,
+        };
+        console.log(newDireccion);
+        this.direccionService.onSaveDireccion(newDireccion).subscribe(
+          res => {
+            console.log(res);
+          },
+          err => {
+            console.log(err);
+          }
+        );
+        this.onCloseDialog();
       }
     }
   }

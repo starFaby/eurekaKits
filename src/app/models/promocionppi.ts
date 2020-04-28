@@ -2,7 +2,7 @@ export interface Promocionppi {
     idproducto: string;
     idpromociones: string;
     nombre: string;
-    descuento: string;
+    dto: string;
     image: string;
     fechainicio: string;
     fechafin: string;

@@ -3,16 +3,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductoService } from 'src/app/services/producto.service';
 import { DetaventaService } from 'src/app/services/detaventa.service';
 import { Producto } from 'src/app/models/producto';
+import { Factura } from 'src/app/models/factura';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import { CanastaComponent } from '../canasta/canasta.component';
 import { FormGroup } from '@angular/forms';
 import { Detaventaformvali } from 'src/app/validators/detaventaformvali';
-import { DetalleVenta } from 'src/app/models/detalleventa';
+import { DetalleVentas } from 'src/app/models/detalleventa';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Numfactura } from 'src/app/models/numfactura';
 import { ConsultasService } from 'src/app/services/consultas.service';
 import { Productouni } from 'src/app/models/productouni';
 import { Idfactura } from 'src/app/models/idfactura';
+import { FacturaService } from 'src/app/services/factura.service';
 
 @Component({
   selector: 'app-clientprod',
@@ -23,12 +25,17 @@ export class ClientprodComponent implements OnInit {
   id: string;
   productuni: Productouni[];
   idFactura: Idfactura[];
+  numFactura: Numfactura[];
   cont = 1;
   dto = 1;
-  numFactura;
-  detalleVenta: DetalleVenta = {
-    idfactura: '',
+  factura: Factura = {
+    idpersona: '',
+    numfactura: '',
+    estado: 1
+  };
+  detalleVentas: DetalleVentas = {
     idproducto: '',
+    idfactura: '',
     cantidad: 1,
     precio: '',
     total: 0,
@@ -42,54 +49,26 @@ export class ClientprodComponent implements OnInit {
     private dialog: MatDialog,
     private detaventaformvali: Detaventaformvali,
     private detaventaService: DetaventaService,
-    private consultasService: ConsultasService
+    private consultasService: ConsultasService,
+    private facturaService: FacturaService
   ) {
     this.formDetaVenta = this.detaventaformvali.formDetaVenta;
   }
   API_URI_IMAGE = this.productoService.API_URI_IMAGE;
   ngOnInit() {
     this.onGetProductouni();
-    this.onGetIdFactura();
-  }
-  onGetIdFactura() {
-    this.consultasService.onGetIdFact().subscribe(
-      res => {
-        this.idFactura = res.map(t => t);
-        console.log(this.idFactura);
-        if (this.idFactura[0].idfactura == null) {
-          this.detalleVenta.idfactura = '1';
-          console.log('estoy vacio');
-        } else {
-          this.detalleVenta.idfactura = this.idFactura[0].idfactura;
-          console.log('estoy lleno');
-        }
-      },
-      err => {
-        console.log(err);
-      }
-    );
   }
   onGetIdFacturaConsult(res) {
     // this.idFactura
   }
-  onGetNumFactura() {
-    this.consultasService.onGetNumFact().subscribe(
-      res => {
-        console.log(res);
-        this.onPrueba(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }
+
   onPrueba(res: Numfactura[]) {
     res.map(t => {
       if (t.numfactura == null) {
-        this.detalleVenta.idfactura = '1';
+        this.detalleVentas.idfactura = '1';
         console.log('Estoy nulo', t.numfactura);
       } else {
-        this.detalleVenta.idfactura = t.numfactura;
+        this.detalleVentas.idfactura = t.numfactura;
         console.log('estoy lleno', t.numfactura);
       }
     });
@@ -101,10 +80,10 @@ export class ClientprodComponent implements OnInit {
         this.consultasService.onGetproductouni(this.id).subscribe(
           res => {
             this.productuni = res.map(t => t);
-            this.detalleVenta.idproducto = this.productuni[0].idproducto;
-            this.detalleVenta.estado = this.productuni[0].estado;
-            this.detalleVenta.precio = this.productuni[0].precio;
-            this.detalleVenta.total = this.productuni[0].precio;
+            this.detalleVentas.idproducto = this.productuni[0].idproducto;
+            this.detalleVentas.estado = this.productuni[0].estado;
+            this.detalleVentas.precio = this.productuni[0].precio;
+            this.detalleVentas.total = this.productuni[0].precio;
             console.log(this.productuni);
           },
           err => {
@@ -133,9 +112,9 @@ export class ClientprodComponent implements OnInit {
       // tslint:disable-next-line:radix
       this.cont = parseInt(this.productuni[0].stock);
     }
-    this.detalleVenta.cantidad = this.cont;
+    this.detalleVentas.cantidad = this.cont;
     // tslint:disable-next-line:radix
-    this.detalleVenta.total = this.cont * parseInt(this.productuni[0].precio);
+    this.detalleVentas.total = this.cont * parseInt(this.productuni[0].precio);
 
   }
   onCountD() {
@@ -143,9 +122,9 @@ export class ClientprodComponent implements OnInit {
     if (this.cont < 1) {
       this.cont = 1;
     }
-    this.detalleVenta.cantidad = this.cont;
+    this.detalleVentas.cantidad = this.cont;
     // tslint:disable-next-line:radix
-    this.detalleVenta.total = this.cont * parseInt(this.productuni[0].precio);
+    this.detalleVentas.total = this.cont * parseInt(this.productuni[0].precio);
   }
   onCreate() {
     /*const dialogConfig = new MatDialogConfig();
@@ -155,11 +134,12 @@ export class ClientprodComponent implements OnInit {
     this.dialog.open(CanastaComponent, dialogConfig);*/
     this.router.navigate(['/canasta']);
   }
-  onSubmit() {
-    console.log(this.detalleVenta);
-    this.detaventaService.onSaveDetaVenta(this.detalleVenta).subscribe(
+  onsaveDetalleVenta() {
+    this.detalleVentas.idfactura = localStorage.getItem('idfactura');
+    this.detaventaService.onSaveDetaVenta(this.detalleVentas).subscribe(
       res => {
         console.log(res);
+        console.log('entraste a detalle venta');
       },
       err => {
         if (err instanceof HttpErrorResponse) {
@@ -169,6 +149,66 @@ export class ClientprodComponent implements OnInit {
         }
       }
     );
+  }
+  onsaveFactura() {
+    this.consultasService.onGetNumFact().subscribe(
+      res => {
+        console.log(res);
+        this.numFactura = res.map(t => t);
+        if (localStorage.getItem('id') != null) {
+          console.log('Usuario', localStorage.getItem('id'));
+          if (this.numFactura[0].numfactura != null) {
+            this.factura.idpersona = localStorage.getItem('id');
+            this.factura.numfactura = this.numFactura[0].numfactura;
+            this.facturaService.onSaveFactura(this.factura).subscribe(
+              dates => {
+                console.log(dates);
+                localStorage.setItem('idfactura', dates['idfactura']);
+              },
+              err => {
+                console.log(err);
+              }
+            );
+          } else {
+            this.factura.idpersona = localStorage.getItem('id');
+            this.factura.numfactura = 1;
+            this.facturaService.onSaveFactura(this.factura).subscribe(
+              dates => {
+                console.log(dates);
+                localStorage.setItem('idfactura', dates['idfactura']);
+              },
+              err => {
+                console.log(err);
+              }
+            );
+          }
+        } else {
+          localStorage.removeItem('id');
+          console.log('No existe usuario');
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  onSubmit() {
+    console.log('vas a enviar');
+    console.log(localStorage.getItem('idfactura'));
+    if (localStorage.getItem('idfactura') != null) {
+      /*************************************** */
+      /** cuando existe la id de la factura */
+      /*************************************** */
+      console.log('existe la id');
+      this.onsaveDetalleVenta();
+    } else {
+      /*************************************** */
+      /** cuando NO existe la id de la factura */
+      /*************************************** */
+      console.log('NO existe la id');
+      this.onsaveFactura();
+    }
   }
 
 }

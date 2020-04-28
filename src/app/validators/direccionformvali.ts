@@ -12,6 +12,7 @@ export class Direccionformvali {
     onValidatorDireccion() {
         this.formDireccion = this.formBuilder.group({
             iddireccion: [null],
+            domisoci: ['', Validators.required],
             provincia: ['', Validators.required],
             canton: ['', Validators.required],
             parroquia: ['', Validators.required],
@@ -26,6 +27,7 @@ export class Direccionformvali {
     oninitializeFomrGroup() {
         this.formDireccion.setValue({
             iddireccion: null,
+            domisoci: '',
             provincia: '',
             canton: '',
             parroquia: '',

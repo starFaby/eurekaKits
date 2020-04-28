@@ -4,12 +4,12 @@
             <div class="controleContainer">
                 <mat-form-field [hidden]="true">
                     <!--[hidden]="true"-->
-                    <input type="text" formControlName="idProducto" matInput placeholder="idProducto">
+                    <input type="text" formControlName="idproducto" matInput placeholder="idproducto">
                     <mat-error>El campo $key es obligatorio</mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Categoria</mat-label>
-                    <mat-select formControlName="idCategoria" matInput>
+                    <mat-select formControlName="idcategoria" matInput>
                         <mat-option *ngFor="let item of arrayCategoria" [value]="item.idcategoria">
                             {{ item.nombre }}
                         </mat-option>

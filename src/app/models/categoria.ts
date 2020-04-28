@@ -1,5 +1,5 @@
 export interface Categoria {
-    idCategoria?: any;
+    idcategoria?: any;
     nombre: string;
     image: File;
     estado: string;

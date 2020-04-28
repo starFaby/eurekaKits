@@ -13,37 +13,41 @@ export class DireccionService {
   constructor(private http: HttpClient) { }
   onGetDireccions() { //  Observable<any>
     return this.http.get<Direccion[]>(`${this.API_URI}/direccion`);
-   }
-   onGetDireccion(id: string) {
+  }
+  onGetDireccion(id: string) {
     return this.http.get<Direccion[]>(`${this.API_URI}/direccion/${id}`);
-   }
-   onDeleteDireccion(id: string): Observable<any> {
+  }
+  onDeleteDireccion(id: string): Observable<any> {
     return this.http.delete(`${this.API_URI}/direccion/${id}`);
-   }
-   onSaveDireccion(direccion: Direccion) {
-     const fd = new FormData();
-     fd.append('provincia', direccion.provincia);
-     fd.append('canton', direccion.canton);
-     fd.append('parroquia', direccion.parroquia);
-     fd.append('sector', direccion.sector);
-     fd.append('calleprincipal', direccion.calleprincipal);
-     fd.append('numeracion', direccion.numeracion);
-     fd.append('callesecundaria', direccion.callesecundaria);
-     fd.append('descripcion', direccion.descripcion);
-     fd.append('estado', direccion.estado);
-     return this.http.post(`${this.API_URI}/direccion`, fd);
-   }
-   onUpdateDireccion(id: string, direccion: Direccion): Observable<any> {
-     const fd = new FormData();
-     fd.append('provincia', direccion.provincia);
-     fd.append('canton', direccion.canton);
-     fd.append('parroquia', direccion.parroquia);
-     fd.append('sector', direccion.sector);
-     fd.append('calleprincipal', direccion.calleprincipal);
-     fd.append('numeracion', direccion.numeracion);
-     fd.append('callesecundaria', direccion.callesecundaria);
-     fd.append('descripcion', direccion.descripcion);
-     fd.append('estado', direccion.estado);
-     return this.http.put(`${this.API_URI}/direccion/${id}`, fd);
-   }
+  }
+  onSaveDireccion(direccion: Direccion) {
+    const newDireccion: Direccion = {
+      domisoci: direccion.domisoci,
+      provincia: direccion.provincia,
+      canton: direccion.canton,
+      parroquia: direccion.parroquia,
+      sector: direccion.sector,
+      calleprincipal: direccion.calleprincipal,
+      numeracion: direccion.numeracion,
+      callesecundaria: direccion.callesecundaria,
+      descripcion: direccion.descripcion,
+      estado: direccion.estado,
+    };
+    return this.http.post(`${this.API_URI}/direccion`, newDireccion);
+  }
+  onUpdateDireccion(id: string, direccion: Direccion): Observable<any> {
+    const newDireccion: Direccion = {
+      domisoci: direccion.domisoci,
+      provincia: direccion.provincia,
+      canton: direccion.canton,
+      parroquia: direccion.parroquia,
+      sector: direccion.sector,
+      calleprincipal: direccion.calleprincipal,
+      numeracion: direccion.numeracion,
+      callesecundaria: direccion.callesecundaria,
+      descripcion: direccion.descripcion,
+      estado: direccion.estado,
+    };
+    return this.http.put(`${this.API_URI}/direccion/${id}`, newDireccion);
+  }
 }

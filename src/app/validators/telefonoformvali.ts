@@ -12,6 +12,7 @@ export class Telefonoformvali {
     onValidatorProducto() {
         this.formTelefono = this.formBuilder.group({
             idtelefono: [null],
+            domisoci: ['', Validators.required],
             convencional: ['', Validators.required],
             celular1: ['', Validators.required],
             celular2: ['', Validators.required],
@@ -21,6 +22,7 @@ export class Telefonoformvali {
     oninitializeFomrGroup() {
         this.formTelefono.setValue({
             idtelefono: null,
+            domisoci: '',
             convencional: '',
             celular1: '',
             celular2: '',

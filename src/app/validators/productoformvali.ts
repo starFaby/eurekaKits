@@ -11,8 +11,8 @@ export class Productoformvali {
     }
     onValidatorProducto(){
         this.formProducto = this.formBuilder.group({
-            idProducto: [null],
-            idCategoria: ['', Validators.required],
+            idproducto: [null],
+            idcategoria: ['', Validators.required],
             nombre: ['', Validators.required],
             image: ['', Validators.required],
             precio: [0, Validators.required],
@@ -22,8 +22,8 @@ export class Productoformvali {
     }
     oninitializeFomrGroup() {
         this.formProducto.setValue({
-            idProducto: null,
-            idCategoria: '',
+            idproducto: null,
+            idcategoria: '',
             nombre: '',
             image: '',
             precio: 0,

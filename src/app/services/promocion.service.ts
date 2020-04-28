@@ -23,7 +23,7 @@ export class PromocionService {
   onSavePromocion(promocion: Promocion) {
     const newPromocion: Promocion = {
       idproducto: promocion.idproducto,
-      descuento: promocion.descuento,
+      dto: promocion.dto,
       fechainicio: new Date(promocion.fechainicio),
       fechafin: new Date(promocion.fechafin),
       descripcion: promocion.descripcion,
@@ -34,7 +34,7 @@ export class PromocionService {
   onUpdatePromocion(id: string, promocion: Promocion): Observable<any> {
     const newPromocion: Promocion = {
       idproducto: promocion.idproducto,
-      descuento: promocion.descuento,
+      dto: promocion.dto,
       fechainicio: new Date(promocion.fechainicio),
       fechafin: new Date(promocion.fechafin),
       descripcion: promocion.descripcion,

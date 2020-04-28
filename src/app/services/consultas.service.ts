@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Consultas } from '../models/consultas';
 import { Promocionpp } from '../models/promocionpp';
-import { DetalleVenta } from '../models/detalleventa';
+import { DetalleVentas } from '../models/detalleventa';
 import { Numfactura } from '../models/numfactura';
 import { Promocionppi } from '../models/promocionppi';
 import { Productouni } from '../models/productouni';
@@ -31,7 +31,7 @@ export class ConsultasService {
     return this.http.get<Promouni[]>(`${this.API_URI}/consultas/promouni/${id}`);
    }
    onGetDetaVentadvp() {
-    return this.http.get<DetalleVenta[]>(`${this.API_URI}/consultas/devedvp`);
+    return this.http.get<DetalleVentas[]>(`${this.API_URI}/consultas/devedvp`);
    }
    onGetNumFact() {
     return this.http.get<Numfactura[]>(`${this.API_URI}/consultas/numfact`);

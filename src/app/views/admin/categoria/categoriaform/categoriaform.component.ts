@@ -35,7 +35,7 @@ export class CategoriaformComponent implements OnInit {
   }
   onSubmit() {
     if (this.categoriaformvali.formCategoria.valid) {
-      if (this.categoriaformvali.formCategoria.get('idCategoria').value == null) {
+      if (this.categoriaformvali.formCategoria.get('idcategoria').value == null) {
         const newCategoria: Categoria = {
           nombre: this.categoriaformvali.formCategoria.get('nombre').value,
           image: this.file,
@@ -49,7 +49,7 @@ export class CategoriaformComponent implements OnInit {
         );
         this.onCloseCategoriaForm();
       } else {
-        const idCategoria = this.categoriaformvali.formCategoria.get('idCategoria').value;
+        const idCategoria = this.categoriaformvali.formCategoria.get('idcategoria').value;
         console.log(idCategoria);
         const newCategoria: Categoria = {
           nombre: this.categoriaformvali.formCategoria.get('nombre').value,

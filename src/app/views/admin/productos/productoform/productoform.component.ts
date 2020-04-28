@@ -53,7 +53,7 @@ export class ProductoformComponent implements OnInit {
   onSubmit() {
     console.log(this.productoformvali.formProducto.value);
     if (this.productoformvali.formProducto.valid) {
-      if (this.productoformvali.formProducto.get('idProducto').value == null) {
+      if (this.productoformvali.formProducto.get('idproducto').value == null) {
         const newProducto: Producto = {
           idcategoria: this.productoformvali.formProducto.get('idcategoria').value,
           nombre: this.productoformvali.formProducto.get('nombre').value,
@@ -62,6 +62,7 @@ export class ProductoformComponent implements OnInit {
           stock: this.productoformvali.formProducto.get('stock').value,
           estado: this.productoformvali.formProducto.get('estado').value
         };
+        console.log(newProducto);
         this.productoService.onSaveProductos(newProducto).subscribe(
           res => {
             console.log(res);
@@ -72,10 +73,10 @@ export class ProductoformComponent implements OnInit {
         this.productoformvali.oninitializeFomrGroup();
         this.onClose();
       } else {
-        const idProducto = this.productoformvali.formProducto.get('idProducto').value;
+        const idProducto = this.productoformvali.formProducto.get('idproducto').value;
         console.log(idProducto);
         const newProducto: Producto = {
-          idcategoria: this.productoformvali.formProducto.get('idCategoria').value,
+          idcategoria: this.productoformvali.formProducto.get('idcategoria').value,
           nombre: this.productoformvali.formProducto.get('nombre').value,
           image: this.file,
           precio: this.productoformvali.formProducto.get('precio').value,

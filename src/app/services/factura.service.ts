@@ -18,10 +18,6 @@ export class FacturaService {
      const newFactura: Factura = {
       idpersona: factura.idpersona,
       numfactura: factura.numfactura,
-      subtotal: factura.subtotal,
-      dto: factura.dto,
-      iva: factura.iva,
-      total: factura.total,
       estado: factura.estado,
      };
      return this.http.post(`${this.API_URI}/factura`, newFactura);

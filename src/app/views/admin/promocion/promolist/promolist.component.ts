@@ -64,7 +64,7 @@ export class PromolistComponent implements OnInit {
     const newPromocion: Promocion = {
       idpromociones: row.idpromociones,
       idproducto: null,
-      descuento: row.descuento,
+      dto: row.dto,
       fechainicio: row.fechainicio,
       fechafin: row.fechafin,
       descripcion: row.descripcion,

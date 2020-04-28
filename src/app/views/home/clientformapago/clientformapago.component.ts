@@ -78,12 +78,12 @@ export class ClientformapagoComponent implements OnInit {
   onSubmit2() {
     if (this.formTransBanc.valid) {
       if (this.formTransBanc.get('idformapago').value == null) {
-        const newTransbanc: Transbanc = {
+      /*  const newTransbanc: Transbanc = {
           idfactura: this.formTransBanc.get('idfactura').value,
           image: this.file,
           estado: this.formTransBanc.get('estado').value,
         };
-        console.log(newTransbanc);
+        console.log(newTransbanc);*/
       }
     }
   }
