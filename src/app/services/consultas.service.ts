@@ -30,8 +30,8 @@ export class ConsultasService {
    onGetPromocionuni(id: string) {
     return this.http.get<Promouni[]>(`${this.API_URI}/consultas/promouni/${id}`);
    }
-   onGetDetaVentadvp() {
-    return this.http.get<DetalleVentas[]>(`${this.API_URI}/consultas/devedvp`);
+   onGetDetaVentadvp(id: string) { // para visualizar la canasta por su id
+    return this.http.get<DetalleVentas[]>(`${this.API_URI}/consultas/devedvp/${id}`);
    }
    onGetNumFact() {
     return this.http.get<Numfactura[]>(`${this.API_URI}/consultas/numfact`);

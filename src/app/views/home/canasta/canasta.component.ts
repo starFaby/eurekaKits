@@ -24,6 +24,7 @@ export class CanastaComponent implements OnInit {
   persona: Consultas[];
   fechaFact: any;
   id;
+  
   newFactura: Factura = {
     idpersona: '',
     numfactura: 0,
@@ -78,7 +79,8 @@ export class CanastaComponent implements OnInit {
     );
   }
   onGetDetaVentaAll() {
-    this.consultasService.onGetDetaVentadvp().subscribe(
+    const idFactura = localStorage.getItem('idfactura');
+    this.consultasService.onGetDetaVentadvp(idFactura).subscribe(
       res => {
         this.detalleVenta = res;
         this.newFactura.subtotal = this.detalleVenta.map(t => t.total).reduce((acc, value) => acc + value);
