@@ -24,7 +24,6 @@ import { FacturaService } from 'src/app/services/factura.service';
 export class ClientprodComponent implements OnInit {
   id: string;
   productuni: Productouni[];
-  idFactura: Idfactura[];
   numFactura: Numfactura[];
   cont = 1;
   dto = 1;
@@ -57,21 +56,6 @@ export class ClientprodComponent implements OnInit {
   API_URI_IMAGE = this.productoService.API_URI_IMAGE;
   ngOnInit() {
     this.onGetProductouni();
-  }
-  onGetIdFacturaConsult(res) {
-    // this.idFactura
-  }
-
-  onPrueba(res: Numfactura[]) {
-    res.map(t => {
-      if (t.numfactura == null) {
-        this.detalleVentas.idfactura = '1';
-        console.log('Estoy nulo', t.numfactura);
-      } else {
-        this.detalleVentas.idfactura = t.numfactura;
-        console.log('estoy lleno', t.numfactura);
-      }
-    });
   }
   onGetProductouni() {
     this.activatedRoute.params.subscribe(
@@ -155,14 +139,15 @@ export class ClientprodComponent implements OnInit {
       res => {
         console.log(res);
         this.numFactura = res.map(t => t);
-        if (localStorage.getItem('id') != null) {
-          console.log('Usuario', localStorage.getItem('id'));
+        if (localStorage.getItem('idpersona') != null) {
+          console.log('Usuario', localStorage.getItem('idpersona'));
           if (this.numFactura[0].numfactura != null) {
-            this.factura.idpersona = localStorage.getItem('id');
+            this.factura.idpersona = localStorage.getItem('idpersona');
             this.factura.numfactura = this.numFactura[0].numfactura;
             this.facturaService.onSaveFactura(this.factura).subscribe(
               dates => {
                 console.log(dates);
+                // tslint:disable-next-line:no-string-literal
                 localStorage.setItem('idfactura', dates['idfactura']);
               },
               err => {
@@ -170,11 +155,12 @@ export class ClientprodComponent implements OnInit {
               }
             );
           } else {
-            this.factura.idpersona = localStorage.getItem('id');
+            this.factura.idpersona = localStorage.getItem('idpersona');
             this.factura.numfactura = 1;
             this.facturaService.onSaveFactura(this.factura).subscribe(
               dates => {
                 console.log(dates);
+                // tslint:disable-next-line:no-string-literal
                 localStorage.setItem('idfactura', dates['idfactura']);
               },
               err => {
@@ -183,7 +169,7 @@ export class ClientprodComponent implements OnInit {
             );
           }
         } else {
-          localStorage.removeItem('id');
+          localStorage.removeItem('idpersona');
           console.log('No existe usuario');
         }
       },

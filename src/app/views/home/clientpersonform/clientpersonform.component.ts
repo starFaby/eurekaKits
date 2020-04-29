@@ -13,6 +13,8 @@ import { map, startWith } from 'rxjs/operators';
 import { Persona } from 'src/app/models/persona';
 import { PersonaService } from 'src/app/services/persona.service';
 import { AuthService } from 'src/app/services/auth.service';
+import jwt from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clientpersonform',
@@ -31,7 +33,8 @@ export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestr
     private personaformvali: Personaformvali,
     private direccionService: DireccionService,
     private telefonoService: TelefonoService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.formPersona = this.personaformvali.formPersona;
   }
@@ -97,10 +100,11 @@ export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestr
         this.authService.onLoginUp(newPersona).subscribe(
           res => {
             console.log(res);
-            this.id = res['id'];
-            localStorage.setItem('id', this.id);
+            // tslint:disable-next-line:no-string-literal
             this.token = res['token'];
+            localStorage.setItem('idpersona', this.onGetIdPersona(this.token));
             localStorage.setItem('token', this.token);
+            this.router.navigate(['/clientCategoriaoList']);
             this.onGetClear();
           },
           err => {
@@ -112,6 +116,11 @@ export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestr
   }
   onGetClear() {
     this.personaformvali.oninitializeFomrGroup();
+  }
+  onGetIdPersona(idpersona: string) {
+    const aux = jwt(idpersona);
+    const newIdPersona = aux.subject;
+    return newIdPersona;
   }
 
 }

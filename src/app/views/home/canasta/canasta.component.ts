@@ -22,17 +22,13 @@ import { FacturaService } from 'src/app/services/factura.service';
 export class CanastaComponent implements OnInit {
   detalleVenta: DetalleVentas[];
   persona: Consultas[];
+  numFactura: Numfactura[];
   fechaFact: any;
-  id;
-  
   newFactura: Factura = {
-    idpersona: '',
-    numfactura: 0,
     subtotal: 0,
     dto: 0,
     iva: 0,
     total: 0,
-    estado: '1'
   };
 
   constructor(
@@ -54,21 +50,12 @@ export class CanastaComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   searchKey: string;
   ngOnInit() {
-    this.onGetId();
     this.onGetPersona();
     this.onGetDetaVentaAll();
-    this.onGetNumFactura();
-   // setInterval(() => { this.onGetNumFactura(); }, 1000);
-  }
-  onGetId() {
-    const token = this.authService.onGetToken();
-    const aux = jwt(token);
-    this.id = aux.subject;
-    console.log(this.id);
-    this.newFactura.idpersona = this.id;
   }
   onGetPersona() {
-    this.consultasService.onGetPersonapdt(this.id).subscribe(
+    const idpersona = localStorage.getItem('idpersona');
+    this.consultasService.onGetPersonapdt(idpersona).subscribe(
       res => {
         console.log(res);
         this.persona = res;
@@ -110,37 +97,16 @@ export class CanastaComponent implements OnInit {
         err => console.log(err)
       );*/
   }
-  onGetNumFactura() {
-    this.consultasService.onGetNumFact().subscribe(
-      res => {
-       // console.log(res);
-        this.onPrueba(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }
-  onPrueba(res: Numfactura[]) {
-    res.map(t => {
-      if (t.numfactura == null) {
-        this.newFactura.numfactura = '0000001';
-        // console.log('Estoy nulo', t.numfactura);
-      } else {
-        this.newFactura.numfactura = t.numfactura;
-       //  console.log('estoy lleno', t.numfactura);
-      }
-    });
-  }
   onSubmit() {
-    this.facturaService.onSaveFactura(this.newFactura).subscribe(
+    const id = localStorage.getItem('idfactura');
+    this.facturaService.onUpdateFactura(id , this.newFactura).subscribe(
       res => {
         console.log(res);
         localStorage.removeItem('idfactura');
         this.router.navigate(['/formaPago']);
       },
       err => {
-        console.log(err);
+        console.log('Error al  Actualizar', err);
       }
     );
   }

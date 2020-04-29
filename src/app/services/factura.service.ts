@@ -22,4 +22,14 @@ export class FacturaService {
      };
      return this.http.post(`${this.API_URI}/factura`, newFactura);
    }
+
+   onUpdateFactura(id: string, factura: Factura): Observable<any> {
+    const newFactura: Factura = {
+      subtotal: factura.subtotal,
+      dto: factura.dto,
+      iva: factura.iva,
+      total: factura.total
+    };
+    return this.http.put(`${this.API_URI}/factura/${id}`, newFactura);
+  }
 }
