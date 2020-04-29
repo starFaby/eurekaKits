@@ -38,7 +38,7 @@
                 </div>
                 <mat-form-field>
                     <mat-label>Select telefono</mat-label>
-                    <mat-select formControlName="idtelefono">
+                    <mat-select formControlName="idtelefono" (click)="onGetReiniciarDirecTele()">
                         <input type="text" class="form-control" placeholder="Search">
                         <mat-option *ngFor="let item of arregloTelefono" value="{{item.idtelefono}}">
                             {{item.convencional}}</mat-option>
@@ -52,7 +52,7 @@
                 </div>
                 <mat-form-field>
                     <mat-label>Select direccion</mat-label>
-                    <mat-select formControlName="iddireccion">
+                    <mat-select formControlName="iddireccion" (click)="onGetReiniciarDirecTele()">
                         <input type="text" class="form-control" placeholder="Search">
                         <mat-option *ngFor="let item of arregloDireccion" value="{{item.iddireccion}}">
                             {{item.calleprincipal}}</mat-option>

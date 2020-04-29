@@ -46,6 +46,12 @@ export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestr
   }
   ngOnDestroy() {
   }
+  onGetReiniciarDirecTele() {
+    console.log('entraste a telefono o direccion');
+    this.onGetTelefonoAll();
+    this.onGetDireccionesAll();
+  }
+
 
   onGetDireccionesAll() {
     this.direccionService.onGetDireccions().subscribe(

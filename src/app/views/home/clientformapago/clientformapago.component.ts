@@ -7,6 +7,9 @@ import { Formapago } from 'src/app/models/formapago';
 import { FacturaService } from 'src/app/services/factura.service';
 import { Factura } from 'src/app/models/factura';
 import { FormapagoService } from 'src/app/services/formapago.service';
+import { ConsultasService } from 'src/app/services/consultas.service';
+import { Personafactura } from 'src/app/models/personafactura';
+import { Tipopago } from 'src/app/models/tipopago';
 
 @Component({
   selector: 'app-clientformapago',
@@ -18,37 +21,44 @@ export class ClientformapagoComponent implements OnInit {
   formFormPago: FormGroup;
   formTransBanc: FormGroup;
   photoSelected: string | ArrayBuffer;
-  factura: Factura[];
-  faby = true;
+  personaFactura: Personafactura[]; // para ver la persona con su factura
+  tipoPago: Tipopago[];
   activeTab;
-  arrayFormaPago = [
-    { id: 1, nombre: 'Paypal' },
-    { id: 2, nombre: 'Transferencia Bancaria' },
-    { id: 3, nombre: 'Efectivo' }
-  ];
   constructor(
     private formapagoformvali: Formapagoformvali,
     private transbancformvali: Transbancformvali,
     private facturaService: FacturaService,
-    private formapagoService: FormapagoService
+    private formapagoService: FormapagoService,
+    private consultasService: ConsultasService
   ) {
     this.formFormPago = this.formapagoformvali.formFormPago;
     this.formTransBanc = this.transbancformvali.formTransBanc;
   }
 
   ngOnInit() {
-    this.onGetFacturaAll();
-    const valorIndice = this.formFormPago.get('nombre').value;
-    console.log(valorIndice);
+    this.onGetPersonaFactura();
+    this.onGetTipoPago();
+    // const valorIndice = this.formFormPago.get('nombre').value;
+    // console.log(valorIndice);
   }
   onValueChange(event) {
     this.activeTab = event.value - 1;
   }
-  onGetFacturaAll() {
-    this.facturaService.onGetFacturaAll().subscribe(
+  onGetPersonaFactura() { // cada persona con su factura
+    const idpersona = localStorage.getItem('idpersona');
+    this.consultasService.onGetpersonafactura(idpersona).subscribe(
       res => {
-        console.log(res);
-        this.factura = res.map(t => t);
+        this.personaFactura = res.map(t => t);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  onGetTipoPago() { // paypal transferencia bancaria efectivo
+    this.consultasService.onGettipopago().subscribe(
+      res => {
+        this.tipoPago = res.map(t => t);
       },
       err => {
         console.log(err);
@@ -60,12 +70,12 @@ export class ClientformapagoComponent implements OnInit {
       if (this.formFormPago.get('idformapago').value == null) {
         const newFormapago: Formapago = {
           idfactura: this.formFormPago.get('idfactura').value,
-          nombre: this.formFormPago.get('nombre').value,
+          idtipopago: this.formFormPago.get('idtipopago').value,
           estado: this.formFormPago.get('estado').value,
         };
         this.formapagoService.onSaveFormaPago(newFormapago).subscribe(
           res => {
-              console.log(res);
+            console.log(res);
           },
           err => {
             console.log(err);
@@ -78,12 +88,12 @@ export class ClientformapagoComponent implements OnInit {
   onSubmit2() {
     if (this.formTransBanc.valid) {
       if (this.formTransBanc.get('idformapago').value == null) {
-      /*  const newTransbanc: Transbanc = {
-          idfactura: this.formTransBanc.get('idfactura').value,
-          image: this.file,
-          estado: this.formTransBanc.get('estado').value,
-        };
-        console.log(newTransbanc);*/
+        /*  const newTransbanc: Transbanc = {
+            idfactura: this.formTransBanc.get('idfactura').value,
+            image: this.file,
+            estado: this.formTransBanc.get('estado').value,
+          };
+          console.log(newTransbanc);*/
       }
     }
   }

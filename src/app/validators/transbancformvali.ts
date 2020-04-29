@@ -6,7 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class Transbancformvali {
     formTransBanc: FormGroup;
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder) { 
         this.onValidatorTransBanc();
     }
     onValidatorTransBanc() {

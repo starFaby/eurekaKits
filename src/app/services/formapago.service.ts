@@ -15,7 +15,7 @@ export class FormapagoService {
    onSaveFormaPago(formapago: Formapago) {
      const newFormapago: Formapago = {
       idfactura: formapago.idfactura,
-      nombre: formapago.nombre,
+      idtipopago: formapago.idtipopago,
       estado: formapago.estado
      };
      return this.http.post(`${this.API_URI}/formapago`, newFormapago);

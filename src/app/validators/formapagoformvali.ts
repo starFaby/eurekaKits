@@ -13,7 +13,7 @@ export class Formapagoformvali {
         this.formFormPago = this.formBuilder.group({
             idformapago: [null],
             idfactura: ['', Validators.required],
-            nombre: ['', Validators.required],
+            idtipopago: ['', Validators.required],
             estado: ['', Validators.required]
         });
     }
@@ -21,7 +21,7 @@ export class Formapagoformvali {
         this.formFormPago.setValue({
             idformapago: null,
             idfactura: '',
-            nombre: '',
+            idtipopago: '',
             estado: ''
         });
     }

@@ -10,6 +10,8 @@ import { Promocionppi } from '../models/promocionppi';
 import { Productouni } from '../models/productouni';
 import { Idfactura } from '../models/idfactura';
 import { Promouni } from '../models/promouni';
+import { Personafactura } from '../models/personafactura';
+import { Tipopago } from '../models/tipopago';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +43,11 @@ export class ConsultasService {
    }
    onGetproductouni(id: string) {
     return this.http.get<Productouni[]>(`${this.API_URI}/consultas/productouni/${id}`);
+   }
+   onGetpersonafactura(id: string) {
+    return this.http.get<Personafactura[]>(`${this.API_URI}/consultas/personafactura/${id}`);
+   }
+   onGettipopago() {
+    return this.http.get<Tipopago[]>(`${this.API_URI}/consultas/tipopago`);
    }
 }

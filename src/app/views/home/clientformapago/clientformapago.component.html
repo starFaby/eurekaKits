@@ -20,14 +20,14 @@
                                 <mat-form-field>
                                     <mat-label>Select numero Factura</mat-label>
                                     <mat-select formControlName="idfactura">
-                                        <mat-option *ngFor="let item of factura" value="{{item.idfactura}}">
+                                        <mat-option *ngFor="let item of personaFactura" value="{{item.idfactura}}">
                                             {{item.numfactura}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>Select forma de pago</mat-label>
-                                    <mat-select formControlName="nombre"  (selectionChange)="onValueChange($event)">
-                                        <mat-option *ngFor="let item of arrayFormaPago" [value]="item.id">
+                                    <mat-select formControlName="idtipopago"  (selectionChange)="onValueChange($event)">
+                                        <mat-option *ngFor="let item of tipoPago" [value]="item.idtipopago">
                                             {{item.nombre}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -104,10 +104,6 @@
                                     <mat-select formControlName="idfactura">
                                         <mat-option></mat-option>
                                     </mat-select>
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <mat-label>Valor</mat-label>
-                                    <input matInput formControlName="valor">
                                 </mat-form-field>
                                 <div class="container-input-file">
                                     <div class="custom-file">
