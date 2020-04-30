@@ -31,6 +31,6 @@ export const AdminlayoutRoutingModule: Routes = [
     {path: 'login' , component: LoginComponent},
     {path: 'promo' , component: PromocionComponent},
     {path: 'promoList' , component: PromocionComponent},
-    {path: 'formaPago' , component: ClientformapagoComponent},
+    {path: 'formaPago' , component: ClientformapagoComponent, canActivate: [AuthGuard]},
     {path: 'clientPromo/:id' , component: ClientpromoComponent}
 ];

@@ -10,6 +10,7 @@ import { FormapagoService } from 'src/app/services/formapago.service';
 import { ConsultasService } from 'src/app/services/consultas.service';
 import { Personafactura } from 'src/app/models/personafactura';
 import { Tipopago } from 'src/app/models/tipopago';
+import { Paypaltransbefec } from 'src/app/models/paypaltransbefec';
 
 @Component({
   selector: 'app-clientformapago',
@@ -21,8 +22,11 @@ export class ClientformapagoComponent implements OnInit {
   formFormPago: FormGroup;
   formTransBanc: FormGroup;
   photoSelected: string | ArrayBuffer;
-  personaFactura: Personafactura[]; // para ver la persona con su factura
-  tipoPago: Tipopago[];
+  personaFactura: Personafactura[];      // para ver la persona con su factura
+  tipoPago: Tipopago[];                  // muestra los nombres de paypal trans banc y efectivo
+  Paypaltransbefec1: Paypaltransbefec[]; // mostar solo facturas paypal
+  Paypaltransbefec2: Paypaltransbefec[]; // mostar solo facturas tranferencia bancaria
+  Paypaltransbefec3: Paypaltransbefec[]; // mostar solo facturas efectivo
   activeTab;
   constructor(
     private formapagoformvali: Formapagoformvali,
@@ -38,11 +42,12 @@ export class ClientformapagoComponent implements OnInit {
   ngOnInit() {
     this.onGetPersonaFactura();
     this.onGetTipoPago();
-    // const valorIndice = this.formFormPago.get('nombre').value;
-    // console.log(valorIndice);
+    this.onGetPagoFactPaypal();
+    this.onGetPagoFactTransBanc();
+    this.onGetPagoFactEfectivo();
   }
   onValueChange(event) {
-    this.activeTab = event.value - 1;
+    this.activeTab = event.value - 1; // evento que ayuda para  visuliazar si es paypal trans banca y efectivo
   }
   onGetPersonaFactura() { // cada persona con su factura
     const idpersona = localStorage.getItem('idpersona');
@@ -59,6 +64,42 @@ export class ClientformapagoComponent implements OnInit {
     this.consultasService.onGettipopago().subscribe(
       res => {
         this.tipoPago = res.map(t => t);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  onGetPagoFactPaypal() { // recibe solo facturas para paypal por usuario
+    const idpersona = localStorage.getItem('idpersona');
+    this.consultasService.onGetPagoFactPaypal(idpersona).subscribe(
+      res => {
+        console.log(res);
+        this.Paypaltransbefec1 = res.map(t => t); // muestra facturas paypal
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  onGetPagoFactTransBanc() {
+    const idpersona = localStorage.getItem('idpersona');
+    this.consultasService.onGetPagoFactTransBanc(idpersona).subscribe(
+      res => {
+        console.log(res);
+        this.Paypaltransbefec2 = res.map(t => t); // muestra solo facturas transferencia bancaria
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  onGetPagoFactEfectivo() {
+    const idpersona = localStorage.getItem('idpersona');
+    this.consultasService.onGetPagoFactEfectivo(idpersona).subscribe(
+      res => {
+        console.log(res);
+        this.Paypaltransbefec3 = res.map(t => t); // muestra facturas solo efectivo
       },
       err => {
         console.log(err);

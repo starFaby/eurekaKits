@@ -27,6 +27,9 @@ export class ClientprodComponent implements OnInit {
   numFactura: Numfactura[];
   cont = 1;
   dto = 1;
+  viewBotonLogin;
+  viewBotonFactura;
+  viewBotonCarroCanasta;
   factura: Factura = {
     idpersona: '',
     numfactura: '',
@@ -56,10 +59,12 @@ export class ClientprodComponent implements OnInit {
   API_URI_IMAGE = this.productoService.API_URI_IMAGE;
   ngOnInit() {
     this.onGetProductouni();
+    this.onGetValiBottom();
   }
   onGetProductouni() {
     this.activatedRoute.params.subscribe(
       params => {
+        // tslint:disable-next-line:no-string-literal
         this.id = params['id'];
         this.consultasService.onGetproductouni(this.id).subscribe(
           res => {
@@ -110,37 +115,48 @@ export class ClientprodComponent implements OnInit {
     // tslint:disable-next-line:radix
     this.detalleVentas.total = this.cont * parseInt(this.productuni[0].precio);
   }
-  onCreate() {
-    /*const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
-    this.dialog.open(CanastaComponent, dialogConfig);*/
-    this.router.navigate(['/canasta']);
+  onGetViewCanasta() {
+    if (localStorage.getItem('idfactura') != null && localStorage.getItem('idpersona') != null) {
+      this.router.navigate(['/canasta']);
+    } else {
+      this.onGetLogin();
+    }
   }
-  onsaveDetalleVenta() {
-    this.detalleVentas.idfactura = localStorage.getItem('idfactura');
-    this.detaventaService.onSaveDetaVenta(this.detalleVentas).subscribe(
-      res => {
-        console.log(res);
-        console.log('entraste a detalle venta');
-      },
-      err => {
-        if (err instanceof HttpErrorResponse) {
-          if (err.status === 401) {
-            this.router.navigate(['/login']);
-          }
-        }
-      }
-    );
+  onGetValiBottom() {
+    if (localStorage.getItem('idpersona') != null) {
+      this.viewBotonLogin = false;
+      this.viewBotonFactura = true;
+      this.viewBotonCarroCanasta = false;
+    } else if (localStorage.getItem('idpersona') == null) {
+      this.viewBotonLogin = true;
+      this.viewBotonFactura = false;
+      this.viewBotonCarroCanasta = false;
+    }
+    if (localStorage.getItem('idfactura') != null) {
+      this.viewBotonLogin = false;
+      this.viewBotonFactura = false;
+      this.viewBotonCarroCanasta = true;
+    } else if (localStorage.getItem('idfactura') == null) {
+      this.viewBotonLogin = false;
+      this.viewBotonFactura = true;
+      this.viewBotonCarroCanasta = false;
+    }
+    if (localStorage.getItem('idpersona') != null && localStorage.getItem('idfactura') != null) {
+      this.viewBotonLogin = false;
+      this.viewBotonFactura = false;
+      this.viewBotonCarroCanasta = true;
+    } else if (localStorage.getItem('idpersona') == null && localStorage.getItem('idfactura') == null) {
+      this.viewBotonLogin = true;
+      this.viewBotonFactura = false;
+      this.viewBotonCarroCanasta = false;
+    }
   }
   onsaveFactura() {
-    this.consultasService.onGetNumFact().subscribe(
-      res => {
-        console.log(res);
-        this.numFactura = res.map(t => t);
-        if (localStorage.getItem('idpersona') != null) {
-          console.log('Usuario', localStorage.getItem('idpersona'));
+    if (localStorage.getItem('idpersona') != null) {
+      this.consultasService.onGetNumFact().subscribe(
+        res => {
+          console.log(res);
+          this.numFactura = res.map(t => t);
           if (this.numFactura[0].numfactura != null) {
             this.factura.idpersona = localStorage.getItem('idpersona');
             this.factura.numfactura = this.numFactura[0].numfactura;
@@ -149,6 +165,7 @@ export class ClientprodComponent implements OnInit {
                 console.log(dates);
                 // tslint:disable-next-line:no-string-literal
                 localStorage.setItem('idfactura', dates['idfactura']);
+                this.onGetValiBottom();
               },
               err => {
                 console.log(err);
@@ -162,39 +179,47 @@ export class ClientprodComponent implements OnInit {
                 console.log(dates);
                 // tslint:disable-next-line:no-string-literal
                 localStorage.setItem('idfactura', dates['idfactura']);
+                this.onGetValiBottom();
               },
               err => {
                 console.log(err);
               }
             );
           }
-        } else {
-          localStorage.removeItem('idpersona');
-          console.log('No existe usuario');
+        },
+        err => {
+          console.log(err);
         }
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }
-
-  onSubmit() {
-    console.log('vas a enviar');
-    console.log(localStorage.getItem('idfactura'));
-    if (localStorage.getItem('idfactura') != null) {
-      /*************************************** */
-      /** cuando existe la id de la factura */
-      /*************************************** */
-      console.log('existe la id');
-      this.onsaveDetalleVenta();
+      );
     } else {
-      /*************************************** */
-      /** cuando NO existe la id de la factura */
-      /*************************************** */
-      console.log('NO existe la id');
-      this.onsaveFactura();
+      this.onGetLogin();
     }
   }
 
+  onSubmit() {
+    if (localStorage.getItem('idpersona') != null) {
+      if (localStorage.getItem('idfactura') != null && localStorage.getItem('idpersona') != null) {
+        this.detalleVentas.idfactura = localStorage.getItem('idfactura');
+        this.detaventaService.onSaveDetaVenta(this.detalleVentas).subscribe(
+          res => {
+            console.log(res);
+          },
+          err => {
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 401) {
+                this.onGetLogin();
+              }
+            }
+          }
+        );
+      } else {
+        this.onGetLogin();
+      }
+    } else {
+      this.onGetLogin();
+    }
+  }
+  onGetLogin() {
+    this.router.navigate(['/login']);
+  }
 }

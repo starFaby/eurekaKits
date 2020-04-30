@@ -61,8 +61,8 @@
                                     <mat-card-content>
                                         <mat-form-field>
                                             <mat-label>Select numero Factura</mat-label>
-                                            <mat-select formControlName="idfactura">
-                                                <mat-option *ngFor="let item of personaFactura"
+                                            <mat-select>
+                                                <mat-option *ngFor="let item of Paypaltransbefec1"
                                                     value="{{item.idfactura}}">
                                                     {{item.numfactura}}</mat-option>
                                             </mat-select>
@@ -120,9 +120,11 @@
                                     <mat-error>El campo $key es obligatorio</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <mat-label>Select Numero de Factura</mat-label>
-                                    <mat-select formControlName="idfactura">
-                                        <mat-option></mat-option>
+                                    <mat-label>Select numero Factura</mat-label>
+                                    <mat-select>
+                                        <mat-option *ngFor="let item of Paypaltransbefec2"
+                                            value="{{item.idfactura}}">
+                                            {{item.numfactura}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                                 <div class="container-input-file">
@@ -159,7 +161,14 @@
                             <div class="col-md-5 mx-auto">
                                 <mat-card>
                                     <mat-card-content>
-                                        faby star
+                                        <mat-form-field>
+                                            <mat-label>Select numero Factura</mat-label>
+                                            <mat-select>
+                                                <mat-option *ngFor="let item of Paypaltransbefec3"
+                                                    value="{{item.idfactura}}">
+                                                    {{item.numfactura}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
                                     </mat-card-content>
                                 </mat-card>
                             </div>

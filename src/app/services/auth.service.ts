@@ -39,7 +39,7 @@ export class AuthService {
   }
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('id');
+    localStorage.removeItem('idpersona');
     // this.router.navigate(['/personForm']);
   }
   onGetToken() {
