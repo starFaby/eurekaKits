@@ -36,8 +36,8 @@ export class ClientprodComponent implements OnInit {
     estado: 1
   };
   detalleVentas: DetalleVentas = {
-    idproducto: '',
     idfactura: '',
+    idproducto: '',
     cantidad: 1,
     precio: '',
     total: 0,
@@ -48,7 +48,6 @@ export class ClientprodComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private productoService: ProductoService,
-    private dialog: MatDialog,
     private detaventaformvali: Detaventaformvali,
     private detaventaService: DetaventaService,
     private consultasService: ConsultasService,

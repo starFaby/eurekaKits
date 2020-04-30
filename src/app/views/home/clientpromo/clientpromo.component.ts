@@ -8,6 +8,8 @@ import { ConsultasService } from 'src/app/services/consultas.service';
 import { Numfactura } from 'src/app/models/numfactura';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Promouni } from 'src/app/models/promouni';
+import { Factura } from 'src/app/models/factura';
+import { FacturaService } from 'src/app/services/factura.service';
 
 @Component({
   selector: 'app-clientpromo',
@@ -18,10 +20,18 @@ export class ClientpromoComponent implements OnInit {
   id: string;
   promouni: Promouni[];
   idFactura: Idfactura[];
+  numFactura: Numfactura[];
   cont = 1;
   dto = 1;
-  numFactura;
-  detalleVenta: DetalleVentas = {
+  viewBotonLogin;
+  viewBotonFactura;
+  viewBotonCarroCanasta;
+  factura: Factura = {
+    idpersona: '',
+    numfactura: '',
+    estado: 1
+  };
+  detalleVentas: DetalleVentas = {
     idfactura: '',
     idproducto: '',
     cantidad: 1,
@@ -34,54 +44,14 @@ export class ClientpromoComponent implements OnInit {
     private router: Router,
   //  private productoService: ProductoService,
     private detaventaService: DetaventaService,
-    private consultasService: ConsultasService
+    private consultasService: ConsultasService,
+    private facturaService: FacturaService
   ) {
   }
   API_URI_IMAGE = this.consultasService.API_URI_IMAGE;
   ngOnInit() {
-    this.onGetIdFactura();
     this.onGetPromocionuni();
-  }
-  onGetIdFactura() {
-    this.consultasService.onGetIdFact().subscribe(
-      res => {
-        this.idFactura = res.map(t => t);
-        console.log(this.idFactura);
-        if (this.idFactura[0].idfactura == null) {
-          this.detalleVenta.idfactura = '1';
-          console.log('estoy vacio');
-        } else {
-          this.detalleVenta.idfactura = this.idFactura[0].idfactura;
-          console.log('estoy lleno');
-        }
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }
-
-  onGetNumFactura() {
-    this.consultasService.onGetNumFact().subscribe(
-      res => {
-        console.log(res);
-        this.onPrueba(res);
-      },
-      err => {
-        console.log(err);
-      }
-    );
-  }
-  onPrueba(res: Numfactura[]) {
-    res.map(t => {
-      if (t.numfactura == null) {
-        this.detalleVenta.idfactura = '1';
-        console.log('Estoy nulo', t.numfactura);
-      } else {
-        this.detalleVenta.idfactura = t.numfactura;
-        console.log('estoy lleno', t.numfactura);
-      }
-    });
+    this.onGetValiBottom();
   }
   onGetPromocionuni() {
     this.activatedRoute.params.subscribe(
@@ -91,10 +61,10 @@ export class ClientpromoComponent implements OnInit {
           res => {
             console.log(res);
             this.promouni = res.map(t => t);
-            this.detalleVenta.idproducto = this.promouni[0].idproducto;
-            this.detalleVenta.estado = this.promouni[0].estado;
-            this.detalleVenta.precio = this.promouni[0].precio;
-            this.detalleVenta.total = this.promouni[0].precio  - (this.promouni[0].precio * (this.promouni[0].dto / 100));
+            this.detalleVentas.idproducto = this.promouni[0].idproducto;
+            this.detalleVentas.estado = this.promouni[0].estado;
+            this.detalleVentas.precio = this.promouni[0].precio;
+            this.detalleVentas.total = this.promouni[0].precio  - (this.promouni[0].precio * (this.promouni[0].dto / 100));
             console.log(this.promouni);
           },
           err => {
@@ -115,6 +85,7 @@ export class ClientpromoComponent implements OnInit {
       }
     );
   }
+
   onCountA() {
     this.cont++;
     // tslint:disable-next-line:radix
@@ -122,9 +93,9 @@ export class ClientpromoComponent implements OnInit {
       // tslint:disable-next-line:radix
       this.cont = parseInt(this.promouni[0].stock);
     }
-    this.detalleVenta.cantidad = this.cont;
+    this.detalleVentas.cantidad = this.cont;
     // tslint:disable-next-line:max-line-length
-    this.detalleVenta.total = this.cont * parseInt(this.promouni[0].precio) - (this.promouni[0].precio * (this.promouni[0].dto / 100));
+    this.detalleVentas.total = this.cont * parseInt(this.promouni[0].precio) - (this.promouni[0].precio * (this.promouni[0].dto / 100));
 
   }
   onCountD() {
@@ -132,33 +103,122 @@ export class ClientpromoComponent implements OnInit {
     if (this.cont < 1) {
       this.cont = 1;
     }
-    this.detalleVenta.cantidad = this.cont;
+    this.detalleVentas.cantidad = this.cont;
     // tslint:disable-next-line:radix
     // tslint:disable-next-line:max-line-length
-    this.detalleVenta.total = this.cont * parseInt(this.promouni[0].precio) - (this.promouni[0].precio * (this.promouni[0].dto / 100));
+    this.detalleVentas.total = this.cont * parseInt(this.promouni[0].precio) - (this.promouni[0].precio * (this.promouni[0].dto / 100));
   }
+
+  onGetViewCanasta() {
+    if (localStorage.getItem('idfactura') != null && localStorage.getItem('idpersona') != null) {
+      this.router.navigate(['/canasta']);
+    } else {
+      this.onGetLogin();
+    }
+  }
+  onGetValiBottom() {
+    if (localStorage.getItem('idpersona') != null) {
+      this.viewBotonLogin = false;
+      this.viewBotonFactura = true;
+      this.viewBotonCarroCanasta = false;
+    } else if (localStorage.getItem('idpersona') == null) {
+      this.viewBotonLogin = true;
+      this.viewBotonFactura = false;
+      this.viewBotonCarroCanasta = false;
+    }
+    if (localStorage.getItem('idfactura') != null) {
+      this.viewBotonLogin = false;
+      this.viewBotonFactura = false;
+      this.viewBotonCarroCanasta = true;
+    } else if (localStorage.getItem('idfactura') == null) {
+      this.viewBotonLogin = false;
+      this.viewBotonFactura = true;
+      this.viewBotonCarroCanasta = false;
+    }
+    if (localStorage.getItem('idpersona') != null && localStorage.getItem('idfactura') != null) {
+      this.viewBotonLogin = false;
+      this.viewBotonFactura = false;
+      this.viewBotonCarroCanasta = true;
+    } else if (localStorage.getItem('idpersona') == null && localStorage.getItem('idfactura') == null) {
+      this.viewBotonLogin = true;
+      this.viewBotonFactura = false;
+      this.viewBotonCarroCanasta = false;
+    }
+  }
+  onsaveFactura() {
+    if (localStorage.getItem('idpersona') != null) {
+      this.consultasService.onGetNumFact().subscribe(
+        res => {
+          console.log(res);
+          this.numFactura = res.map(t => t);
+          if (this.numFactura[0].numfactura != null) {
+            this.factura.idpersona = localStorage.getItem('idpersona');
+            this.factura.numfactura = this.numFactura[0].numfactura;
+            this.facturaService.onSaveFactura(this.factura).subscribe(
+              dates => {
+                console.log(dates);
+                // tslint:disable-next-line:no-string-literal
+                localStorage.setItem('idfactura', dates['idfactura']);
+                this.onGetValiBottom();
+              },
+              err => {
+                console.log(err);
+              }
+            );
+          } else {
+            this.factura.idpersona = localStorage.getItem('idpersona');
+            this.factura.numfactura = 1;
+            this.facturaService.onSaveFactura(this.factura).subscribe(
+              dates => {
+                console.log(dates);
+                // tslint:disable-next-line:no-string-literal
+                localStorage.setItem('idfactura', dates['idfactura']);
+                this.onGetValiBottom();
+              },
+              err => {
+                console.log(err);
+              }
+            );
+          }
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    } else {
+      this.onGetLogin();
+    }
+  }
+
   onCreate() {
-    /*const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
-    this.dialog.open(CanastaComponent, dialogConfig);*/
     this.router.navigate(['/canasta']);
   }
+
   onSubmit() {
-    console.log(this.detalleVenta);
-    this.detaventaService.onSaveDetaVenta(this.detalleVenta).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        if (err instanceof HttpErrorResponse) {
-          if (err.status === 401) {
-            this.router.navigate(['/login']);
+    if (localStorage.getItem('idpersona') != null) {
+      if (localStorage.getItem('idfactura') != null && localStorage.getItem('idpersona') != null) {
+        this.detalleVentas.idfactura = localStorage.getItem('idfactura');
+        this.detaventaService.onSaveDetaVenta(this.detalleVentas).subscribe(
+          res => {
+            console.log(res);
+          },
+          err => {
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 401) {
+                this.onGetLogin();
+              }
+            }
           }
-        }
+        );
+      } else {
+        this.onGetLogin();
       }
-    );
+    } else {
+      this.onGetLogin();
+    }
+  }
+  onGetLogin() {
+    this.router.navigate(['/login']);
   }
 
 }

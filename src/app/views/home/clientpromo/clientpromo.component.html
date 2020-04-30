@@ -43,7 +43,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             $<input class="inputOculto form-control sizeLetter" type="text"
-                                                [(ngModel)]="detalleVenta.precio" disabled>
+                                                [(ngModel)]="detalleVentas.precio" disabled>
                                         </div>
                                         <div class="col-md-2">
                                             %<input class="inputOculto form-control sizeLetter" type="text"
@@ -51,16 +51,22 @@
                                         </div>
                                         <div class="col-md-3">
                                             $<input class="inputOculto form-control sizeLetter" type="text"
-                                                [(ngModel)]="detalleVenta.total" disabled>
+                                                [(ngModel)]="detalleVentas.total" disabled>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="row">
-                                        <button mat-fab color="primary" type="submit" class="m-2" (click)="onSubmit()">
+                                        <button mat-fab color="warn" type="button" class="m-2" *ngIf="viewBotonLogin" (click)="onGetLogin()">
+                                            Login
+                                        </button>
+                                        <button mat-fab color="accent" type="button" class="m-2" *ngIf="viewBotonFactura" (click)="onsaveFactura()">
+                                            Factura 
+                                        </button>
+                                        <button mat-fab color="primary" type="submit" class="m-2" *ngIf="viewBotonCarroCanasta"  (click)="onSubmit()">
                                             <mat-icon>shopping_cart</mat-icon>
                                         </button>
-                                        <button mat-fab color="primary" type="button" class="m-2" (click)="onCreate()">
+                                        <button mat-fab color="primary" type="button" class="m-2" *ngIf="viewBotonCarroCanasta"  (click)="onGetViewCanasta()">
                                             <mat-icon>visibility</mat-icon>
                                         </button>
                                     </div>
