@@ -88,7 +88,7 @@ export class PromoformComponent implements OnInit {
       err => {
         console.log(err);
       }
-    )
+    );
   }
 
 }

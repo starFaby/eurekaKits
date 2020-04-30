@@ -12,7 +12,7 @@
                 <form [formGroup]="formFormPago" (ngSubmit)="onSubmit1()" enctype="multipart/form-data">
                     <mat-card>
                         <mat-card-content>
-                            <div class="controleContainer my-2">
+                            <div class="controleContainer m-4">
                                 <mat-form-field [hidden]="true">
                                     <input type="text" formControlName="idformapago" matInput placeholder="idformapago">
                                     <mat-error>El campo $key es obligatorio</mat-error>
@@ -26,7 +26,7 @@
                                 </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>Select forma de pago</mat-label>
-                                    <mat-select formControlName="idtipopago"  (selectionChange)="onValueChange($event)">
+                                    <mat-select formControlName="idtipopago" (selectionChange)="onValueChange($event)">
                                         <mat-option *ngFor="let item of tipoPago" [value]="item.idtipopago">
                                             {{item.nombre}}</mat-option>
                                     </mat-select>
@@ -53,6 +53,26 @@
         <mat-tab-group mat-align-tabs="center" [selectedIndex]="activeTab">
             <mat-tab label="Paypal">
                 <!--********************Paypal********************************-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-5 mx-auto m-4">
+                                <mat-card>
+                                    <mat-card-content>
+                                        <mat-form-field>
+                                            <mat-label>Select numero Factura</mat-label>
+                                            <mat-select formControlName="idfactura">
+                                                <mat-option *ngFor="let item of personaFactura"
+                                                    value="{{item.idfactura}}">
+                                                    {{item.numfactura}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <button>comprar</button>
             </mat-tab>
             <mat-tab label="Transferencia Bancaria">
@@ -100,7 +120,7 @@
                                     <mat-error>El campo $key es obligatorio</mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
-                                    <mat-label>Select Numero de  Factura</mat-label>
+                                    <mat-label>Select Numero de Factura</mat-label>
                                     <mat-select formControlName="idfactura">
                                         <mat-option></mat-option>
                                     </mat-select>

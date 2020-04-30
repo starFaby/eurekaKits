@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConsultasService } from 'src/app/services/consultas.service';
 import { Promocionppi } from 'src/app/models/promocionppi';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-start',
@@ -22,7 +23,12 @@ export class StartComponent implements OnInit {
         console.log(this.promociones);
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 404) {
+            console.log('No existe promociones');
+          }
+
+        }
       }
     );
   }
