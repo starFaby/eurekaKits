@@ -13,6 +13,7 @@ import { Promouni } from '../models/promouni';
 import { Personafactura } from '../models/personafactura';
 import { Tipopago } from '../models/tipopago';
 import { Paypaltransbefec } from '../models/paypaltransbefec';
+import { Pagofactindiv } from '../models/pagofactindiv';
 
 @Injectable({
   providedIn: 'root'
@@ -59,5 +60,8 @@ export class ConsultasService {
    }
    onGetPagoFactEfectivo(id: string) {// numero factura en efectivo para ser cancelada
     return this.http.get<Paypaltransbefec[]>(`${this.API_URI}/consultas/pfefectivo/${id}`);
+   }
+   onGetPagoFactIndiv(id: string) {// numero factura en efectivo para ser cancelada
+    return this.http.get<Pagofactindiv[]>(`${this.API_URI}/consultas/pfindiv/${id}`);
    }
 }

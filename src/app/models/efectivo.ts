@@ -1,9 +1,8 @@
-export interface Transbanc {
-    idtransferenciabancaria?: any;
+export interface Efectivo {
+    idefectivo?: any;
     idformapago: any;
     numfactura: any;
     preciofactura: any;
-    image: any;
     estado: any;
     created_at?: Date;
 }

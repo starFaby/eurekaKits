@@ -11,6 +11,9 @@ import { ConsultasService } from 'src/app/services/consultas.service';
 import { Personafactura } from 'src/app/models/personafactura';
 import { Tipopago } from 'src/app/models/tipopago';
 import { Paypaltransbefec } from 'src/app/models/paypaltransbefec';
+import { Pagofactindiv } from 'src/app/models/pagofactindiv';
+import { Paypal } from 'src/app/models/paypal';
+import { Efectivo } from 'src/app/models/efectivo';
 
 @Component({
   selector: 'app-clientformapago',
@@ -27,7 +30,27 @@ export class ClientformapagoComponent implements OnInit {
   Paypaltransbefec1: Paypaltransbefec[]; // mostar solo facturas paypal
   Paypaltransbefec2: Paypaltransbefec[]; // mostar solo facturas tranferencia bancaria
   Paypaltransbefec3: Paypaltransbefec[]; // mostar solo facturas efectivo
-  activeTab;
+  pagofactindiv: Pagofactindiv[];        // nos sirve para obtener el numero de  factura y mostrar
+  activeTab;                             // para mostrar las fromas de pago de forma autoamtica
+  paypal: Paypal = {                     // interfacce paypal
+    idformapago: '',
+    numfactura: '',
+    preciofactura: '',
+    estado: 1,
+  };
+  transbanc: Transbanc = {
+    idformapago: '',
+    numfactura: '',
+    preciofactura: '',
+    image: '',
+    estado: 1,
+  };
+  efectivo: Efectivo = {
+    idformapago: '',
+    numfactura: '',
+    preciofactura: '',
+    estado: 1,
+  };
   constructor(
     private formapagoformvali: Formapagoformvali,
     private transbancformvali: Transbancformvali,
@@ -60,7 +83,7 @@ export class ClientformapagoComponent implements OnInit {
       }
     );
   }
-  onGetTipoPago() { // paypal transferencia bancaria efectivo
+  onGetTipoPago() { // paypal transferencia bancaria efectivo los tres metodos
     this.consultasService.onGettipopago().subscribe(
       res => {
         this.tipoPago = res.map(t => t);
@@ -106,6 +129,52 @@ export class ClientformapagoComponent implements OnInit {
       }
     );
   }
+  onNumFactPaypal(event) { // para ver los datos de la siguiente factura comprada en paypal
+    console.log(event.value);
+    const numfactura = event.value;
+    this.consultasService.onGetPagoFactIndiv(numfactura).subscribe(
+      res => {
+        this.pagofactindiv = res.map(t => t);
+        this.paypal.idformapago = this.pagofactindiv[0].idformapago;
+        this.paypal.numfactura = this.pagofactindiv[0].numfactura;
+        this.paypal.preciofactura = this.pagofactindiv[0].total;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  onNumFactTrasBanc(event) { // para ver los datos de la siguiente factura comprada en transferencia bancaria
+    console.log(event.value);
+    const numfactura = event.value;
+    this.consultasService.onGetPagoFactIndiv(numfactura).subscribe(
+      res => {
+        this.pagofactindiv = res.map(t => t);
+        this.transbanc.idformapago = this.pagofactindiv[0].idformapago;
+        this.transbanc.numfactura = this.pagofactindiv[0].numfactura;
+        this.transbanc.preciofactura = this.pagofactindiv[0].total;
+        this.transbanc.image = this.file;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  onNumFactEfectivo(event) { // para ver los datos de la siguiente factura comprada en transferencia bancaria
+    console.log(event.value);
+    const numfactura = event.value;
+    this.consultasService.onGetPagoFactIndiv(numfactura).subscribe(
+      res => {
+        this.pagofactindiv = res.map(t => t);
+        this.efectivo.idformapago = this.pagofactindiv[0].idformapago;
+        this.efectivo.numfactura = this.pagofactindiv[0].numfactura;
+        this.efectivo.preciofactura = this.pagofactindiv[0].total;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
   onSubmit1() {
     if (this.formFormPago.valid) {
       if (this.formFormPago.get('idformapago').value == null) {
@@ -117,6 +186,9 @@ export class ClientformapagoComponent implements OnInit {
         this.formapagoService.onSaveFormaPago(newFormapago).subscribe(
           res => {
             console.log(res);
+            this.onGetPagoFactPaypal();
+            this.onGetPagoFactTransBanc();
+            this.onGetPagoFactEfectivo();
           },
           err => {
             console.log(err);
@@ -126,39 +198,15 @@ export class ClientformapagoComponent implements OnInit {
       }
     }
   }
-  onSubmit2() {
-    if (this.formTransBanc.valid) {
-      if (this.formTransBanc.get('idformapago').value == null) {
-        /*  const newTransbanc: Transbanc = {
-            idfactura: this.formTransBanc.get('idfactura').value,
-            image: this.file,
-            estado: this.formTransBanc.get('estado').value,
-          };
-          console.log(newTransbanc);*/
-      }
-    }
+  onSubmit2() { // para guardar en paypal
+    console.log(this.paypal);
   }
-  onSubmit3() {
-    /*  if (this.formTransBanc.valid) {
-        if (this.formTransBanc.get('idformapago').value == null) {
-          const newTransbanc: Transbanc = {
-            idfactura: this.formTransBanc.get('idfactura').value,
-            image: this.file,
-            estado: this.formTransBanc.get('estado').value,
-          };
-        }
-      }*/
+  onSubmit3() { // Para Guardar en transferencia Bancaria
+    this.transbanc.image = this.file;
+    console.log(this.transbanc);
   }
   onSubmit4() {
-    /*  if (this.formTransBanc.valid) {
-        if (this.formTransBanc.get('idformapago').value == null) {
-          const newTransbanc: Transbanc = {
-            idfactura: this.formTransBanc.get('idfactura').value,
-            image: this.file,
-            estado: this.formTransBanc.get('estado').value,
-          };
-        }
-      }*/
+    console.log(this.efectivo);
   }
   onGetClearFormaPAgo() {
     this.formapagoformvali.oninitializeFomrGroup();
