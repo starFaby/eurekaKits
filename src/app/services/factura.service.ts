@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Persona } from '../models/persona';
 import { Factura } from '../models/factura';
 @Injectable({
   providedIn: 'root'
@@ -31,5 +30,11 @@ export class FacturaService {
       total: factura.total
     };
     return this.http.put(`${this.API_URI}/factura/${id}`, newFactura);
+  }
+  onUpdateFacturaEstado(id: string, factura: Factura): Observable<any> {
+    const newFactura: Factura = {
+      estado: factura.estado
+    };
+    return this.http.put(`${this.API_URI}/factura/estado/${id}`, newFactura);
   }
 }

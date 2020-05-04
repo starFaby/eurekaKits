@@ -20,4 +20,10 @@ export class FormapagoService {
      };
      return this.http.post(`${this.API_URI}/formapago`, newFormapago);
    }
+   onUpdateFormaPagoEstado(id: string, formapago: Formapago): Observable<any> {
+    const newFormapago: Formapago = {
+      estado: formapago.estado
+    };
+    return this.http.put(`${this.API_URI}/formapago/${id}`, newFormapago);
+  }
 }

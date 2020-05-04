@@ -40,6 +40,7 @@
                                     <div class="col">
                                         <button mat-fab color="primary" type="submit"
                                             [disabled]="formFormPago.invalid">Submit</button>
+                                        <button type="button" (click)="onSubmitFacturaEstado()">VEr para actualizar</button>
                                     </div>
                                 </div>
                             </div>
@@ -202,7 +203,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <br>
-                                                <h4>{{efectivo.idformapago}}</h4>
+                                                <h4>{{efectivo.numfactura}}</h4>
                                                 <br>
                                                 <h4>{{efectivo.preciofactura}}</h4>
                                                 <br>
