@@ -191,6 +191,7 @@ export class ClientformapagoComponent implements OnInit {
     this.facturaService.onUpdateFacturaEstado(idFactura, this.newfacturaEstado).subscribe(
       res => {
         console.log(res);
+        this.onGetPersonaFactura();
       },
       err => {
         console.log(err);
@@ -211,6 +212,7 @@ export class ClientformapagoComponent implements OnInit {
           res => {
             console.log(res);
             this.onSubmitFacturaEstado(idFactura);
+            this.onGetPersonaFactura();
             this.onGetPagoFactPaypal();
             this.onGetPagoFactTransBanc();
             this.onGetPagoFactEfectivo();
@@ -254,10 +256,6 @@ export class ClientformapagoComponent implements OnInit {
       this.transbancService.onSaveTransBanc(this.transbanc).subscribe(
         res => {
           console.log(res);
-          console.log('id forma de pago');
-          console.log(this.transbanc.idformapago);
-          console.log('El estado es: ');
-          console.log(this.newFormapago);
           this.formapagoService.onUpdateFormaPagoEstado(this.transbanc.idformapago, this.newFormapago).subscribe(
             date => {
               console.log(date);
