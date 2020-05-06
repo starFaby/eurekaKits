@@ -17,6 +17,7 @@ import { Efectivo } from 'src/app/models/efectivo';
 import { PaypalService } from 'src/app/services/paypal.service';
 import { TransbancService } from 'src/app/services/transbanc.service';
 import { EfectService } from 'src/app/services/efect.service';
+import { PaypalbuyService } from 'src/app/services/paypalbuy.service';
 
 @Component({
   selector: 'app-clientformapago',
@@ -24,6 +25,7 @@ import { EfectService } from 'src/app/services/efect.service';
   styleUrls: ['./clientformapago.component.scss']
 })
 export class ClientformapagoComponent implements OnInit {
+  link;
   file: File;
   formFormPago: FormGroup;
   formTransBanc: FormGroup;
@@ -68,7 +70,8 @@ export class ClientformapagoComponent implements OnInit {
     private consultasService: ConsultasService,
     private paypalService: PaypalService,
     private transbancService: TransbancService,
-    private efectService: EfectService
+    private efectService: EfectService,
+    private paypalbuyService: PaypalbuyService
   ) {
     this.formFormPago = this.formapagoformvali.formFormPago;
     this.formTransBanc = this.transbancformvali.formTransBanc;
@@ -207,7 +210,7 @@ export class ClientformapagoComponent implements OnInit {
           estado: this.formFormPago.get('estado').value,
         };
         const idFactura = newFormapago.idfactura; // idFactura para poder cambiar el estado y ser
-                                                  // mostrado como cero cuando ya se haya comprado
+        // mostrado como cero cuando ya se haya comprado
         this.formapagoService.onSaveFormaPago(newFormapago).subscribe(
           res => {
             console.log(res);
@@ -234,6 +237,17 @@ export class ClientformapagoComponent implements OnInit {
           this.formapagoService.onUpdateFormaPagoEstado(this.paypal.idformapago, this.newFormapago).subscribe(
             date => {
               console.log(date);
+              this.paypalbuyService.onSavePaypalBuy(this.paypal).subscribe(
+                 date1 => {
+                  console.log(date1);
+                  // tslint:disable-next-line:no-string-literal
+                  const link = date1['newLInk'];
+                  window.open(link, 'paypal', 'width=200,height=100');
+                },
+                err => {
+                  console.log(err);
+                }
+              );
             },
             err => {
               console.log(err);
