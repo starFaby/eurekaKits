@@ -15,7 +15,7 @@ export class Categoriaformvali {
             idcategoria: [null],
             nombre: ['', Validators.required],
             image: ['', Validators.required],
-            estado: ['', Validators.required]
+            estado: ['', Validators.required],
         });
     }
     oninitializeFomrGroup() {
@@ -23,7 +23,7 @@ export class Categoriaformvali {
             idcategoria: null,
             nombre: '',
             image: '',
-            estado: ''
+            estado: '',
         });
     }
 }

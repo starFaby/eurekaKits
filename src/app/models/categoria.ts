@@ -1,7 +1,7 @@
 export interface Categoria {
     idcategoria?: any;
-    nombre: string;
+    nombre: any;
     image: File;
-    estado: string;
+    estado: any;
     created_at?: Date;
 }

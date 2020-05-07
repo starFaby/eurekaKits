@@ -5,6 +5,7 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoriaformvali } from 'src/app/validators/categoriaformvali';
 import { Categoria } from 'src/app/models/categoria';
 import { LoginComponent } from 'src/app/views/login/login.component';
+import { analyzeFile } from '@angular/compiler';
 
 @Component({
   selector: 'app-categorialist',
@@ -15,6 +16,7 @@ export class CategorialistComponent implements OnInit {
   arreglo;
   categoria: Categoria;
   file: File;
+  blobUrl;
   constructor(
     private dialog: MatDialog,
     private categoriaService: CategoriaService,
@@ -61,29 +63,14 @@ export class CategorialistComponent implements OnInit {
     dialogConfig.width = '60%';
     this.dialog.open(LoginComponent, dialogConfig);
   }
-  async onEdit(row) {
-    const fileR = 'http://localhost:3000' + row.image;
-    const response = await fetch(fileR);
-    const data = await response.blob();
-    const metadata = {
-      type: 'image/jpeg'
-    };
-    this.file = new File([data], row.nombre, metadata);
-    console.log('============>>>>');
-    console.log(this.file);
-    this.categoria = {
+  onEdit(row) {
+    const newCategoria: Categoria = {
       idcategoria: row.idcategoria,
       nombre: row.nombre,
-      image: this.file,
+      image: null,
       estado: row.estado
     };
-    console.log('soy la imagen que me muestra');
-    console.log(this.categoria.image);
-    console.log('soy el row ');
-    console.log(row);
-    console.log(' soy categoria');
-    console.log(this.categoria);
-    this.form.setValue(this.categoria);
+    this.form.setValue(newCategoria);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;

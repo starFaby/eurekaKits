@@ -13,33 +13,31 @@ export class ProductoService {
   constructor(private http: HttpClient) { }
   onGetProductos() { //  Observable<any>
     return this.http.get<Producto[]>(`${this.API_URI}/producto`);
-   }
-   onGetProducto(id: string) {
+  }
+  onGetProducto(id: string) {
     return this.http.get<Producto>(`${this.API_URI}/producto/${id}`);
-   }
-   onDeleteProductos(id: string): Observable<any> {
+  }
+  onDeleteProductos(id: string): Observable<any> {
     return this.http.delete(`${this.API_URI}/producto/${id}`);
-   }
-   onSaveProductos(producto: Producto) {
-     const fd = new FormData();
-     fd.append('idcategoria', producto.idcategoria);
-     fd.append('nombre', producto.nombre);
-     fd.append('image', producto.image);
-     fd.append('precio', producto.precio);
-     fd.append('stock', producto.stock);
-     fd.append('estado', producto.estado);
-    // fd.append('created_at', producto.created_at);
-     return this.http.post(`${this.API_URI}/producto`, fd);
-   }
-   onUpdateProductos(id: string, producto: Producto): Observable<any> {
-     const fd = new FormData();
-     fd.append('idcategoria', producto.idcategoria);
-     fd.append('nombre', producto.nombre);
-     fd.append('image', producto.image);
-     fd.append('precio', producto.precio);
-     fd.append('stock', producto.stock);
-     fd.append('estado', producto.estado);
-    // fd.append('created_at', producto.created_at);
-     return this.http.put(`${this.API_URI}/producto/${id}`, fd);
-   }
+  }
+  onSaveProductos(producto: Producto) {
+    const fd = new FormData();
+    fd.append('idcategoria', producto.idcategoria);
+    fd.append('nombre', producto.nombre);
+    fd.append('image', producto.image);
+    fd.append('precio', producto.precio);
+    fd.append('stock', producto.stock);
+    fd.append('estado', producto.estado);
+    return this.http.post(`${this.API_URI}/producto`, fd);
+  }
+  onUpdateProductos(id: string, producto: Producto): Observable<any> {
+    const fd = new FormData();
+    fd.append('idcategoria', producto.idcategoria);
+    fd.append('nombre', producto.nombre);
+    fd.append('image', producto.image);
+    fd.append('precio', producto.precio);
+    fd.append('stock', producto.stock);
+    fd.append('estado', producto.estado);
+    return this.http.put(`${this.API_URI}/producto/${id}`, fd);
+  }
 }

@@ -23,14 +23,15 @@ export class DetaventaService {
     return this.http.delete(`${this.API_URI}/detaVenta/${id}`);
   }
   onSaveDetaVenta(detalleVenta: DetalleVentas) {
-    const fd = new FormData();
-    fd.append('idfactura', detalleVenta.idfactura);
-    fd.append('idproducto', detalleVenta.idproducto);
-    fd.append('cantidad', detalleVenta.cantidad);
-    fd.append('precio', detalleVenta.precio);
-    fd.append('total', detalleVenta.total);
-    fd.append('estado', detalleVenta.estado);
-    return this.http.post(`${this.API_URI}/detaVenta`, fd);
+    const newDetalleVenta: DetalleVentas = {
+      idproducto: detalleVenta.idproducto,
+      idfactura: detalleVenta.idfactura,
+      cantidad: detalleVenta.cantidad,
+      precio: detalleVenta.precio,
+      total: detalleVenta.total,
+      estado: detalleVenta.estado
+    };
+    return this.http.post(`${this.API_URI}/detaVenta`, newDetalleVenta);
   }
   onDetaVentaSuma(id: string) {
     return this.http.get<DetalleVentas>(`${this.API_URI}/detaVenta/${id}`);

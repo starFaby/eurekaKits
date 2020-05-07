@@ -12,11 +12,13 @@ import { Producto } from 'src/app/models/producto';
 })
 export class ProductolistComponent implements OnInit {
   arreglo;
-  producto: Producto;
+  productos: Producto[];
   file: File;
-  constructor(private dialog: MatDialog,
-              private productoService: ProductoService,
-              private productoformvali: Productoformvali) { }
+  constructor(
+    private dialog: MatDialog,
+    private productoService: ProductoService,
+    private productoformvali: Productoformvali
+  ) { }
   form = this.productoformvali.formProducto;
   listProductos: MatTableDataSource<any>;
   displayedColumns: string[] = ['categoria', 'nombre', 'image', 'precio', 'stock', 'estado', 'actions'];
@@ -30,9 +32,9 @@ export class ProductolistComponent implements OnInit {
   onGetProductosAll() {
     this.productoService.onGetProductos().subscribe(
       res => {
-        this.arreglo = res;
-        console.log(this.arreglo);
-        this.listProductos = new MatTableDataSource(this.arreglo);
+        this.productos = res;
+        console.log(this.productos);
+        this.listProductos = new MatTableDataSource(this.productos);
         this.listProductos.sort = this.sort;
         this.listProductos.paginator = this.paginator;
       },
@@ -54,25 +56,17 @@ export class ProductolistComponent implements OnInit {
     dialogConfig.width = '60%';
     this.dialog.open(ProductoformComponent, dialogConfig);
   }
-  async onEdit(row) {
-    const fileR = 'http://localhost:3000' + row.image;
-    const response = await fetch(fileR);
-    const data = await response.blob();
-    const metadata = {
-      type: 'image/jpeg'
-    };
-    this.file = new File([data], row.nombre, metadata);
-    this.producto = {
+  onEdit(row) {
+    const newproducto: Producto = {
       idproducto: row.idproducto,
       idcategoria: row.idcategoria,
       nombre: row.nombre,
-      image: this.file,
+      image: null,
       precio: row.precio,
       stock: row.stock,
       estado: row.estado
     };
-    console.log(this.producto);
-    this.form.setValue(this.producto);
+    this.form.setValue(newproducto);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;

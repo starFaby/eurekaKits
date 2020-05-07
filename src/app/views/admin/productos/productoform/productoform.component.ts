@@ -52,15 +52,15 @@ export class ProductoformComponent implements OnInit {
   }
   onSubmit() {
     console.log(this.productoformvali.formProducto.value);
-    if (this.productoformvali.formProducto.valid) {
-      if (this.productoformvali.formProducto.get('idproducto').value == null) {
+    if (this.formProducto.valid) {
+      if (this.formProducto.get('idproducto').value == null) {
         const newProducto: Producto = {
-          idcategoria: this.productoformvali.formProducto.get('idcategoria').value,
-          nombre: this.productoformvali.formProducto.get('nombre').value,
+          idcategoria: this.formProducto.get('idcategoria').value,
+          nombre: this.formProducto.get('nombre').value,
           image: this.file,
-          precio: this.productoformvali.formProducto.get('precio').value,
-          stock: this.productoformvali.formProducto.get('stock').value,
-          estado: this.productoformvali.formProducto.get('estado').value
+          precio: this.formProducto.get('precio').value,
+          stock: this.formProducto.get('stock').value,
+          estado: this.formProducto.get('estado').value
         };
         console.log(newProducto);
         this.productoService.onSaveProductos(newProducto).subscribe(
@@ -73,20 +73,20 @@ export class ProductoformComponent implements OnInit {
         this.productoformvali.oninitializeFomrGroup();
         this.onClose();
       } else {
-        const idProducto = this.productoformvali.formProducto.get('idproducto').value;
+        const idProducto = this.formProducto.get('idproducto').value;
         console.log(idProducto);
         const newProducto: Producto = {
-          idcategoria: this.productoformvali.formProducto.get('idcategoria').value,
-          nombre: this.productoformvali.formProducto.get('nombre').value,
+          idcategoria: this.formProducto.get('idcategoria').value,
+          nombre: this.formProducto.get('nombre').value,
           image: this.file,
-          precio: this.productoformvali.formProducto.get('precio').value,
-          stock: this.productoformvali.formProducto.get('stock').value,
-          estado: this.productoformvali.formProducto.get('estado').value
+          precio: this.formProducto.get('precio').value,
+          stock: this.formProducto.get('stock').value,
+          estado: this.formProducto.get('estado').value
         };
         console.log(newProducto);
         this.productoService.onUpdateProductos(idProducto, newProducto).subscribe(
           res => {
-            this.productoformvali.formProducto.reset();
+            this.formProducto.reset();
             this.productoformvali.oninitializeFomrGroup();
             this.onClose();
           },
@@ -98,7 +98,7 @@ export class ProductoformComponent implements OnInit {
     }
   }
   onClose() {
-    this.productoformvali.formProducto.reset();
+    this.formProducto.reset();
     this.productoformvali.oninitializeFomrGroup();
     this.matDialogRef.close();
   }

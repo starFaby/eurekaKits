@@ -34,13 +34,14 @@ export class CategoriaformComponent implements OnInit {
     }
   }
   onSubmit() {
-    if (this.categoriaformvali.formCategoria.valid) {
-      if (this.categoriaformvali.formCategoria.get('idcategoria').value == null) {
+    if (this.formCategoria.valid) {
+      if (this.formCategoria.get('idcategoria').value == null) {
         const newCategoria: Categoria = {
-          nombre: this.categoriaformvali.formCategoria.get('nombre').value,
+          nombre: this.formCategoria.get('nombre').value,
           image: this.file,
-          estado: this.categoriaformvali.formCategoria.get('estado').value
+          estado: this.formCategoria.get('estado').value
         };
+        console.log(newCategoria);
         this.categoriaService.onSaveCategoria(newCategoria).subscribe(
           res => {
             console.log(res);
@@ -49,12 +50,12 @@ export class CategoriaformComponent implements OnInit {
         );
         this.onCloseCategoriaForm();
       } else {
-        const idCategoria = this.categoriaformvali.formCategoria.get('idcategoria').value;
+        const idCategoria = this.formCategoria.get('idcategoria').value;
         console.log(idCategoria);
         const newCategoria: Categoria = {
-          nombre: this.categoriaformvali.formCategoria.get('nombre').value,
+          nombre: this.formCategoria.get('nombre').value,
           image: this.file,
-          estado: this.categoriaformvali.formCategoria.get('estado').value
+          estado: this.formCategoria.get('estado').value
         };
         console.log(newCategoria);
         this.categoriaService.onUpdateCategoria(idCategoria, newCategoria).subscribe(
@@ -65,14 +66,14 @@ export class CategoriaformComponent implements OnInit {
             console.log(err);
           }
         );
-        this.categoriaformvali.formCategoria.reset();
+        this.formCategoria.reset();
         this.categoriaformvali.oninitializeFomrGroup();
         this.onCloseCategoriaForm();
       }
     }
   }
   onCloseCategoriaForm() {
-    this.categoriaformvali.formCategoria.reset();
+    this.formCategoria.reset();
     this.categoriaformvali.oninitializeFomrGroup();
     this.matDialogRef.close();
   }

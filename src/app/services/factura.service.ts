@@ -21,7 +21,6 @@ export class FacturaService {
      };
      return this.http.post(`${this.API_URI}/factura`, newFactura);
    }
-
    onUpdateFactura(id: string, factura: Factura): Observable<any> {
     const newFactura: Factura = {
       subtotal: factura.subtotal,
