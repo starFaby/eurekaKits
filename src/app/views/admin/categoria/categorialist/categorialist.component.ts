@@ -13,8 +13,7 @@ import { analyzeFile } from '@angular/compiler';
   styleUrls: ['./categorialist.component.scss']
 })
 export class CategorialistComponent implements OnInit {
-  arreglo;
-  categoria: Categoria;
+  categoria: Categoria[];
   file: File;
   blobUrl;
   constructor(
@@ -33,8 +32,8 @@ export class CategorialistComponent implements OnInit {
   onGetCategoriasAll() {
     this.categoriaService.onGetCategorias().subscribe(
       res => {
-        this.arreglo = res;
-        this.listCategoria = new MatTableDataSource(this.arreglo);
+        this.categoria = res;
+        this.listCategoria = new MatTableDataSource(this.categoria);
         this.listCategoria.sort = this.sort;
         this.listCategoria.paginator = this.paginator;
       },

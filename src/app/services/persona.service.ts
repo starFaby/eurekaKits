@@ -30,6 +30,7 @@ export class PersonaService {
       fechanacimiento: persona.fechanacimiento,
       email: persona.email,
       password: persona.password,
+      requerimiento: persona.requerimiento,
       estado: persona.estado
     };
     return this.http.post(`${this.API_URI}/persona`, newPersona);
@@ -44,6 +45,7 @@ export class PersonaService {
       fechanacimiento: persona.fechanacimiento,
       email: persona.email,
       password: persona.password,
+      requerimiento: persona.requerimiento,
       estado: persona.estado
     };
     return this.http.put(`${this.API_URI}/persona/${id}`, newPersona);

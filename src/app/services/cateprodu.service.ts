@@ -12,6 +12,6 @@ export class CateproduService {
   API_URI = environment.URL_SERVICE;
   API_URI_IMAGE = environment.URL_SERVICE_IMAGE;
   onGetProducto(id: string) {
-    return this.http.get<Cateprod>(`${this.API_URI}/cateProdu/${id}`);
+    return this.http.get<Cateprod[]>(`${this.API_URI}/cateProdu/${id}`);
   }
 }

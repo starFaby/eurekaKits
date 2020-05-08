@@ -258,7 +258,8 @@
                 <mat-card>
                     <div class="row">
                         <div class="col-md-3 mx-auto">
-                            <button type="button" class="btn btn-primary btn-block"  (click)="onSubmit()" >Archivar Factura</button> <!--[routerLink]="['/formaPago']"-->
+                            <button type="button" class="btn btn-primary btn-block" *ngIf="authBottom"  (click)="onSubmit()" >Archivar Factura</button> <!--[routerLink]="['/formaPago']"-->
+                            <button type="button" class="btn btn-primary btn-block" *ngIf="!authBottom"  >No tiene Productos en la  Factura</button> <!--[routerLink]="['/formaPago']"-->
                         </div>
                     </div>
                 </mat-card>

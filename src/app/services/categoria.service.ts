@@ -12,7 +12,7 @@ export class CategoriaService {
   API_URI_IMAGE = environment.URL_SERVICE_IMAGE;
   constructor(private http: HttpClient) { }
   onGetCategorias() { //  Observable<any>
-   return this.http.get(`${this.API_URI}/categoria`);
+   return this.http.get<Categoria[]>(`${this.API_URI}/categoria`);
   }
   onGetCategoria(id: string) {
    return this.http.get(`${this.API_URI}/categoria/${id}`);

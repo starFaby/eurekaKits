@@ -12,13 +12,12 @@ export class TransbancService {
   API_URI_IMAGE = environment.URL_SERVICE_IMAGE;
   constructor(private http: HttpClient) { }
   onSaveTransBanc(transbanc: Transbanc) {
-    const newTransbanc: Transbanc = {
-      idformapago: transbanc.idformapago,
-      numfactura: transbanc.numfactura,
-      preciofactura: transbanc.preciofactura,
-      image: transbanc.image,
-      estado: transbanc.estado,
-    };
-    return this.http.post(`${this.API_URI}/transbanc`, newTransbanc);
+    const fd = new FormData();
+    fd.append('idformapago', transbanc.idformapago);
+    fd.append('numfactura', transbanc.numfactura);
+    fd.append('preciofactura', transbanc.preciofactura);
+    fd.append('image', transbanc.image);
+    fd.append('estado', transbanc.estado);
+    return this.http.post(`${this.API_URI}/transbanc`, fd);
   }
 }

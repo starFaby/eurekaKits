@@ -91,7 +91,11 @@ export class ClientformapagoComponent implements OnInit {
     const idpersona = localStorage.getItem('idpersona');
     this.consultasService.onGetpersonafactura(idpersona).subscribe(
       res => {
-        this.personaFactura = res.map(t => t);
+        if (res != null){
+          this.personaFactura = res.map(t => t); // muestra facturas por persona que haya comprado
+        } else {
+          console.log('No Tiene Facturas ):');
+        }
       },
       err => {
         console.log(err);
@@ -112,8 +116,11 @@ export class ClientformapagoComponent implements OnInit {
     const idpersona = localStorage.getItem('idpersona');
     this.consultasService.onGetPagoFactPaypal(idpersona).subscribe(
       res => {
-        console.log(res);
-        this.Paypaltransbefec1 = res.map(t => t); // muestra facturas paypal
+        if (res != null){
+          this.Paypaltransbefec1 = res.map(t => t); // muestra facturas paypal
+        } else {
+          console.log('No Tiene Facturas Paypal');
+        }
       },
       err => {
         console.log(err);
@@ -124,8 +131,11 @@ export class ClientformapagoComponent implements OnInit {
     const idpersona = localStorage.getItem('idpersona');
     this.consultasService.onGetPagoFactTransBanc(idpersona).subscribe(
       res => {
-        console.log(res);
-        this.Paypaltransbefec2 = res.map(t => t);
+        if (res != null){
+          this.Paypaltransbefec2 = res.map(t => t);
+        } else {
+          console.log('No Tiene Facturas de Transferencia Bancaria');
+        }
       },
       err => {
         console.log(err);
@@ -136,8 +146,11 @@ export class ClientformapagoComponent implements OnInit {
     const idpersona = localStorage.getItem('idpersona');
     this.consultasService.onGetPagoFactEfectivo(idpersona).subscribe(
       res => {
-        console.log(res);
-        this.Paypaltransbefec3 = res.map(t => t);
+        if (res != null){
+          this.Paypaltransbefec3 = res.map(t => t);
+        } else {
+          console.log('No Tiene Facturas Efectivo');
+        }
       },
       err => {
         console.log(err);

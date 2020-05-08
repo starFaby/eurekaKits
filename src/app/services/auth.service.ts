@@ -22,6 +22,7 @@ export class AuthService {
       fechanacimiento: persona.fechanacimiento,
       email: persona.email,
       password: persona.password,
+      requerimiento: persona.requerimiento,
       estado: persona.estado,
     };
     console.log(newPersona);

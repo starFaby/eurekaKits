@@ -39,7 +39,6 @@
                 <mat-form-field>
                     <mat-label>Select telefono</mat-label>
                     <mat-select formControlName="idtelefono" (click)="onGetReiniciarDirecTele()">
-                        <input type="text" class="form-control" placeholder="Search">
                         <mat-option *ngFor="let item of arregloTelefono" value="{{item.idtelefono}}">
                             {{item.convencional}}</mat-option>
                     </mat-select>
@@ -53,9 +52,8 @@
                 <mat-form-field>
                     <mat-label>Select direccion</mat-label>
                     <mat-select formControlName="iddireccion" (click)="onGetReiniciarDirecTele()">
-                        <input type="text" class="form-control" placeholder="Search">
                         <mat-option *ngFor="let item of arregloDireccion" value="{{item.iddireccion}}">
-                            {{item.calleprincipal}}</mat-option>
+                         {{item.parroquia}}/{{item.calleprincipal}}/{{item.numeracion}}/{{item.callesecundaria}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field>
@@ -69,6 +67,13 @@
                         [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Select Requerimiento</mat-label>
+                    <mat-select formControlName="requerimiento">
+                        <mat-option *ngFor="let item of arregloCategoria" value="{{item.nombre}}">
+                            {{item.nombre}}</mat-option>
+                    </mat-select>
                 </mat-form-field>
                 <label for="">Estado</label>
                 <mat-radio-group matInput formControlName="estado">

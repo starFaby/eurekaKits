@@ -19,6 +19,7 @@ export class Personaformvali {
             fechanacimiento: ['', Validators.required],
             email: ['', Validators.required],
             password: ['', Validators.required],
+            requerimiento: ['', Validators.required],
             estado: ['', Validators.required],
         });
     }
@@ -33,6 +34,7 @@ export class Personaformvali {
             fechanacimiento: '',
             email: '',
             password: '',
+            requerimiento: '',
             estado: '',
         });
     }

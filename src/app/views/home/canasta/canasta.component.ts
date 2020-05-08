@@ -24,6 +24,7 @@ export class CanastaComponent implements OnInit {
   persona: Consultas[];
   numFactura: Numfactura[];
   fechaFact: any;
+  authBottom: boolean;
   newFactura: Factura = {
     subtotal: 0,
     dto: 0,
@@ -69,15 +70,21 @@ export class CanastaComponent implements OnInit {
     const idFactura = localStorage.getItem('idfactura');
     this.consultasService.onGetDetaVentadvp(idFactura).subscribe(
       res => {
-        this.detalleVenta = res;
-        this.newFactura.subtotal = this.detalleVenta.map(t => t.total).reduce((acc, value) => acc + value);
-        const auxIva = (this.newFactura.subtotal * 0.12);
-        // tslint:disable-next-line:radix
-        this.newFactura.iva = parseFloat( auxIva.toFixed(2));
-        this.newFactura.total = this.newFactura.subtotal + this.newFactura.iva;
-        this.listCanasta = new MatTableDataSource(this.detalleVenta);
-        this.listCanasta.sort = this.sort;
-        this.listCanasta.paginator = this.paginator;
+        if (res != null) {
+          this.detalleVenta = res;
+          this.newFactura.subtotal = this.detalleVenta.map(t => t.total).reduce((acc, value) => acc + value);
+          const auxIva = (this.newFactura.subtotal * 0.12);
+          // tslint:disable-next-line:radix
+          this.newFactura.iva = parseFloat(auxIva.toFixed(2));
+          this.newFactura.total = (this.newFactura.subtotal + this.newFactura.iva).toFixed(2);
+          this.listCanasta = new MatTableDataSource(this.detalleVenta);
+          this.listCanasta.sort = this.sort;
+          this.listCanasta.paginator = this.paginator;
+          this.authBottom = true;
+        } else {
+          console.log('No Tiene Productos en la canasta');
+          this.authBottom = false;
+        }
       },
       err => {
         if (err instanceof HttpErrorResponse) {
@@ -99,7 +106,7 @@ export class CanastaComponent implements OnInit {
   }
   onSubmit() {
     const id = localStorage.getItem('idfactura');
-    this.facturaService.onUpdateFactura(id , this.newFactura).subscribe(
+    this.facturaService.onUpdateFactura(id, this.newFactura).subscribe(
       res => {
         console.log(res);
         localStorage.removeItem('idfactura');

@@ -15,6 +15,8 @@ import { PersonaService } from 'src/app/services/persona.service';
 import { AuthService } from 'src/app/services/auth.service';
 import jwt from 'jwt-decode';
 import { Router } from '@angular/router';
+import { CategoriaService } from 'src/app/services/categoria.service';
+import { Categoria } from 'src/app/models/categoria';
 
 @Component({
   selector: 'app-clientpersonform',
@@ -27,6 +29,7 @@ export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestr
   id;
   arregloTelefono: Telefono[];
   arregloDireccion: Direccion[];
+  arregloCategoria: Categoria[];
   formPersona: FormGroup;
   constructor(
     private dialog: MatDialog,
@@ -34,13 +37,15 @@ export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestr
     private direccionService: DireccionService,
     private telefonoService: TelefonoService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private categoriaService: CategoriaService
   ) {
     this.formPersona = this.personaformvali.formPersona;
   }
   ngOnInit() {
     this.onGetTelefonoAll();
     this.onGetDireccionesAll();
+    this.onGetCategorias();
   }
   ngAfterViewInit() {
   }
@@ -51,8 +56,6 @@ export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestr
     this.onGetTelefonoAll();
     this.onGetDireccionesAll();
   }
-
-
   onGetDireccionesAll() {
     this.direccionService.onGetDireccions().subscribe(
       res => {
@@ -72,6 +75,17 @@ export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestr
         console.log(err);
       }
     );
+  }
+  onGetCategorias() {
+    this.categoriaService.onGetCategorias().subscribe(
+      res => {
+        console.log(res);
+        this.arregloCategoria = res;
+      },
+      err => {
+        console.log(err);
+      }
+    )
   }
   onOpenFormTelef() {
     //  this.productoformvali.oninitializeFomrGroup();
@@ -101,6 +115,7 @@ export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestr
           fechanacimiento: this.formPersona.get('fechanacimiento').value,
           email: this.formPersona.get('email').value,
           password: this.formPersona.get('password').value,
+          requerimiento: this.formPersona.get('requerimiento').value,
           estado: this.formPersona.get('estado').value,
         };
         this.authService.onLoginUp(newPersona).subscribe(

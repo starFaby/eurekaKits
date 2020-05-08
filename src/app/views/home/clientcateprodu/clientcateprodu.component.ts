@@ -10,7 +10,7 @@ import { Cateprod } from 'src/app/models/cateprod';
 })
 export class ClientcateproduComponent implements OnInit {
   id: string;
-  cateProd: Cateprod;
+  cateProd: Cateprod[];
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private cateproduService: CateproduService) { }
   API_URI_IMAGE = this.cateproduService.API_URI_IMAGE;
   ngOnInit() {
@@ -19,15 +19,11 @@ export class ClientcateproduComponent implements OnInit {
   onGetCateProdu() {
     this.activatedRoute.params.subscribe(
       params => {
+        // tslint:disable-next-line:no-string-literal
         this.id = params['id'];
         this.cateproduService.onGetProducto(this.id).subscribe(
           res => {
-            if (Object.keys(res).length > 0) { // Object.keys(res) length
-              this.cateProd = res;
-              console.log(this.cateProd);
-            } else  {
-              console.log('no datos 1');
-            }
+            this.cateProd = res;
           },
           err => {
             console.log(err);
