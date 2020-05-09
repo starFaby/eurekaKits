@@ -14,6 +14,7 @@ import { Personafactura } from '../models/personafactura';
 import { Tipopago } from '../models/tipopago';
 import { Paypaltransbefec } from '../models/paypaltransbefec';
 import { Pagofactindiv } from '../models/pagofactindiv';
+import { Pagosptbe } from '../models/pagosptbe';
 
 @Injectable({
   providedIn: 'root'
@@ -63,5 +64,14 @@ export class ConsultasService {
    }
    onGetPagoFactIndiv(id: string) {// numero factura en efectivo para ser cancelada
     return this.http.get<Pagofactindiv[]>(`${this.API_URI}/consultas/pfindiv/${id}`);
+   }
+   onGetPagoPaypal(id: string) { // ver facturas pagadas echos en paypal
+    return this.http.get<Pagosptbe[]>(`${this.API_URI}/consultas/pagopaypal/${id}`);
+   }
+   onGetPagoTransBanc(id: string) { // ver facturas pagadas echos en Transferencia Bancaria
+    return this.http.get<Pagosptbe[]>(`${this.API_URI}/consultas/pagotransbanc/${id}`);
+   }
+   onGetPagoEfectivo(id: string) { // ver facturas pagadas echos en Efectivo
+    return this.http.get<Pagosptbe[]>(`${this.API_URI}/consultas/pagoefectivo/${id}`);
    }
 }

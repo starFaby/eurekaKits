@@ -15,6 +15,7 @@ import { AuthGuard } from 'src/app/guard/auth.guard';
 import { PromocionComponent } from 'src/app/views/admin/promocion/promocion.component';
 import { ClientformapagoComponent } from 'src/app/views/home/clientformapago/clientformapago.component';
 import { ClientpromoComponent } from 'src/app/views/home/clientpromo/clientpromo.component';
+import { ClientfacturasptbeComponent } from 'src/app/views/home/clientfacturasptbe/clientfacturasptbe.component';
 
 export const AdminlayoutRoutingModule: Routes = [
     {path: '' , component: StartComponent},
@@ -32,5 +33,6 @@ export const AdminlayoutRoutingModule: Routes = [
     {path: 'promo' , component: PromocionComponent},
     {path: 'promoList' , component: PromocionComponent},
     {path: 'formaPago' , component: ClientformapagoComponent, canActivate: [AuthGuard]},
-    {path: 'clientPromo/:id' , component: ClientpromoComponent}
+    {path: 'clientPromo/:id' , component: ClientpromoComponent},
+    {path: 'clientFacturasptbe' , component: ClientfacturasptbeComponent}
 ];

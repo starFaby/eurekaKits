@@ -1,0 +1,125 @@
+<div class="row my-2">
+    <div class="col-md-11 mx-auto">
+        <div class="col-sm-12 mx-auto">
+            <div class="col-xs-12 mx-auto">
+                <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+                    <mat-tab label="Paypal">
+                        <ng-template matTabContent>
+                            <div class="row" *ngIf="!Pagosptbe1; else mainContent">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-4 p-4 text-center mx-auto">
+                                            <mat-card class="cardImage">
+                                                <mat-card-header>
+                                                    <mat-card-title>Ups..!</mat-card-title>
+                                                </mat-card-header>
+                                                <mat-card-content>
+                                                    <h2>Lo siento. No Tiene Facturas paypal</h2>
+                                                </mat-card-content>
+                                            </mat-card>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ng-template #mainContent>
+                                <div class="row">
+                                    <div class="col-md-4 p-4" *ngFor="let item of Pagosptbe1">
+                                        <mat-card class="cardImage" (click)="onSelectedFactura(item.numfactura)">
+                                            <!-- (click)="onSelectedCategoria(item.arreglo)"-->
+                                            <div class="d-flex bd-highlight mb-3">
+                                                <div class="mr-auto p-2 bd-highlight"><span class="bold">Factura
+                                                        N°:</span> {{item.numfactura }}</div>
+                                                <div class="p-2 bd-highlight"><span class="bold">{{ paypal }}</span></div>
+                                            </div>
+                                            <mat-card-content>
+                                                <img mat-card-image src="../../../../assets/img/facturag.jpg"
+                                                    alt="Image">
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ng-template>
+                    </mat-tab>
+                    <mat-tab label="Transferencia Bancaria">
+                        <ng-template matTabContent>
+                            <div class="row" *ngIf="!Pagosptbe2; else mainContent">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-4 p-4 text-center mx-auto">
+                                            <mat-card class="cardImage">
+                                                <mat-card-header>
+                                                    <mat-card-title>Ups..!</mat-card-title>
+                                                </mat-card-header>
+                                                <mat-card-content>
+                                                    <h2>Lo siento. No Tiene Facturas de Trasferencia Bancaria</h2>
+                                                </mat-card-content>
+                                            </mat-card>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ng-template #mainContent>
+                                <div class="row">
+                                    <div class="col-md-4 p-4" *ngFor="let item of Pagosptbe2">
+                                        <mat-card class="cardImage" (click)="onSelectedFactura(item.numfactura)">
+                                            <!-- (click)="onSelectedCategoria(item.arreglo)"-->
+                                            <div class="d-flex bd-highlight mb-3">
+                                                <div class="mr-auto p-2 bd-highlight"><span class="bold">Factura
+                                                        N°:</span> {{item.numfactura }}</div>
+                                                <div class="p-2 bd-highlight"><span class="bold">{{ TransfBanc }}</span></div>
+                                            </div>
+                                            <mat-card-content>
+                                                <img mat-card-image src="../../../../assets/img/facturag.jpg"
+                                                    alt="Image">
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ng-template>
+
+                    </mat-tab>
+                    <mat-tab label="Efectivo">
+                        <ng-template matTabContent>
+                            <div class="row" *ngIf="!Pagosptbe3; else mainContent">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-4 p-4 text-center mx-auto">
+                                            <mat-card class="cardImage">
+                                                <mat-card-header>
+                                                    <mat-card-title>Ups..!</mat-card-title>
+                                                </mat-card-header>
+                                                <mat-card-content>
+                                                    <h2>Lo siento. No Tiene Facturas Efectivo</h2>
+                                                </mat-card-content>
+                                            </mat-card>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ng-template #mainContent>
+                                <div class="row">
+                                    <div class="col-md-4 p-4" *ngFor="let item of Pagosptbe3">
+                                        <mat-card class="cardImage" (click)="onSelectedFactura(item.numfactura)">
+                                            <!-- (click)="onSelectedCategoria(item.arreglo)"-->
+                                            <div class="d-flex bd-highlight mb-3">
+                                                <div class="mr-auto p-2 bd-highlight"><span class="bold">Factura
+                                                        N°:</span> {{item.numfactura }}</div>
+                                                <div class="p-2 bd-highlight"><span class="bold">{{ efectivo }}</span></div>
+                                            </div>
+                                            <mat-card-content>
+                                                <img mat-card-image src="../../../../assets/img/facturag.jpg"
+                                                    alt="Image">
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ng-template>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</div>

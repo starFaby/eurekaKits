@@ -26,6 +26,7 @@ import { PromoformComponent } from 'src/app/views/admin/promocion/promoform/prom
 import { PromolistComponent } from 'src/app/views/admin/promocion/promolist/promolist.component';
 import { ClientformapagoComponent } from 'src/app/views/home/clientformapago/clientformapago.component';
 import { ClientpromoComponent } from 'src/app/views/home/clientpromo/clientpromo.component';
+import { ClientfacturasptbeComponent } from 'src/app/views/home/clientfacturasptbe/clientfacturasptbe.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { ClientpromoComponent } from 'src/app/views/home/clientpromo/clientpromo
     PromoformComponent,
     PromolistComponent,
     ClientformapagoComponent,
-    ClientpromoComponent
+    ClientpromoComponent,
+    ClientfacturasptbeComponent
   ],
   imports: [
     CommonModule,

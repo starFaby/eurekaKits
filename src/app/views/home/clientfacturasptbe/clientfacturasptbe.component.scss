@@ -1,0 +1,25 @@
+
+.fontSize3 {
+    font-size: 3.5em;
+  }
+  .shopping{
+    font-size: 15em;
+    z-index: 1;
+  }
+  .cardImage{
+    cursor: pointer;
+  }
+  .cardImage:hover{
+    border: 1px solid #000;
+  }
+  .ribbon {
+    width: 0px;
+    height: 80px;
+    // border-left: 50px solid #d9534f;
+    border-right: 50px solid #6495ed;
+    border-bottom: 50px solid transparent;
+    color:#fff;
+  }
+  .bold{
+    font-weight: bold;
+  }

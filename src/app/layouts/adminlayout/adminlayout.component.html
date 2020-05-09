@@ -32,6 +32,12 @@
           <mat-icon>visibility</mat-icon>
         </button>
         <span class="spacer"></span>
+        <button mat-icon-button [routerLink]="['/clientFacturasptbe']">
+          Facturas
+        </button>
+        <button mat-icon-button [routerLink]="['/']">
+          <mat-icon matBadge="15" matBadgeColor="warn">notifications_active</mat-icon>
+        </button>
         <button mat-icon-button *ngIf="!authService.onLoggedIn()" [routerLink]="['/registForm']">
           <mat-icon class="example-icon" aria-hidden="false" aria-label="registrer icon">assignment</mat-icon>
         </button>
