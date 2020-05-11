@@ -16,6 +16,7 @@ import { PromocionComponent } from 'src/app/views/admin/promocion/promocion.comp
 import { ClientformapagoComponent } from 'src/app/views/home/clientformapago/clientformapago.component';
 import { ClientpromoComponent } from 'src/app/views/home/clientpromo/clientpromo.component';
 import { ClientfacturasptbeComponent } from 'src/app/views/home/clientfacturasptbe/clientfacturasptbe.component';
+import { ClientfacturaComponent } from 'src/app/views/home/clientfactura/clientfactura.component';
 
 export const AdminlayoutRoutingModule: Routes = [
     {path: '' , component: StartComponent},
@@ -34,5 +35,6 @@ export const AdminlayoutRoutingModule: Routes = [
     {path: 'promoList' , component: PromocionComponent},
     {path: 'formaPago' , component: ClientformapagoComponent, canActivate: [AuthGuard]},
     {path: 'clientPromo/:id' , component: ClientpromoComponent},
-    {path: 'clientFacturasptbe' , component: ClientfacturasptbeComponent}
+    {path: 'clientFacturasptbe' , component: ClientfacturasptbeComponent , canActivate: [AuthGuard]},
+    {path: 'clientFacturas' , component: ClientfacturaComponent , canActivate: [AuthGuard]}
 ];

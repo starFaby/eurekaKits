@@ -19,8 +19,12 @@ export class StartComponent implements OnInit {
   onGetPromocionesppi() {
     this.consultasService.onGetPromocionppi().subscribe(
       res => {
-        this.promociones = res;
-        console.log(this.promociones);
+        if (res != null) {
+          this.promociones = res;
+          console.log(this.promociones);
+        } else {
+          console.log('No existe Promociones');
+        }
       },
       err => {
         if (err instanceof HttpErrorResponse) {

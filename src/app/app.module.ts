@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +26,7 @@ import { TelefonoService } from './services/telefono.service';
 import { AuthGuard } from './guard/auth.guard';
 import { ConsultasService } from './services/consultas.service';
 import { FormapagoService } from './services/formapago.service';
+import { ClientfacturaComponent } from './views/home/clientfactura/clientfactura.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +44,8 @@ import { FormapagoService } from './services/formapago.service';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    PdfViewerModule
   ],
   providers: [
     CategoriaService, CateproduService, AuthService,

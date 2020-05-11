@@ -27,6 +27,8 @@ import { PromolistComponent } from 'src/app/views/admin/promocion/promolist/prom
 import { ClientformapagoComponent } from 'src/app/views/home/clientformapago/clientformapago.component';
 import { ClientpromoComponent } from 'src/app/views/home/clientpromo/clientpromo.component';
 import { ClientfacturasptbeComponent } from 'src/app/views/home/clientfacturasptbe/clientfacturasptbe.component';
+import { ClientfacturaComponent } from 'src/app/views/home/clientfactura/clientfactura.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 @NgModule({
@@ -52,14 +54,16 @@ import { ClientfacturasptbeComponent } from 'src/app/views/home/clientfacturaspt
     PromolistComponent,
     ClientformapagoComponent,
     ClientpromoComponent,
-    ClientfacturasptbeComponent
+    ClientfacturasptbeComponent,
+    ClientfacturaComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(AdminlayoutRoutingModule),
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PdfViewerModule
   ],
   entryComponents: [
     CategoriaformComponent,
