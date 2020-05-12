@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pagosptbe } from 'src/app/models/pagosptbe';
 import { ConsultasService } from 'src/app/services/consultas.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clientfacturasptbe',
@@ -15,7 +16,10 @@ export class ClientfacturasptbeComponent implements OnInit {
   Pagosptbe1: Pagosptbe[]; // ver facturas pagadas echos en paypal
   Pagosptbe2: Pagosptbe[]; // ver facturas pagadas echos en Transferencia Bancaria
   Pagosptbe3: Pagosptbe[]; // ver facturas pagadas echos en Efectivo
-  constructor(private consultasService: ConsultasService) {
+  constructor(
+    private consultasService: ConsultasService,
+    private router: Router
+    ) {
     this.idpersona = localStorage.getItem('idpersona');
   }
 
@@ -75,7 +79,7 @@ export class ClientfacturasptbeComponent implements OnInit {
       }
     );
   }
-  onSelectedFactura(ev) { // Para buscar la factura comprada
-    console.log(ev);
+  onSelectedFactura(id: string) {
+    this.router.navigate(['/clientFactura', id]);
   }
 }

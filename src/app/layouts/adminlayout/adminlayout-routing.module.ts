@@ -36,5 +36,5 @@ export const AdminlayoutRoutingModule: Routes = [
     {path: 'formaPago' , component: ClientformapagoComponent, canActivate: [AuthGuard]},
     {path: 'clientPromo/:id' , component: ClientpromoComponent},
     {path: 'clientFacturasptbe' , component: ClientfacturasptbeComponent , canActivate: [AuthGuard]},
-    {path: 'clientFacturas' , component: ClientfacturaComponent , canActivate: [AuthGuard]}
+    {path: 'clientFactura/:id' , component: ClientfacturaComponent , canActivate: [AuthGuard]}
 ];

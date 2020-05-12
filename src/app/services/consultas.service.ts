@@ -15,6 +15,8 @@ import { Tipopago } from '../models/tipopago';
 import { Paypaltransbefec } from '../models/paypaltransbefec';
 import { Pagofactindiv } from '../models/pagofactindiv';
 import { Pagosptbe } from '../models/pagosptbe';
+import { Facturadv } from '../models/facturadv';
+import { Facturatotal } from '../models/facturatotal';
 
 @Injectable({
   providedIn: 'root'
@@ -73,5 +75,11 @@ export class ConsultasService {
    }
    onGetPagoEfectivo(id: string) { // ver facturas pagadas echos en Efectivo
     return this.http.get<Pagosptbe[]>(`${this.API_URI}/consultas/pagoefectivo/${id}`);
+   }
+   onGetFacturadv(id: string) { // ver la factura de detalle ventas con sus produtos por el numde factura
+    return this.http.get<Facturadv[]>(`${this.API_URI}/consultas/facturadv/${id}`);
+   }
+   onGetFacturaTotal(id: string) { // ver facturas pagadas por el numero de factura
+    return this.http.get<Facturatotal[]>(`${this.API_URI}/consultas/facturatotal/${id}`);
    }
 }

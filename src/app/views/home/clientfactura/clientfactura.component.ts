@@ -4,7 +4,11 @@ import 'jspdf-autotable';
 import { DatePipe } from '@angular/common';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import kjua from 'kjua';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { ConsultasService } from 'src/app/services/consultas.service';
+import { Consultas } from 'src/app/models/consultas';
+import { Facturadv } from 'src/app/models/facturadv';
+import { Facturatotal } from 'src/app/models/Facturatotal';
 
 @Component({
   selector: 'app-clientfactura',
@@ -12,7 +16,12 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./clientfactura.component.scss']
 })
 export class ClientfacturaComponent implements OnInit {
-
+  id;
+  persona: Consultas[];
+  facturadv: Facturadv[];
+  facturatotal: Facturatotal[];
+  fechaFactura;
+  tipoPago;
   urlSafe: SafeResourceUrl;
   prueba;
   navigationSubscription;
@@ -46,7 +55,10 @@ export class ClientfacturaComponent implements OnInit {
     });
   }
   constructor(
-    private router: Router) {
+    private router: Router,
+    private consultasService: ConsultasService,
+    private activatedRoute: ActivatedRoute,
+  ) {
     this.datos = false;
     this.navigationSubscription = this.router.events.subscribe((e: any) => {
       if (e instanceof NavigationEnd) {
@@ -63,34 +75,67 @@ export class ClientfacturaComponent implements OnInit {
   }
   ngOnInit() {
     // this.onGetNumFactura();
-    this.PdfViewer();
-
+    this.onGetPersona();
+    this.onGetFacturaPDF();
   }
-  onGetNumFactura() {
-    /* const id = 1;
-     this.pdfviewService.getCedula().subscribe(
-       res => {
-         console.log(res);
-         this.PdfViewer();
-       },
-       err => {
-         console.log(err);
-       }
-     )*/
-
+  onGetPersona() {
+    const idpersona = localStorage.getItem('idpersona');
+    this.consultasService.onGetPersonapdt(idpersona).subscribe(
+      res => {
+        console.log(res);
+        this.persona = res.map(t => t);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  onGetFacturaPDF() {
+    this.activatedRoute.params.subscribe(
+      param => {
+        // tslint:disable-next-line:no-string-literal
+        this.id = param['id'];
+        this.consultasService.onGetFacturadv(this.id).subscribe(
+          res => {
+            console.log(res);
+            this.consultasService.onGetFacturaTotal(this.id).subscribe(
+              datat => {
+                console.log(datat);
+                this.facturatotal = datat.map(t => t);
+                const date = new Date(this.facturatotal[0].created_at);
+                this.fechaFactura = `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
+                if (this.facturatotal[0].idtipopago === 1) {
+                  this.tipoPago = 'Paypal';
+                } else if (this.facturatotal[0].idtipopago === 2) {
+                  this.tipoPago = 'Transferencia Bancaria';
+                } else if (this.facturatotal[0].idtipopago === 3) {
+                  this.tipoPago = 'Efectivo';
+                }
+                this.PdfViewer();
+              },
+              err => {
+                console.log(err);
+              }
+            );
+          },
+          err => {
+            console.log(err);
+          }
+        );
+      }
+    );
   }
   objectKey(obj) {
     return Object.keys(obj);
   }
   formatedCerts() {
-    return this.facturaReport.reduce((prev, now) => {
-      if (!prev[now.factura]) {
-        prev[now.periodo] = [];
-      }
-
-      prev[now.factura].push(now);
-      return prev;
-    }, {});
+    /*  return this.facturaReport.reduce((prev, now) => {
+        if (!prev[now.factura]) {
+          prev[now.periodo] = [];
+        }
+        prev[now.factura].push(now);
+        return prev;
+      }, {});*/
   }
   getColumns() {
     const columns = [
@@ -129,6 +174,11 @@ export class ClientfacturaComponent implements OnInit {
   PdfViewer() {
     this.doc = new jsPDF('p', 'pt');
     this.doc.setFont('helvetica');
+    let rows = [];
+    const headerStyles = this.getheaderStyles();
+    const bodyStyles = this.getbodyStyles();
+    const alternateRowStyles = this.getalternateRowStyles();
+    //  const pageContent = data => {
     // CABECERA
     this.doc.setFontSize(25);
     this.doc.setFontStyle('bold');
@@ -179,48 +229,81 @@ export class ClientfacturaComponent implements OnInit {
     this.doc.text('CLIENTE:', 32, 150);
     this.doc.line(290, 150, 78, 150);
     this.doc.setFontSize(9);
-    this.doc.text('Edgar fabian estrella guambugeuete', 82, 147);
+    this.doc.text(`${this.persona[0].nombres} ${this.persona[0].apellidos}`, 82, 147);
 
     this.doc.setFontSize(9);
     this.doc.setFontStyle('bold');
     this.doc.text('DIRECCIÓN:', 32, 170);
     this.doc.line(290, 170, 90, 170);
     this.doc.setFontSize(9);
-    this.doc.text('anonimo:', 94, 167);
+    this.doc.text(`${this.persona[0].sector} ${this.persona[0].calleprincipal} ${this.persona[0].numeracion}`
+      + ` ${this.persona[0].callesecundaria}`, 94, 167);
 
     this.doc.setFontSize(9);
     this.doc.setFontStyle('bold');
     this.doc.text('TELEFONO:', 32, 190);
     this.doc.line(290, 190, 87, 190);
     this.doc.setFontStyle('bold');
-    this.doc.text('anonimo', 91, 187);
+    this.doc.text(`${this.persona[0].convencional} / ${this.persona[0].celular1} / ${this.persona[0].celular2}`, 91, 187);
 
     this.doc.setFontSize(9);
     this.doc.setFontStyle('bold');
     this.doc.text('RUC:', 300, 150);
     this.doc.line(560, 150, 327, 150);
     this.doc.setFontStyle('bold');
-    this.doc.text('anonimo', 331, 147);
+    this.doc.text(`${this.persona[0].cedula}`, 331, 147);
 
     this.doc.setFontSize(9);
     this.doc.setFontStyle('bold');
     this.doc.text('FECHA:', 300, 170);
     this.doc.line(560, 170, 338, 170);
     this.doc.setFontStyle('bold');
-    this.doc.text('anonimo', 340, 167);
+    this.doc.text(`${this.fechaFactura} `, 340, 167);
 
     this.doc.setFontSize(9);
     this.doc.setFontStyle('bold');
     this.doc.text('FORMA DE PAGO:', 300, 190);
     this.doc.line(560, 190, 385, 190);
     this.doc.setFontStyle('bold');
-    this.doc.text('anonimo', 387, 187);
+    this.doc.text(`${this.tipoPago}`, 387, 187);
+
+    // BODY
 
     // FOOTER
-    this.doc.rect(27, 500, 543, 100);
+    this.doc.rect(27, 554, 543, 100); // detale de la compra total
+    this.doc.setFontSize(9);
+    this.doc.setFontStyle('bold');
+    this.doc.text('Son:', 32, 575);
+    this.doc.line(150, 575, 56, 575);
+    this.doc.line(32, 590, 100, 590);
 
-    
+    this.doc.setFontSize(9);
+    this.doc.setFontStyle('bold');
+    this.doc.text('Observaciones:', 32, 605);
+    this.doc.line(200, 605, 104, 605);
+    this.doc.line(32, 620, 100, 620);
+    this.doc.line(32, 635, 100, 635);
 
+    this.doc.rect(27, 657, 543, 60); // Rectangulo para el  contenido
+    this.doc.setFontSize(6);
+    this.doc.setFontStyle('bold');
+    this.doc.text('Con la entrega de esta Factura el cliente reconoce su'
+      + 'obligacion incondicional de pago a la fecha de vencimiento.........................................'
+      + 'tambien se obliga a pagar en caso de mora el', 32, 670);
+    this.doc.setFontSize(6);
+    this.doc.setFontStyle('bold');
+    this.doc.text(' interes de ..................., las partes le dan a '
+      + 'este instrumento de caracter ejecutivo por ser pura, simple y de plazo vencido.', 32, 680);
+    this.doc.setFontSize(6);
+    this.doc.setFontStyle('bold');
+    this.doc.text('Se sujeta a los jueces de lo civil de la provincia de pichincha y/o al tramite '
+      + 'que elija el acreedor,para cuyo efecto renuncia fuero, domicilio y vencidad.', 32, 690);
+    this.doc.setFontSize(6);
+    this.doc.setFontStyle('bold');
+    this.doc.text('Eximese de presentación para aceptación y pago, asi como de aviso por falta de estos hechos.', 32, 700);
+    this.doc.setFontSize(6);
+    this.doc.setFontStyle('bold');
+    this.doc.text('Salida de mercadería y recibida conforme, no se aceptan reclamos ni devoluciones.', 32, 710);
 
     // INICIO X iNICIO Y, WHITH, HEIGHT
     this.doc.rect(27, 720, 175, 90);
@@ -240,12 +323,78 @@ export class ClientfacturaComponent implements OnInit {
     this.doc.setFontSize(9);
     this.doc.setFontStyle('bold');
     this.doc.text('RECIBI CONFORME', 440, 800);
+    //    };
+
+
+    let i = true;
+    let first;
+    /*    for (const periodo of this.objectKey(this.formatedCerts())) {
+          for (const iterator of this.formatedCerts()[periodo]) {
+            rows.push({
+              codigo: iterator.codigo,
+              asignaturas: iterator.asignaturas,
+              campus: iterator.campus,
+              nivel_asignatura: iterator.nivel_asignatura,
+              creditos: iterator.creditos
+            });
+          }
+          this.doc.setFontStyle('blod');
+          this.doc.setFontSize(8);
+          this.doc.setTextColor(0);
+          if (i) {
+            this.doc.setLineWidth(1);
+            this.doc.line(40, 288, 550, 288);
+            this.doc.setFontStyle('blod');
+            this.doc.setFontSize(8);
+            this.doc.autoTable(this.getColumns(), rows, {
+              startY: 305,
+              margin: { top: 205, right: 40, bottom: 100 },
+              addPageContent: pageContent,
+              headerStyles: headerStyles,
+              bodyStyles: bodyStyles,
+              alternateRowStyles: alternateRowStyles,
+              styles: {
+                cellPadding: 2,
+                fontSize: 7,
+                valign: 'middle',
+                overflow: 'linebreak',
+                tableWidth: 'auto',
+                lineWidth: 0
+              }
+            }); // generando
+            i = false;
+          } else {
+            this.doc.setLineWidth(1);
+            this.doc.line(40, first.finalY + 3, 550, first.finalY + 3);
+            this.doc.setFontStyle('blod');
+            this.doc.setFontSize(8);
+            this.doc.autoTable(this.getColumns(), rows, {
+              startY: first.finalY + 20,
+              margin: { top: 205, right: 40, bottom: 100 },
+              addPageContent: pageContent,
+              alternateRowStyles: alternateRowStyles,
+              headerStyles: headerStyles,
+              bodyStyles: bodyStyles,
+              styles: {
+                cellPadding: 2,
+                fontSize: 7,
+                valign: 'middle',
+                overflow: 'linebreak',
+                tableWidth: 'auto',
+                lineWidth: 0
+              }
+            }); // generando
+          }
+          first = this.doc.autoTable.previous;
+          rows = [];
+        }*/
 
 
     /*const pageHeight =
       this.doc.internal.pageSize.height ||
       this.doc.internal.pageSize.getHeight();
     this.doc.text(this.myFormattedDate, 490, pageHeight - 15);*/
+    const rows1 = [];
     this.viewPdf();
   }
   dowload() {
