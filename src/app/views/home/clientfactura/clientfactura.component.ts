@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { DatePipe } from '@angular/common';
@@ -15,12 +15,13 @@ import { Facturatotal } from 'src/app/models/Facturatotal';
   templateUrl: './clientfactura.component.html',
   styleUrls: ['./clientfactura.component.scss']
 })
-export class ClientfacturaComponent implements OnInit {
+export class ClientfacturaComponent implements OnInit, OnDestroy {
   id;
   persona: Consultas[];
   facturadv: Facturadv[];
   facturatotal: Facturatotal[];
   fechaFactura;
+  numFactura;
   tipoPago;
   urlSafe: SafeResourceUrl;
   prueba;
@@ -59,16 +60,6 @@ export class ClientfacturaComponent implements OnInit {
     private consultasService: ConsultasService,
     private activatedRoute: ActivatedRoute,
   ) {
-    this.datos = false;
-    this.navigationSubscription = this.router.events.subscribe((e: any) => {
-      if (e instanceof NavigationEnd) {
-        /*  this.id = atob(this.route.snapshot.params.id);
-          this.nivel = atob(this.route.snapshot.params.nivel);
-          this.periodo = atob(this.route.snapshot.params.periodo);
-          this.carrera = atob(this.route.snapshot.params.carrera);*/
-        // this.getHistoriabyid(this.id, this.nivel, this.periodo, this.carrera);
-      }
-    });
   }
   pageInit(e: HTMLElement) {
     e.scrollIntoView({ behavior: 'smooth' });
@@ -98,12 +89,14 @@ export class ClientfacturaComponent implements OnInit {
         this.consultasService.onGetFacturadv(this.id).subscribe(
           res => {
             console.log(res);
+            this.facturadv = res;
             this.consultasService.onGetFacturaTotal(this.id).subscribe(
               datat => {
                 console.log(datat);
                 this.facturatotal = datat.map(t => t);
                 const date = new Date(this.facturatotal[0].created_at);
                 this.fechaFactura = `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
+                this.numFactura = this.addCero1(this.facturatotal[0].numfactura);
                 if (this.facturatotal[0].idtipopago === 1) {
                   this.tipoPago = 'Paypal';
                 } else if (this.facturatotal[0].idtipopago === 2) {
@@ -129,21 +122,20 @@ export class ClientfacturaComponent implements OnInit {
     return Object.keys(obj);
   }
   formatedCerts() {
-    /*  return this.facturaReport.reduce((prev, now) => {
-        if (!prev[now.factura]) {
-          prev[now.periodo] = [];
-        }
-        prev[now.factura].push(now);
-        return prev;
-      }, {});*/
+    return this.facturadv.reduce((prev, now) => {
+      if (!prev[now.numfactura]) {
+        prev[now.numfactura] = [];
+      }
+      prev[now.numfactura].push(now);
+      return prev;
+    }, {});
   }
   getColumns() {
     const columns = [
-      { title: 'CÓDIGO', dataKey: 'codigo' },
-      { title: 'ASIGNATURAS', dataKey: 'asignaturas' },
-      { title: 'CAMPUS', dataKey: 'campus' },
-      { title: 'NIVEL CAPP', dataKey: 'nivel_asignatura' },
-      { title: 'CREDITOS', dataKey: 'creditos' }
+      { title: 'CANTIDAD', dataKey: 'cantidad' },
+      { title: 'NOMBRE', dataKey: 'nombre' },
+      { title: 'PRECIO', dataKey: 'precio' },
+      { title: 'TOTAL', dataKey: 'total' }
     ];
     return columns;
   }
@@ -151,7 +143,8 @@ export class ClientfacturaComponent implements OnInit {
     const headerStyle = {
       fillColor: [200, 255, 255],
       textColor: 0,
-      fontSize: 8
+      fontSize: 8,
+      halign: 'center'
     };
     return headerStyle;
   }
@@ -159,7 +152,8 @@ export class ClientfacturaComponent implements OnInit {
     const bodyStyle = {
       fillColor: [255, 255, 255],
       textColor: 0,
-      fontSize: 8
+      fontSize: 8,
+      halign: 'center'
     };
     return bodyStyle;
   }
@@ -167,7 +161,8 @@ export class ClientfacturaComponent implements OnInit {
     const alternateRowStyle = {
       fillColor: [255, 255, 255],
       textColor: 0,
-      fontSize: 8
+      fontSize: 8,
+      halign: 'center'
     };
     return alternateRowStyle;
   }
@@ -178,234 +173,285 @@ export class ClientfacturaComponent implements OnInit {
     const headerStyles = this.getheaderStyles();
     const bodyStyles = this.getbodyStyles();
     const alternateRowStyles = this.getalternateRowStyles();
-    //  const pageContent = data => {
-    // CABECERA
-    this.doc.setFontSize(25);
-    this.doc.setFontStyle('bold');
-    this.doc.text('AUTOMATISMOS BRITO', 45, 35);
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('VENTA AL POR MAYOR DE EQUIPO DE SEGURIDAD', 70, 50);
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('Brito Saltos Roberto Alfonso', 120, 65);
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('Documento Categorizado: No', 118, 80);
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('Nueva Tola Baja 2, Caran N3-131 y Juan Abel Echeveria', 68, 95);
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('Telf: 2581389 * Cel. 0995054605 Quito - Ecuador', 84, 110);
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('email: automatismosbrito@hotmail.com', 96, 125);
+    const pageContent = data => {
+      // CABECERA
+      this.doc.setFontSize(25);
+      this.doc.setFontStyle('bold');
+      this.doc.text('AUTOMATISMOS BRITO', 45, 35);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('VENTA AL POR MAYOR DE EQUIPO DE SEGURIDAD', 70, 50);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('Brito Saltos Roberto Alfonso', 120, 65);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('Documento Categorizado: No', 118, 80);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('Nueva Tola Baja 2, Caran N3-131 y Juan Abel Echeveria', 68, 95);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('Telf: 2581389 * Cel. 0995054605 Quito - Ecuador', 84, 110);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('email: automatismosbrito@hotmail.com', 96, 125);
 
-    this.doc.rect(400, 15, 170, 110);
-    this.doc.setFontSize(12);
-    this.doc.setFontStyle('bold');
-    this.doc.text('RUC: 1709765067001', 430, 32);
-    this.doc.line(570, 40, 400, 40);
-    this.doc.setFontSize(11);
-    this.doc.setFontStyle('bold');
-    this.doc.text('FACTURA 001 -001', 443, 55);
-    this.doc.line(570, 60, 400, 60);
-    this.doc.setFontSize(15);
-    this.doc.setFontStyle('bold');
-    this.doc.text('N°', 437, 78);
-    this.doc.line(570, 85, 400, 85);
-    this.doc.setFontSize(11);
-    this.doc.setFontStyle('bold');
-    this.doc.text('Aut.SRI. 1114971823', 435, 100);
-    this.doc.setFontSize(7);
-    this.doc.text('FECHA DE AUTORIZACION: 29-MAYO-2014', 415, 110);
-    this.doc.setFontSize(7);
-    this.doc.text('FECHA DE CADUCIDAD: 29-AGOSTO-2014', 415, 120);
-    // DATOS DEL USUARIO
-    this.doc.rect(27, 130, 543, 75);
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('CLIENTE:', 32, 150);
-    this.doc.line(290, 150, 78, 150);
-    this.doc.setFontSize(9);
-    this.doc.text(`${this.persona[0].nombres} ${this.persona[0].apellidos}`, 82, 147);
+      this.doc.rect(400, 15, 170, 110);
+      this.doc.setFontSize(12);
+      this.doc.setFontStyle('bold');
+      this.doc.text('RUC: 1709765067001', 428, 32);
+      this.doc.line(570, 40, 400, 40);
+      this.doc.setFontSize(11);
+      this.doc.setFontStyle('bold');
+      this.doc.text('FACTURA 001 - 001', 435, 55);
+      this.doc.line(570, 60, 400, 60);
+      this.doc.setFontSize(15);
+      this.doc.setFontStyle('bold');
+      this.doc.setTextColor(255, 0, 0);
+      this.doc.text(`N° ${this.numFactura}`, 446, 78);
+      this.doc.line(570, 85, 400, 85);
+      this.doc.setFontSize(11);
+      this.doc.setFontStyle('bold');
+      this.doc.setTextColor(0, 0, 0);
+      this.doc.text('Aut.SRI. 1114971823', 435, 100);
+      this.doc.setFontSize(7);
+      this.doc.text('FECHA DE AUTORIZACION: 29-MAYO-2014', 415, 110);
+      this.doc.setFontSize(7);
+      this.doc.text('FECHA DE CADUCIDAD: 29-AGOSTO-2014', 415, 120);
+      // DATOS DEL USUARIO
+      this.doc.rect(27, 130, 543, 75);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('CLIENTE:', 32, 150);
+      this.doc.line(290, 150, 78, 150);
+      this.doc.setFontSize(9);
+      this.doc.text(`${this.persona[0].nombres} ${this.persona[0].apellidos}`, 82, 147);
 
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('DIRECCIÓN:', 32, 170);
-    this.doc.line(290, 170, 90, 170);
-    this.doc.setFontSize(9);
-    this.doc.text(`${this.persona[0].sector} ${this.persona[0].calleprincipal} ${this.persona[0].numeracion}`
-      + ` ${this.persona[0].callesecundaria}`, 94, 167);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('DIRECCIÓN:', 32, 170);
+      this.doc.line(290, 170, 90, 170);
+      this.doc.setFontSize(9);
+      this.doc.text(`${this.persona[0].sector} ${this.persona[0].calleprincipal} ${this.persona[0].numeracion}`
+        + ` ${this.persona[0].callesecundaria}`, 94, 167);
 
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('TELEFONO:', 32, 190);
-    this.doc.line(290, 190, 87, 190);
-    this.doc.setFontStyle('bold');
-    this.doc.text(`${this.persona[0].convencional} / ${this.persona[0].celular1} / ${this.persona[0].celular2}`, 91, 187);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('TELEFONO:', 32, 190);
+      this.doc.line(290, 190, 87, 190);
+      this.doc.setFontStyle('bold');
+      this.doc.text(`${this.persona[0].convencional} / ${this.persona[0].celular1} / ${this.persona[0].celular2}`, 91, 187);
 
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('RUC:', 300, 150);
-    this.doc.line(560, 150, 327, 150);
-    this.doc.setFontStyle('bold');
-    this.doc.text(`${this.persona[0].cedula}`, 331, 147);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('RUC:', 300, 150);
+      this.doc.line(560, 150, 327, 150);
+      this.doc.setFontStyle('bold');
+      this.doc.text(`${this.persona[0].cedula}`, 331, 147);
 
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('FECHA:', 300, 170);
-    this.doc.line(560, 170, 338, 170);
-    this.doc.setFontStyle('bold');
-    this.doc.text(`${this.fechaFactura} `, 340, 167);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('FECHA:', 300, 170);
+      this.doc.line(560, 170, 338, 170);
+      this.doc.setFontStyle('bold');
+      this.doc.text(`${this.fechaFactura} `, 340, 167);
 
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('FORMA DE PAGO:', 300, 190);
-    this.doc.line(560, 190, 385, 190);
-    this.doc.setFontStyle('bold');
-    this.doc.text(`${this.tipoPago}`, 387, 187);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('FORMA DE PAGO:', 300, 190);
+      this.doc.line(560, 190, 385, 190);
+      this.doc.setFontStyle('bold');
+      this.doc.text(`${this.tipoPago}`, 387, 187);
 
-    // BODY
+      // FOOTER
+      this.doc.rect(420, 554, 150, 100); // dibujar cuadros para iva subtotatl y total
+      this.doc.rect(420, 554, 150, 25);
+      this.doc.rect(420, 579, 150, 25);
+      this.doc.rect(420, 604, 150, 25);
+      // this.doc.rect(420, 630, 120, 25);
 
-    // FOOTER
-    this.doc.rect(27, 554, 543, 100); // detale de la compra total
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('Son:', 32, 575);
-    this.doc.line(150, 575, 56, 575);
-    this.doc.line(32, 590, 100, 590);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('Subtotal:', 430, 570);
+      this.doc.setFontSize(9);
+      this.doc.text(`$ ${this.facturatotal[0].subtotal}`, 500, 570);
 
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('Observaciones:', 32, 605);
-    this.doc.line(200, 605, 104, 605);
-    this.doc.line(32, 620, 100, 620);
-    this.doc.line(32, 635, 100, 635);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('Dto:', 430, 595);
+      this.doc.setFontSize(9);
+      this.doc.text(`$ ${this.facturatotal[0].dto}`, 500, 595);
 
-    this.doc.rect(27, 657, 543, 60); // Rectangulo para el  contenido
-    this.doc.setFontSize(6);
-    this.doc.setFontStyle('bold');
-    this.doc.text('Con la entrega de esta Factura el cliente reconoce su'
-      + 'obligacion incondicional de pago a la fecha de vencimiento.........................................'
-      + 'tambien se obliga a pagar en caso de mora el', 32, 670);
-    this.doc.setFontSize(6);
-    this.doc.setFontStyle('bold');
-    this.doc.text(' interes de ..................., las partes le dan a '
-      + 'este instrumento de caracter ejecutivo por ser pura, simple y de plazo vencido.', 32, 680);
-    this.doc.setFontSize(6);
-    this.doc.setFontStyle('bold');
-    this.doc.text('Se sujeta a los jueces de lo civil de la provincia de pichincha y/o al tramite '
-      + 'que elija el acreedor,para cuyo efecto renuncia fuero, domicilio y vencidad.', 32, 690);
-    this.doc.setFontSize(6);
-    this.doc.setFontStyle('bold');
-    this.doc.text('Eximese de presentación para aceptación y pago, asi como de aviso por falta de estos hechos.', 32, 700);
-    this.doc.setFontSize(6);
-    this.doc.setFontStyle('bold');
-    this.doc.text('Salida de mercadería y recibida conforme, no se aceptan reclamos ni devoluciones.', 32, 710);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('Iva 12:', 430, 620);
+      this.doc.setFontSize(9);
+      this.doc.text(`$ ${this.facturatotal[0].iva}`, 500, 620);
 
-    // INICIO X iNICIO Y, WHITH, HEIGHT
-    this.doc.rect(27, 720, 175, 90);
-    this.doc.line(32, 785, 197, 785);
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('ELABORADO POR', 80, 800);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('Total $:', 430, 645);
+      this.doc.setFontSize(9);
+      this.doc.text(`$ ${this.facturatotal[0].total}`, 500, 645);
 
-    this.doc.rect(211, 720, 175, 90);
-    this.doc.line(215, 785, 382, 785);
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('APROBADO POR', 267, 800);
+      this.doc.rect(27, 554, 465, 100); // cuadro que encierra todo
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('Son:', 32, 575);
+      this.doc.line(51, 575, 416, 575);
+      this.doc.line(32, 590, 416, 590);
 
-    this.doc.rect(395, 720, 175, 90);
-    this.doc.line(400, 785, 566, 785);
-    this.doc.setFontSize(9);
-    this.doc.setFontStyle('bold');
-    this.doc.text('RECIBI CONFORME', 440, 800);
-    //    };
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('Observaciones:', 32, 605);
+      this.doc.line(93, 605, 416, 605);
+      this.doc.line(32, 620, 416, 620);
+      this.doc.line(32, 635, 416, 635);
+
+      this.doc.rect(27, 657, 543, 60); // Rectangulo para el  contenido
+      this.doc.setFontSize(6);
+      this.doc.setFontStyle('bold');
+      this.doc.text('Con la entrega de esta Factura el cliente reconoce su'
+        + 'obligacion incondicional de pago a la fecha de vencimiento.........................................'
+        + 'tambien se obliga a pagar en caso de mora el', 32, 670);
+      this.doc.setFontSize(6);
+      this.doc.setFontStyle('bold');
+      this.doc.text(' interes de ..................., las partes le dan a '
+        + 'este instrumento de caracter ejecutivo por ser pura, simple y de plazo vencido.', 32, 680);
+      this.doc.setFontSize(6);
+      this.doc.setFontStyle('bold');
+      this.doc.text('Se sujeta a los jueces de lo civil de la provincia de pichincha y/o al tramite '
+        + 'que elija el acreedor,para cuyo efecto renuncia fuero, domicilio y vencidad.', 32, 690);
+      this.doc.setFontSize(6);
+      this.doc.setFontStyle('bold');
+      this.doc.text('Eximese de presentación para aceptación y pago, asi como de aviso por falta de estos hechos.', 32, 700);
+      this.doc.setFontSize(6);
+      this.doc.setFontStyle('bold');
+      this.doc.text('Salida de mercadería y recibida conforme, no se aceptan reclamos ni devoluciones.', 32, 710);
+
+      // INICIO X iNICIO Y, WHITH, HEIGHT
+      this.doc.rect(27, 720, 175, 90);
+      this.doc.line(32, 785, 197, 785);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('ELABORADO POR', 80, 800);
+
+      this.doc.rect(211, 720, 175, 90);
+      this.doc.line(215, 785, 382, 785);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('APROBADO POR', 267, 800);
+
+      this.doc.rect(395, 720, 175, 90);
+      this.doc.line(400, 785, 566, 785);
+      this.doc.setFontSize(9);
+      this.doc.setFontStyle('bold');
+      this.doc.text('RECIBI CONFORME', 440, 800);
+    };
 
 
     let i = true;
     let first;
-    /*    for (const periodo of this.objectKey(this.formatedCerts())) {
-          for (const iterator of this.formatedCerts()[periodo]) {
-            rows.push({
-              codigo: iterator.codigo,
-              asignaturas: iterator.asignaturas,
-              campus: iterator.campus,
-              nivel_asignatura: iterator.nivel_asignatura,
-              creditos: iterator.creditos
-            });
+    for (const numfactura of this.objectKey(this.formatedCerts())) {
+      for (const iterator of this.formatedCerts()[numfactura]) {
+        rows.push({
+          cantidad: iterator.cantidad,
+          nombre: iterator.nombre,
+          precio: iterator.precio,
+          total: iterator.total,
+        });
+      }
+      this.doc.setFontStyle('blod');
+      this.doc.setFontSize(8);
+      this.doc.setTextColor(0);
+      if (i) {
+        this.doc.setLineWidth(1);
+        this.doc.line(40, 230, 550, 230);
+        this.doc.setFontStyle('blod');
+        this.doc.setFontSize(8);
+        this.doc.autoTable(this.getColumns(), rows, {
+          startY: 240,
+          margin: { top: 205, right: 40, bottom: 100 },
+          addPageContent: pageContent,
+          // tslint:disable-next-line:object-literal-shorthand
+          headerStyles: headerStyles,
+          // tslint:disable-next-line:object-literal-shorthand
+          bodyStyles: bodyStyles,
+          // tslint:disable-next-line:object-literal-shorthand
+          alternateRowStyles: alternateRowStyles,
+          styles: {
+            cellPadding: 2,
+            fontSize: 7,
+            valign: 'middle',
+            overflow: 'linebreak',
+            tableWidth: 'auto',
+            lineWidth: 0
           }
-          this.doc.setFontStyle('blod');
-          this.doc.setFontSize(8);
-          this.doc.setTextColor(0);
-          if (i) {
-            this.doc.setLineWidth(1);
-            this.doc.line(40, 288, 550, 288);
-            this.doc.setFontStyle('blod');
-            this.doc.setFontSize(8);
-            this.doc.autoTable(this.getColumns(), rows, {
-              startY: 305,
-              margin: { top: 205, right: 40, bottom: 100 },
-              addPageContent: pageContent,
-              headerStyles: headerStyles,
-              bodyStyles: bodyStyles,
-              alternateRowStyles: alternateRowStyles,
-              styles: {
-                cellPadding: 2,
-                fontSize: 7,
-                valign: 'middle',
-                overflow: 'linebreak',
-                tableWidth: 'auto',
-                lineWidth: 0
-              }
-            }); // generando
-            i = false;
-          } else {
-            this.doc.setLineWidth(1);
-            this.doc.line(40, first.finalY + 3, 550, first.finalY + 3);
-            this.doc.setFontStyle('blod');
-            this.doc.setFontSize(8);
-            this.doc.autoTable(this.getColumns(), rows, {
-              startY: first.finalY + 20,
-              margin: { top: 205, right: 40, bottom: 100 },
-              addPageContent: pageContent,
-              alternateRowStyles: alternateRowStyles,
-              headerStyles: headerStyles,
-              bodyStyles: bodyStyles,
-              styles: {
-                cellPadding: 2,
-                fontSize: 7,
-                valign: 'middle',
-                overflow: 'linebreak',
-                tableWidth: 'auto',
-                lineWidth: 0
-              }
-            }); // generando
+        }); // generando
+        i = false;
+      } else {
+        this.doc.setLineWidth(1);
+        this.doc.line(40, first.finalY + 3, 550, first.finalY + 3);
+        this.doc.setFontStyle('blod');
+        this.doc.setFontSize(8);
+        this.doc.autoTable(this.getColumns(), rows, {
+          startY: first.finalY + 20,
+          margin: { top: 205, right: 40, bottom: 100 },
+          addPageContent: pageContent,
+          // tslint:disable-next-line:object-literal-shorthand
+          alternateRowStyles: alternateRowStyles,
+          // tslint:disable-next-line:object-literal-shorthand
+          headerStyles: headerStyles,
+          // tslint:disable-next-line:object-literal-shorthand
+          bodyStyles: bodyStyles,
+          styles: {
+            cellPadding: 2,
+            fontSize: 7,
+            valign: 'middle',
+            overflow: 'linebreak',
+            tableWidth: 'auto',
+            lineWidth: 0
           }
-          first = this.doc.autoTable.previous;
-          rows = [];
-        }*/
-
-
-    /*const pageHeight =
-      this.doc.internal.pageSize.height ||
-      this.doc.internal.pageSize.getHeight();
-    this.doc.text(this.myFormattedDate, 490, pageHeight - 15);*/
-    const rows1 = [];
+        }); // generando
+      }
+      first = this.doc.autoTable.previous;
+      rows = [];
+    }
     this.viewPdf();
   }
-  dowload() {
-    this.doc.save('joder1');
+  dowloadPdf() {
+    this.doc.save(`Factura Nº ${this.facturatotal[0].numfactura}`);
   }
   viewPdf() {
     try {
-      this.prueba = this.doc.output('datauristring');
+      this.urlSafe = this.doc.output('datauristring');
     } catch (e) {
       console.log('Error' + e);
     }
+  }
+  addCero1(i) {
+    if (i < 10) {
+      i = '000000' + i;
+    }
+    if (i >= 10 && i < 100) {
+      i = '00000' + i;
+    }
+    if (i >= 100 && i < 1000) {
+      i = '0000' + i;
+    }
+    if (i >= 1000 && i < 10000) {
+      i = '000' + i;
+    }
+    if (i >= 10000 && i < 100000) {
+      i = '00' + i;
+    }
+    if (i >= 100000 && i < 1000000) {
+      i = '0' + i;
+    }
+    return i;
+  }
+  ngOnDestroy() {
   }
 
 }
