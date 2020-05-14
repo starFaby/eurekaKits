@@ -310,6 +310,7 @@ export class ClientformapagoComponent implements OnInit {
           this.formapagoService.onUpdateFormaPagoEstado(this.efectivo.idformapago, this.newFormapago).subscribe(
             date => {
               console.log(date);
+              this.onGetPagoFactEfectivo();
             },
             err => {
               console.log(err);

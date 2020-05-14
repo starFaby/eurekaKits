@@ -3,13 +3,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 @Injectable({
     providedIn: 'root'
 })
-export class Personaformvali {
-    formPersona: FormGroup;
+export class Personadminformvali {
+    formPersonaAdmin: FormGroup;
     constructor(private formBuilder: FormBuilder) {
         this.onValidatorProducto();
     }
-    onValidatorProducto(){
-        this.formPersona = this.formBuilder.group({
+    onValidatorProducto() {
+        this.formPersonaAdmin = this.formBuilder.group({
             idpersona: [null],
             idtelefono: ['', Validators.required],
             iddireccion: ['', Validators.required],
@@ -24,7 +24,7 @@ export class Personaformvali {
         });
     }
     oninitializeFomrGroup() {
-        this.formPersona.setValue({
+        this.formPersonaAdmin.setValue({
             idpersona: null,
             idtelefono: '',
             iddireccion: '',

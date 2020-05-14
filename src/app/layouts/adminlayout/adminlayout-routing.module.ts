@@ -17,9 +17,13 @@ import { ClientformapagoComponent } from 'src/app/views/home/clientformapago/cli
 import { ClientpromoComponent } from 'src/app/views/home/clientpromo/clientpromo.component';
 import { ClientfacturasptbeComponent } from 'src/app/views/home/clientfacturasptbe/clientfacturasptbe.component';
 import { ClientfacturaComponent } from 'src/app/views/home/clientfactura/clientfactura.component';
+import { PersonaComponent } from 'src/app/views/admin/persona/persona.component';
+import { NofoundComponent } from 'src/app/views/nofound/nofound.component';
 
 export const AdminlayoutRoutingModule: Routes = [
     {path: '' , component: StartComponent},
+    {path: 'nofound' , component: NofoundComponent},
+    {path: 'pers' , component: PersonaComponent},
     {path: 'productos' , component: ProductosComponent},
     {path: 'categorias' , component: CategoriaComponent},
     {path: 'categoriaList' , component: CategorialistComponent},

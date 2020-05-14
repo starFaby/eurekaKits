@@ -29,6 +29,10 @@ import { ClientpromoComponent } from 'src/app/views/home/clientpromo/clientpromo
 import { ClientfacturasptbeComponent } from 'src/app/views/home/clientfacturasptbe/clientfacturasptbe.component';
 import { ClientfacturaComponent } from 'src/app/views/home/clientfactura/clientfactura.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { PersonaComponent } from 'src/app/views/admin/persona/persona.component';
+import { PersonaformComponent } from 'src/app/views/admin/persona/personaform/personaform.component';
+import { PersonalistComponent } from 'src/app/views/admin/persona/personalist/personalist.component';
+import { NofoundComponent } from 'src/app/views/nofound/nofound.component';
 
 
 @NgModule({
@@ -55,7 +59,11 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     ClientformapagoComponent,
     ClientpromoComponent,
     ClientfacturasptbeComponent,
-    ClientfacturaComponent
+    ClientfacturaComponent,
+    PersonaComponent,
+    PersonaformComponent,
+    PersonalistComponent,
+    NofoundComponent
   ],
   imports: [
     CommonModule,
@@ -70,7 +78,8 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     ProductoformComponent,
     ClienteleformComponent,
     ClientdireccformComponent,
-    PromoformComponent
+    PromoformComponent,
+    PersonaformComponent
   ]
 })
 export class AdminlayoutModule { }

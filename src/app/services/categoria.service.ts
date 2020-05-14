@@ -12,13 +12,16 @@ export class CategoriaService {
   API_URI_IMAGE = environment.URL_SERVICE_IMAGE;
   constructor(private http: HttpClient) { }
   onGetCategorias() { //  Observable<any>
-   return this.http.get<Categoria[]>(`${this.API_URI}/categoria`);
+    return this.http.get<Categoria[]>(`${this.API_URI}/categoria`);
   }
   onGetCategoria(id: string) {
-   return this.http.get(`${this.API_URI}/categoria/${id}`);
+    return this.http.get(`${this.API_URI}/categoria/${id}`);
   }
-  onDeleteCategoria(id: string): Observable<any> {
-   return this.http.delete(`${this.API_URI}/categoria/${id}`);
+  onDeleteCategoria(id: string, categoria: Categoria): Observable<any> {
+    const newCategoria: Categoria = {
+      estado: categoria.estado
+    };
+    return this.http.put(`${this.API_URI}/categoria/put/${id}`, newCategoria);
   }
   onSaveCategoria(categoria: Categoria) {
     const fd = new FormData();

@@ -1,14 +1,14 @@
 export interface Persona {
-    idpersona?: string;
-    idtelefono: string;
-    iddireccion: string;
-    cedula: string;
-    nombres: string;
-    apellidos: string;
-    fechanacimiento: any;
-    email: string;
-    password: string;
-    requerimiento: string;
-    estado: string;
+    idpersona?: any;
+    idtelefono?: any;
+    iddireccion?: any;
+    cedula?: any;
+    nombres?: any;
+    apellidos?: any;
+    fechanacimiento?: any;
+    email?: any;
+    password?: any;
+    requerimiento?: any;
+    estado?: any;
     created_at?: Date;
 }

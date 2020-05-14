@@ -17,8 +17,11 @@ export class PersonaService {
   onGetPersona(id: string) {
     return this.http.get<Persona[]>(`${this.API_URI}/persona/${id}`);
   }
-  onDeletePersona(id: string): Observable<any> {
-    return this.http.delete(`${this.API_URI}/persona/${id}`);
+  onDeletePersona(id: string, persona: Persona): Observable<any> {
+    const newPersona: Persona = {
+      estado: persona.estado
+    };
+    return this.http.put(`${this.API_URI}/persona/put/${id}`, newPersona);
   }
   onSavePersona(persona: Persona) {
     const newPersona: Persona = {

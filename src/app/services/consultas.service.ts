@@ -17,6 +17,8 @@ import { Pagofactindiv } from '../models/pagofactindiv';
 import { Pagosptbe } from '../models/pagosptbe';
 import { Facturadv } from '../models/facturadv';
 import { Facturatotal } from '../models/facturatotal';
+import { Persona } from '../models/persona';
+import { Categoria } from '../models/categoria';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +27,12 @@ export class ConsultasService {
   API_URI = environment.URL_SERVICE;
   API_URI_IMAGE = environment.URL_SERVICE_IMAGE;
   constructor(private http: HttpClient) { }
+  onGetCategoria() {
+    return this.http.get<Categoria[]>(`${this.API_URI}/consultas/categoria`);
+   }
+  onGetPersona() {
+    return this.http.get<Persona[]>(`${this.API_URI}/consultas/pers`);
+   }
   onGetPersonapdt(id: string) {
     return this.http.get<Consultas[]>(`${this.API_URI}/consultas/pdt/${id}`);
    }

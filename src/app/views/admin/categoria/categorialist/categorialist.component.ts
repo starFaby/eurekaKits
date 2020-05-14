@@ -4,8 +4,8 @@ import { CategoriaformComponent } from '../categoriaform/categoriaform.component
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoriaformvali } from 'src/app/validators/categoriaformvali';
 import { Categoria } from 'src/app/models/categoria';
-import { LoginComponent } from 'src/app/views/login/login.component';
-import { analyzeFile } from '@angular/compiler';
+import { ConsultasService } from 'src/app/services/consultas.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-categorialist',
@@ -19,7 +19,9 @@ export class CategorialistComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private categoriaService: CategoriaService,
-    private categoriaformvali: Categoriaformvali) { }
+    private categoriaformvali: Categoriaformvali,
+    private consultasService: ConsultasService,
+    private router: Router) { }
   form = this.categoriaformvali.formCategoria;
   listCategoria: MatTableDataSource<any>;
   displayedColumns: string[] = ['nombre', 'image', 'estado', 'actions'];
@@ -30,12 +32,18 @@ export class CategorialistComponent implements OnInit {
     this.onGetCategoriasAll();
   }
   onGetCategoriasAll() {
-    this.categoriaService.onGetCategorias().subscribe(
+    this.consultasService.onGetCategoria().subscribe(
       res => {
-        this.categoria = res;
-        this.listCategoria = new MatTableDataSource(this.categoria);
-        this.listCategoria.sort = this.sort;
-        this.listCategoria.paginator = this.paginator;
+        if (res != null) {
+          this.categoria = res;
+          this.listCategoria = new MatTableDataSource(this.categoria);
+          this.listCategoria.sort = this.sort;
+          this.listCategoria.paginator = this.paginator;
+        } else {
+          this.onCreate();
+          this.router.navigate(['/nofound']);
+          console.log('No datos');
+        }
       },
       err => console.log(err)
     );
@@ -55,13 +63,6 @@ export class CategorialistComponent implements OnInit {
     dialogConfig.width = '60%';
     this.dialog.open(CategoriaformComponent, dialogConfig);
   }
-  onCreateLogin() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
-    this.dialog.open(LoginComponent, dialogConfig);
-  }
   onEdit(row) {
     const newCategoria: Categoria = {
       idcategoria: row.idcategoria,
@@ -76,8 +77,11 @@ export class CategorialistComponent implements OnInit {
     dialogConfig.width = '60%';
     this.dialog.open(CategoriaformComponent, dialogConfig);
   }
-  onDelete(row) {
-    this.categoriaService.onDeleteCategoria(row).subscribe(
+  onDelete(id) {
+    const newCategoria: Categoria = {
+      estado: 0
+    };
+    this.categoriaService.onDeleteCategoria(id, newCategoria).subscribe(
       res => {
         console.log(res);
         this.onGetCategoriasAll();
