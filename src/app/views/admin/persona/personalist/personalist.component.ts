@@ -6,6 +6,7 @@ import { PersonaformComponent } from '../personaform/personaform.component';
 import { Personaformvali } from 'src/app/validators/personaformvali';
 import { PersonaService } from 'src/app/services/persona.service';
 import { Router } from '@angular/router';
+import { Personadminformvali } from 'src/app/validators/personadminformvali';
 
 
 @Component({
@@ -16,15 +17,15 @@ import { Router } from '@angular/router';
 export class PersonalistComponent implements OnInit {
   cont; // sirve para actualizar desde el evento mousemover la lista de personas
   persona: Persona[];
-  personaForm;
+  formPersonaAdmin;
   constructor(
     private dialog: MatDialog,
     private consultasService: ConsultasService,
-    private personaformvali: Personaformvali,
+    private personadminformvali: Personadminformvali,
     private personaService: PersonaService,
     private router: Router
   ) {
-    this.personaForm = this.personaformvali.formPersona;
+    this.formPersonaAdmin = this.personadminformvali.formPersonaAdmin;
   }
   listPersona: MatTableDataSource<any>;
   // tslint:disable-next-line:max-line-length
@@ -83,7 +84,7 @@ export class PersonalistComponent implements OnInit {
       estado: row.estado,
     };
     console.log(newPersona);
-    this.personaForm.setValue(newPersona);
+    this.formPersonaAdmin.setValue(newPersona);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
