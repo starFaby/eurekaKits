@@ -26,11 +26,6 @@ import { TelefonoService } from './services/telefono.service';
 import { AuthGuard } from './guard/auth.guard';
 import { ConsultasService } from './services/consultas.service';
 import { FormapagoService } from './services/formapago.service';
-import { ClientfacturaComponent } from './views/home/clientfactura/clientfactura.component';
-import { PersonaComponent } from './views/admin/persona/persona.component';
-import { PersonaformComponent } from './views/admin/persona/personaform/personaform.component';
-import { PersonalistComponent } from './views/admin/persona/personalist/personalist.component';
-import { NofoundComponent } from './views/nofound/nofound.component';
 @NgModule({
   declarations: [
     AppComponent,

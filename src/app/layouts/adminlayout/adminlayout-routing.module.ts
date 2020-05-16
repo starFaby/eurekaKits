@@ -19,6 +19,10 @@ import { ClientfacturasptbeComponent } from 'src/app/views/home/clientfacturaspt
 import { ClientfacturaComponent } from 'src/app/views/home/clientfactura/clientfactura.component';
 import { PersonaComponent } from 'src/app/views/admin/persona/persona.component';
 import { NofoundComponent } from 'src/app/views/nofound/nofound.component';
+import { ReportpersonaComponent } from 'src/app/views/admin/reportpersona/reportpersona.component';
+import { ReportcategoriaComponent } from 'src/app/views/admin/reportcategoria/reportcategoria.component';
+import { ReportproductosComponent } from 'src/app/views/admin/reportproductos/reportproductos.component';
+import { ReportpromocionComponent } from 'src/app/views/admin/reportpromocion/reportpromocion.component';
 
 export const AdminlayoutRoutingModule: Routes = [
     {path: '' , component: StartComponent},
@@ -40,5 +44,9 @@ export const AdminlayoutRoutingModule: Routes = [
     {path: 'formaPago' , component: ClientformapagoComponent, canActivate: [AuthGuard]},
     {path: 'clientPromo/:id' , component: ClientpromoComponent},
     {path: 'clientFacturasptbe' , component: ClientfacturasptbeComponent , canActivate: [AuthGuard]},
-    {path: 'clientFactura/:id' , component: ClientfacturaComponent , canActivate: [AuthGuard]}
+    {path: 'clientFactura/:id' , component: ClientfacturaComponent , canActivate: [AuthGuard]},
+    {path: 'reportpersona' , component: ReportpersonaComponent},
+    {path: 'reportcategoria' , component: ReportcategoriaComponent},
+    {path: 'reportproductos' , component: ReportproductosComponent},
+    {path: 'reportpromociones' , component: ReportpromocionComponent}
 ];

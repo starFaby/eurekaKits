@@ -265,49 +265,56 @@ export class ClientfacturaComponent implements OnInit, OnDestroy {
       this.doc.text(`${this.tipoPago}`, 387, 187);
 
       // FOOTER
-      this.doc.rect(420, 554, 150, 100); // dibujar cuadros para iva subtotatl y total
-      this.doc.rect(420, 554, 150, 25);
-      this.doc.rect(420, 579, 150, 25);
-      this.doc.rect(420, 604, 150, 25);
-      // this.doc.rect(420, 630, 120, 25);
+      this.doc.rect(420, 550, 150, 84); // dibujar solo los cuadros para iva subtotatl y total
+      this.doc.rect(420, 550, 150, 23);
+      this.doc.rect(420, 573, 150, 20);
+      this.doc.rect(420, 593, 150, 20);
+      this.doc.rect(420, 613, 150, 20);
 
       this.doc.setFontSize(9);
       this.doc.setFontStyle('bold');
-      this.doc.text('Subtotal:', 430, 570);
+      this.doc.text('Subtotal:', 430, 565);
       this.doc.setFontSize(9);
-      this.doc.text(`$ ${this.facturatotal[0].subtotal}`, 500, 570);
+      this.doc.text(`$ ${this.facturatotal[0].subtotal}`, 500, 565);
 
       this.doc.setFontSize(9);
       this.doc.setFontStyle('bold');
-      this.doc.text('Dto:', 430, 595);
+      this.doc.text('Dto:', 430, 585);
       this.doc.setFontSize(9);
-      this.doc.text(`$ ${this.facturatotal[0].dto}`, 500, 595);
+      this.doc.text(`$ ${this.facturatotal[0].dto}`, 500, 585);
 
       this.doc.setFontSize(9);
       this.doc.setFontStyle('bold');
-      this.doc.text('Iva 12:', 430, 620);
+      this.doc.text('Iva 12:', 430, 605);
       this.doc.setFontSize(9);
-      this.doc.text(`$ ${this.facturatotal[0].iva}`, 500, 620);
+      this.doc.text(`$ ${this.facturatotal[0].iva}`, 500, 605);
 
       this.doc.setFontSize(9);
       this.doc.setFontStyle('bold');
-      this.doc.text('Total $:', 430, 645);
+      this.doc.text('Total $:', 430, 625);
       this.doc.setFontSize(9);
-      this.doc.text(`$ ${this.facturatotal[0].total}`, 500, 645);
+      this.doc.text(`$ ${this.facturatotal[0].total}`, 500, 625);
 
-      this.doc.rect(27, 554, 465, 100); // cuadro que encierra todo
+      this.doc.rect(27, 550, 465, 84); // cuadro que encierra todo son,observaciones, iva, total
       this.doc.setFontSize(9);
       this.doc.setFontStyle('bold');
-      this.doc.text('Son:', 32, 575);
-      this.doc.line(51, 575, 416, 575);
-      this.doc.line(32, 590, 416, 590);
+      this.doc.text('Son:', 32, 565);
+      this.doc.line(51, 565, 416, 565);
+      this.doc.line(32, 580, 416, 580);
 
       this.doc.setFontSize(9);
       this.doc.setFontStyle('bold');
-      this.doc.text('Observaciones:', 32, 605);
-      this.doc.line(93, 605, 416, 605);
-      this.doc.line(32, 620, 416, 620);
-      this.doc.line(32, 635, 416, 635);
+      this.doc.text('Observaciones:', 32, 595);
+      this.doc.line(93, 595, 416, 595);
+      this.doc.line(32, 610, 416, 610);
+      this.doc.line(32, 625, 416, 625);
+
+      this.doc.rect(27, 634, 543, 20);
+      this.doc.setFontSize(7);
+      this.doc.setFontStyle('bold');
+      this.doc.text('LUMA SERVICIOS-Martines Avendaño josé Raul - RUC. 1709764466001'
+        + ' AUT. SRI. 10521 - (s 022693 GR) - Telf. 2 231071 Del 261 al 270', 50, 646);
+
 
       this.doc.rect(27, 657, 543, 60); // Rectangulo para el  contenido
       this.doc.setFontSize(6);

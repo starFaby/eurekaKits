@@ -10,9 +10,23 @@
         </mat-expansion-panel-header>
         <mat-list role="list">
           <mat-list-item [routerLink]="['/pers']"> Personas</mat-list-item>
-          <mat-list-item [routerLink]="['/productos']"> Productos</mat-list-item>
           <mat-list-item [routerLink]="['/categorias']"> Categorias</mat-list-item>
+          <mat-list-item [routerLink]="['/productos']"> Productos</mat-list-item>
           <mat-list-item [routerLink]="['/promo']"> Promociones</mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+      <br>
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Reportes
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <mat-list-item [routerLink]="['/reportpersona']"> R. Persona</mat-list-item>
+          <mat-list-item [routerLink]="['/reportcategoria']"> R. Categoria</mat-list-item>
+          <mat-list-item [routerLink]="['/reportproductos']"> R. Producto</mat-list-item>
+          <mat-list-item [routerLink]="['/reportpromociones']"> R. Promociones</mat-list-item>
         </mat-list>
       </mat-expansion-panel>
       <!---->

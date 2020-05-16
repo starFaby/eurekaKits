@@ -19,6 +19,11 @@ import { Facturadv } from '../models/facturadv';
 import { Facturatotal } from '../models/facturatotal';
 import { Persona } from '../models/persona';
 import { Categoria } from '../models/categoria';
+import { Producto } from '../models/producto';
+import { Promocion } from '../models/promocion';
+import { Reportproducto } from '../models/reportproducto';
+import { Reportpersona } from '../models/reportpersona';
+import { Reportpromociones } from '../models/reportpromociones';
 
 @Injectable({
   providedIn: 'root'
@@ -89,5 +94,17 @@ export class ConsultasService {
    }
    onGetFacturaTotal(id: string) { // ver facturas pagadas por el numero de factura
     return this.http.get<Facturatotal[]>(`${this.API_URI}/consultas/facturatotal/${id}`);
+   }
+   onGetReportPersona() { // ver facturas pagadas por el numero de factura
+    return this.http.get<Reportpersona[]>(`${this.API_URI}/consultas/reportpers`);
+   }
+   onGetReportCategoria() { // ver facturas pagadas por el numero de factura
+    return this.http.get<Categoria[]>(`${this.API_URI}/consultas/reportcateg`);
+   }
+   onGetReportProducto() { // ver facturas pagadas por el numero de factura
+    return this.http.get<Reportproducto[]>(`${this.API_URI}/consultas/reportprod`);
+   }
+   onGetReportPromociones() { // ver facturas pagadas por el numero de factura
+    return this.http.get<Reportpromociones[]>(`${this.API_URI}/consultas/reportpromo`);
    }
 }

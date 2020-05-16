@@ -33,6 +33,10 @@ import { PersonaComponent } from 'src/app/views/admin/persona/persona.component'
 import { PersonaformComponent } from 'src/app/views/admin/persona/personaform/personaform.component';
 import { PersonalistComponent } from 'src/app/views/admin/persona/personalist/personalist.component';
 import { NofoundComponent } from 'src/app/views/nofound/nofound.component';
+import { ReportpersonaComponent } from 'src/app/views/admin/reportpersona/reportpersona.component';
+import { ReportcategoriaComponent } from 'src/app/views/admin/reportcategoria/reportcategoria.component';
+import { ReportproductosComponent } from 'src/app/views/admin/reportproductos/reportproductos.component';
+import { ReportpromocionComponent } from 'src/app/views/admin/reportpromocion/reportpromocion.component';
 
 
 @NgModule({
@@ -63,7 +67,11 @@ import { NofoundComponent } from 'src/app/views/nofound/nofound.component';
     PersonaComponent,
     PersonaformComponent,
     PersonalistComponent,
-    NofoundComponent
+    NofoundComponent,
+    ReportpersonaComponent,
+    ReportcategoriaComponent,
+    ReportproductosComponent,
+    ReportpromocionComponent
   ],
   imports: [
     CommonModule,
