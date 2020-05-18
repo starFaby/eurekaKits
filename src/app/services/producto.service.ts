@@ -17,8 +17,16 @@ export class ProductoService {
   onGetProducto(id: string) {
     return this.http.get<Producto>(`${this.API_URI}/producto/${id}`);
   }
-  onDeleteProductos(id: string): Observable<any> {
-    return this.http.delete(`${this.API_URI}/producto/${id}`);
+  onDeleteProductos(id: string, producto: Producto): Observable<any> {
+    const newProducto: Producto = {
+      estado: producto.estado
+    };
+    console.log('===> ' + newProducto);
+    console.log(producto.estado);
+    const fd = new FormData();
+    fd.append('estado', producto.estado);
+    console.log(fd);
+    return this.http.put(`${this.API_URI}/producto/put/${id}`, newProducto);
   }
   onSaveProductos(producto: Producto) {
     const fd = new FormData();

@@ -4,6 +4,9 @@ import { ProductoService } from 'src/app/services/producto.service';
 import { ProductoformComponent } from '../productoform/productoform.component';
 import { Productoformvali } from 'src/app/validators/productoformvali';
 import { Producto } from 'src/app/models/producto';
+import { ConsultasService } from 'src/app/services/consultas.service';
+import { Productoview } from 'src/app/models/productoview';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-productolist',
@@ -11,13 +14,14 @@ import { Producto } from 'src/app/models/producto';
   styleUrls: ['./productolist.component.scss']
 })
 export class ProductolistComponent implements OnInit {
-  arreglo;
-  productos: Producto[];
+  productosview: Productoview[];
   file: File;
   constructor(
     private dialog: MatDialog,
     private productoService: ProductoService,
-    private productoformvali: Productoformvali
+    private productoformvali: Productoformvali,
+    private consultasService: ConsultasService,
+    private router: Router
   ) { }
   form = this.productoformvali.formProducto;
   listProductos: MatTableDataSource<any>;
@@ -27,16 +31,21 @@ export class ProductolistComponent implements OnInit {
   searchKey: string;
 
   ngOnInit() {
-    this.onGetProductosAll();
+    this.onGetProducto();
   }
-  onGetProductosAll() {
-    this.productoService.onGetProductos().subscribe(
+  onGetProducto() {
+    this.consultasService.onGetProducto().subscribe(
       res => {
-        this.productos = res;
-        console.log(this.productos);
-        this.listProductos = new MatTableDataSource(this.productos);
-        this.listProductos.sort = this.sort;
-        this.listProductos.paginator = this.paginator;
+        if (res != null) {
+          this.productosview = res;
+          this.listProductos = new MatTableDataSource(this.productosview);
+          this.listProductos.sort = this.sort;
+          this.listProductos.paginator = this.paginator;
+        } else {
+          this.onCreate();
+          this.router.navigate(['/nofound']);
+          console.log('No datos');
+        }
       },
       err => console.log(err)
     );
@@ -73,11 +82,14 @@ export class ProductolistComponent implements OnInit {
     dialogConfig.width = '60%';
     this.dialog.open(ProductoformComponent, dialogConfig);
   }
-  onDelete(row) {
-    this.productoService.onDeleteProductos(row).subscribe(
+  onDelete(id) {
+    const newProducto: Producto = {
+      estado: 0
+    };
+    this.productoService.onDeleteProductos(id, newProducto).subscribe(
       res => {
         console.log(res);
-        this.onGetProductosAll();
+        this.onGetProducto();
       },
       err => console.log(err)
     );

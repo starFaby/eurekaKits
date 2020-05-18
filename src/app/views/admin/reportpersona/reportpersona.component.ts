@@ -61,8 +61,13 @@ export class ReportpersonaComponent implements OnInit {
   onGetReportProducto() {
     this.consultasService.onGetReportPersona().subscribe(
       res => {
-        this.reportpersona = res;
-        this.PdfViewer();
+        if (res != null) {
+          this.reportpersona = res;
+          this.PdfViewer();
+        } else {
+          this.router.navigate(['/nofound']);
+          console.log('No datos');
+        }
       },
       err => {
         console.log(err);

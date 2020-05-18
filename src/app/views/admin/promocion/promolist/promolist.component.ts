@@ -7,6 +7,7 @@ import { FormGroup } from '@angular/forms';
 import { PromoformComponent } from '../promoform/promoform.component';
 import { ConsultasService } from 'src/app/services/consultas.service';
 import { Promocionpp } from 'src/app/models/promocionpp';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-promolist',
@@ -16,17 +17,17 @@ import { Promocionpp } from 'src/app/models/promocionpp';
 export class PromolistComponent implements OnInit {
   formPromo: FormGroup;
   promocion: Promocionpp[];
-  constructor
-    (
-      private dialog: MatDialog,
-      private promocionService: PromocionService,
-      private promoformvali: Promoformvali,
-      private consultasService: ConsultasService
-    ) {
+  constructor(
+    private dialog: MatDialog,
+    private promocionService: PromocionService,
+    private promoformvali: Promoformvali,
+    private consultasService: ConsultasService,
+    private router: Router
+  ) {
     this.formPromo = this.promoformvali.formPromo;
   }
   listPromo: MatTableDataSource<any>;
-  displayedColumns: string[] = ['producto', 'descuento','fechainicio','fechafin','descripcion', 'estado', 'actions'];
+  displayedColumns: string[] = ['producto', 'descuento', 'fechainicio', 'fechafin', 'descripcion', 'estado', 'actions'];
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   searchKey: string;
@@ -36,10 +37,16 @@ export class PromolistComponent implements OnInit {
   onGetCategoriasAll() {
     this.consultasService.onGetPromocionpp().subscribe(
       res => {
-        this.promocion = res;
-        this.listPromo = new MatTableDataSource(this.promocion);
-        this.listPromo.sort = this.sort;
-        this.listPromo.paginator = this.paginator;
+        if (res != null) {
+          this.promocion = res;
+          this.listPromo = new MatTableDataSource(this.promocion);
+          this.listPromo.sort = this.sort;
+          this.listPromo.paginator = this.paginator;
+        } else {
+          this.onCreate();
+          this.router.navigate(['/nofound']);
+          console.log('No datos');
+        }
       },
       err => console.log(err)
     );
@@ -60,7 +67,6 @@ export class PromolistComponent implements OnInit {
     this.dialog.open(PromoformComponent, dialogConfig);
   }
   async onEdit(row) {
-    console.log(row);
     const newPromocion: Promocion = {
       idpromociones: row.idpromociones,
       idproducto: null,
@@ -77,8 +83,11 @@ export class PromolistComponent implements OnInit {
     dialogConfig.width = '60%';
     this.dialog.open(PromoformComponent, dialogConfig);
   }
-  onDelete(row) {
-    this.promocionService.onDeletePromocion(row).subscribe(
+  onDelete(id) {
+    const newPromocion: Promocion = {
+      estado: 0
+    };
+    this.promocionService.onDeletePromocion(id, newPromocion).subscribe(
       res => {
         console.log(res);
         this.onGetCategoriasAll();

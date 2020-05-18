@@ -1,10 +1,10 @@
 export interface Promocion {
-    idpromociones?: string;
-    idproducto: string;
-    dto: string;
-    fechainicio: Date;
-    fechafin: Date;
-    descripcion: string;
-    estado: string;
+    idpromociones?: any;
+    idproducto?: any;
+    dto?: any;
+    fechainicio?: Date;
+    fechafin?: Date;
+    descripcion?: any;
+    estado?: any;
     created_at?: Date;
 }

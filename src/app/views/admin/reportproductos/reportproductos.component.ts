@@ -60,8 +60,13 @@ export class ReportproductosComponent implements OnInit {
   onGetReportProducto() {
     this.consultasService.onGetReportProducto().subscribe(
       res => {
-        this.reportproducto = res;
-        this.PdfViewer();
+        if (res != null) {
+          this.reportproducto = res;
+          this.PdfViewer();
+        } else {
+          this.router.navigate(['/nofound']);
+          console.log('No datos');
+        }
       },
       err => {
         console.log(err);

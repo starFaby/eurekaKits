@@ -60,8 +60,13 @@ export class ReportpromocionComponent implements OnInit {
   onGetFacturaPDF() {
     this.consultasService.onGetReportPromociones().subscribe(
       res => {
-        this.reportpromociones = res;
-        this.PdfViewer();
+        if (res != null) {
+          this.reportpromociones = res;
+          this.PdfViewer();
+        } else {
+          this.router.navigate(['/nofound']);
+          console.log('No datos');
+        }
       },
       err => {
         console.log(err);

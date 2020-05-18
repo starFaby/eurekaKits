@@ -19,11 +19,10 @@ import { Facturadv } from '../models/facturadv';
 import { Facturatotal } from '../models/facturatotal';
 import { Persona } from '../models/persona';
 import { Categoria } from '../models/categoria';
-import { Producto } from '../models/producto';
-import { Promocion } from '../models/promocion';
 import { Reportproducto } from '../models/reportproducto';
 import { Reportpersona } from '../models/reportpersona';
 import { Reportpromociones } from '../models/reportpromociones';
+import { Productoview } from '../models/productoview';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +33,9 @@ export class ConsultasService {
   constructor(private http: HttpClient) { }
   onGetCategoria() {
     return this.http.get<Categoria[]>(`${this.API_URI}/consultas/categoria`);
+   }
+   onGetProducto() {
+    return this.http.get<Productoview[]>(`${this.API_URI}/consultas/producto`);
    }
   onGetPersona() {
     return this.http.get<Persona[]>(`${this.API_URI}/consultas/pers`);

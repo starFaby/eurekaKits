@@ -77,7 +77,6 @@ export class PromoformComponent implements OnInit {
     this.promoformvali.formPromo.reset();
     this.promoformvali.oninitializeFomrGroup();
     this.matDialogRef.close();
-    this.router.navigate(['/promoList']);
   }
   onGetProducto() {
     this.productoService.onGetProductos().subscribe(

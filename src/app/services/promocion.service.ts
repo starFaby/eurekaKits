@@ -17,8 +17,11 @@ export class PromocionService {
   onGetPromocion(id: string) {
     return this.http.get<Promocion[]>(`${this.API_URI}/promocion/${id}`);
   }
-  onDeletePromocion(id: string): Observable<any> {
-    return this.http.delete(`${this.API_URI}/promocion/${id}`);
+  onDeletePromocion(id: string, promocion: Promocion): Observable<any> {
+    const newPromocion: Promocion = {
+      estado: promocion.estado
+    };
+    return this.http.put(`${this.API_URI}/promocion/put/${id}`, newPromocion);
   }
   onSavePromocion(promocion: Promocion) {
     const newPromocion: Promocion = {

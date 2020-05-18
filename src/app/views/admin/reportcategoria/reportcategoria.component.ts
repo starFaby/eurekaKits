@@ -61,8 +61,13 @@ export class ReportcategoriaComponent implements OnInit {
   onGetReportCategoria() {
     this.consultasService.onGetReportCategoria().subscribe(
       res => {
-        this.categoria = res;
-        this.PdfViewer();
+        if (res != null) {
+          this.categoria = res;
+          this.PdfViewer();
+        } else {
+          this.router.navigate(['/nofound']);
+          console.log('No datos');
+        }
       },
       err => {
         console.log(err);
