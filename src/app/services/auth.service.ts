@@ -41,6 +41,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('idpersona');
+    localStorage.removeItem('idfactura');
     // this.router.navigate(['/personForm']);
   }
   onGetToken() {

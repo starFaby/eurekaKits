@@ -23,6 +23,7 @@ import { Reportproducto } from '../models/reportproducto';
 import { Reportpersona } from '../models/reportpersona';
 import { Reportpromociones } from '../models/reportpromociones';
 import { Productoview } from '../models/productoview';
+import { Dto } from '../models/dto';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +55,9 @@ export class ConsultasService {
    }
    onGetDetaVentadvp(id: string) { // para visualizar la canasta por su id
     return this.http.get<DetalleVentas[]>(`${this.API_URI}/consultas/devedvp/${id}`);
+   }
+   onGetDto() { // para visualizar la canasta por su id
+    return this.http.get<Dto[]>(`${this.API_URI}/consultas/dto`);
    }
    onGetNumFact() {
     return this.http.get<Numfactura[]>(`${this.API_URI}/consultas/numfact`);

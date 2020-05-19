@@ -37,6 +37,9 @@ import { ReportpersonaComponent } from 'src/app/views/admin/reportpersona/report
 import { ReportcategoriaComponent } from 'src/app/views/admin/reportcategoria/reportcategoria.component';
 import { ReportproductosComponent } from 'src/app/views/admin/reportproductos/reportproductos.component';
 import { ReportpromocionComponent } from 'src/app/views/admin/reportpromocion/reportpromocion.component';
+import { DtoformComponent } from 'src/app/views/admin/dto/dtoform/dtoform.component';
+import { DtoComponent } from 'src/app/views/admin/dto/dto.component';
+import { DtolistComponent } from 'src/app/views/admin/dto/dtolist/dtolist.component';
 
 
 @NgModule({
@@ -71,7 +74,10 @@ import { ReportpromocionComponent } from 'src/app/views/admin/reportpromocion/re
     ReportpersonaComponent,
     ReportcategoriaComponent,
     ReportproductosComponent,
-    ReportpromocionComponent
+    ReportpromocionComponent,
+    DtoformComponent,
+    DtoComponent,
+    DtolistComponent
   ],
   imports: [
     CommonModule,
@@ -87,7 +93,8 @@ import { ReportpromocionComponent } from 'src/app/views/admin/reportpromocion/re
     ClienteleformComponent,
     ClientdireccformComponent,
     PromoformComponent,
-    PersonaformComponent
+    PersonaformComponent,
+    DtoformComponent
   ]
 })
 export class AdminlayoutModule { }

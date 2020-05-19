@@ -26,6 +26,7 @@ import { TelefonoService } from './services/telefono.service';
 import { AuthGuard } from './guard/auth.guard';
 import { ConsultasService } from './services/consultas.service';
 import { FormapagoService } from './services/formapago.service';
+
 @NgModule({
   declarations: [
     AppComponent,

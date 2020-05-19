@@ -12,6 +12,7 @@ import { Fecha } from 'src/app/validators/fecha';
 import { Numfactura } from 'src/app/models/numfactura';
 import { Factura } from 'src/app/models/factura';
 import { FacturaService } from 'src/app/services/factura.service';
+import { Dto } from 'src/app/models/dto';
 
 
 @Component({
@@ -20,6 +21,7 @@ import { FacturaService } from 'src/app/services/factura.service';
   styleUrls: ['./canasta.component.scss']
 })
 export class CanastaComponent implements OnInit {
+  dto: Dto[];
   detalleVenta: DetalleVentas[];
   persona: Consultas[];
   numFactura: Numfactura[];
@@ -30,6 +32,11 @@ export class CanastaComponent implements OnInit {
     dto: 0,
     iva: 0,
     total: 0,
+  };
+  newDto: Dto = {
+    iddto: 0,
+    dto: 0,
+    estado: 0,
   };
 
   constructor(
@@ -52,13 +59,13 @@ export class CanastaComponent implements OnInit {
   searchKey: string;
   ngOnInit() {
     this.onGetPersona();
+    this.onGetDescuento();
     this.onGetDetaVentaAll();
   }
   onGetPersona() {
     const idpersona = localStorage.getItem('idpersona');
     this.consultasService.onGetPersonapdt(idpersona).subscribe(
       res => {
-        console.log(res);
         this.persona = res;
       },
       err => {
@@ -74,15 +81,15 @@ export class CanastaComponent implements OnInit {
           this.detalleVenta = res;
           this.newFactura.subtotal = this.detalleVenta.map(t => t.total).reduce((acc, value) => acc + value);
           const auxIva = (this.newFactura.subtotal * 0.12);
+          this.newFactura.dto = this.newFactura.subtotal * (this.newDto.dto / 100);
           // tslint:disable-next-line:radix
           this.newFactura.iva = parseFloat(auxIva.toFixed(2));
-          this.newFactura.total = (this.newFactura.subtotal + this.newFactura.iva).toFixed(2);
+          this.newFactura.total = (this.newFactura.subtotal + this.newFactura.iva - this.newFactura.dto).toFixed(2);
           this.listCanasta = new MatTableDataSource(this.detalleVenta);
           this.listCanasta.sort = this.sort;
           this.listCanasta.paginator = this.paginator;
           this.authBottom = true;
         } else {
-          console.log('No Tiene Productos en la canasta');
           this.authBottom = false;
         }
       },
@@ -94,21 +101,22 @@ export class CanastaComponent implements OnInit {
         }
       }
     );
-    /*  this.categoriaService.onGetCategorias().subscribe(
-        res => {
-          this.arreglo = res;
-          this.listCategoria = new MatTableDataSource(this.arreglo);
-          this.listCategoria.sort = this.sort;
-          this.listCategoria.paginator = this.paginator;
-        },
-        err => console.log(err)
-      );*/
+  }
+  onGetDescuento() {
+    this.consultasService.onGetDto().subscribe(
+      res => {
+        this.dto = res;
+        this.newDto.dto = this.dto[0].dto;
+      },
+      err => {
+        console.log(err);
+      }
+    )
   }
   onSubmit() {
     const id = localStorage.getItem('idfactura');
     this.facturaService.onUpdateFactura(id, this.newFactura).subscribe(
       res => {
-        console.log(res);
         localStorage.removeItem('idfactura');
         this.router.navigate(['/formaPago']);
       },

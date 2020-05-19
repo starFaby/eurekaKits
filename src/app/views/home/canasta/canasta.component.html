@@ -23,7 +23,8 @@
                                         <td>FACTURA 001 - 001</td>
                                     </tr>
                                     <tr>
-                                        <input type="text" class="inputModify text-danger"  [(ngModel)]="newFactura.numfactura" disabled>
+                                        <input type="text" class="inputModify text-danger"
+                                            [(ngModel)]="newFactura.numfactura" disabled>
                                     </tr>
                                     <tr>
                                         <table class="table table-borderless">
@@ -170,28 +171,48 @@
                                 <tbody>
                                     <tr>
                                         <td>SubTotal</td>
-                                        <td class="text-center"><input type="text" class="inputModify" [(ngModel)]="newFactura.subtotal" disabled>$ </td>
+                                        <td class="text-center"><input type="text" class="inputModify"
+                                                [(ngModel)]="newFactura.subtotal" disabled>$ </td>
                                     </tr>
                                     <tr>
-                                        <td>Dto</td>
-                                        <td class="text-center"></td>
+                                        <td>Dto {{ this.newDto.dto }} %</td>
+                                        <td class="text-center"><input type="text" class="inputModify"
+                                                [(ngModel)]="newFactura.dto" disabled></td>
                                     </tr>
                                     <tr>
                                         <td>IVA</td>
-                                        <td class="text-center"><input type="text" class="inputModify"  [(ngModel)]="newFactura.iva" disabled></td>
+                                        <td class="text-center"><input type="text" class="inputModify"
+                                                [(ngModel)]="newFactura.iva" disabled></td>
                                     </tr>
                                     <tr>
                                         <td>Total</td>
-                                        <td class="text-center"><input type="text" class="inputModify"  [(ngModel)]="newFactura.total" disabled> </td>
+                                        <td class="text-center"><input type="text" class="inputModify"
+                                                [(ngModel)]="newFactura.total" disabled> </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <mat-card>
-                        <div class="col-md-12">
+                        <div class="col-md-12 border border-2 m-1">
                             <b>LUMA SERVICIOS -</b> Martines Avendaño José Raul - <b>RUC. </b>1709764466001 <b>-
                                 Aut.SRI.</b> 10521 - (S 022693 GR) - Telf. 2 231071 - Del 261 al 270
+                        </div>
+                        <div class="col-md-12 border border-2 m-1">
+                            <p> Con la entrega de esta Factura el cliente reconoce su obligacion incondicional de pago
+                                a la fecha de vencimiento.........................................tambien se obliga a
+                                pagar
+                                en caso de mora el interes de ..................., las partes le dan a este instrumento
+                                de
+                                caracter ejecutivo
+                                por ser pura, simple y de plazo vencido.
+                                Se sujeta a los jueces de lo civil de la provincia de pichincha y/o al tramite que elija
+                                el
+                                acreedor,para cuyo efecto
+                                renuncia fuero, domicilio y vencidad.
+                                Eximese de presentación para aceptación y pago, asi como de aviso por falta de estos
+                                hechos.
+                                Salida de mercadería y recibida conforme, no se aceptan reclamos ni devoluciones.</p>
                         </div>
                         <div class="row text-center">
                             <div class="col-md-12">
@@ -237,29 +258,11 @@
             <div class="card-body">
                 <mat-card>
                     <div class="row">
-                        Con la entrega de esta Factura el cliente reconoce su obligacion incondicional de pago
-                        a la fecha de vencimiento.........................................tambien se obliga a pagar
-                        en caso de mora el interes de ..................., las partes le dan a este instrumento de
-                        caracter ejecutivo
-                        por ser pura, simple y de plazo vencido.
-                        Se sujeta a los jueces de lo civil de la provincia de pichincha y/o al tramite que elija el
-                        acreedor,para cuyo efecto
-                        renuncia fuero, domicilio y vencidad.
-                        Eximese de presentación para aceptación y pago, asi como de aviso por falta de estos hechos.
-                        Salida de mercadería y recibida conforme, no se aceptan reclamos ni devoluciones.
-                    </div>
-                </mat-card>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="card p-4 my-2">
-            <div class="card-body">
-                <mat-card>
-                    <div class="row">
                         <div class="col-md-3 mx-auto">
-                            <button type="button" class="btn btn-primary btn-block" *ngIf="authBottom"  (click)="onSubmit()" >Archivar Factura</button> <!--[routerLink]="['/formaPago']"-->
-                            <button type="button" class="btn btn-primary btn-block" *ngIf="!authBottom"  >No tiene Productos en la  Factura</button> <!--[routerLink]="['/formaPago']"-->
+                            <button type="button" class="btn btn-primary btn-block" *ngIf="authBottom"
+                                (click)="onSubmit()">Archivar Factura</button>
+                            <button type="button" class="btn btn-primary btn-block" *ngIf="!authBottom">No tiene
+                                Productos en la Factura</button>
                         </div>
                     </div>
                 </mat-card>

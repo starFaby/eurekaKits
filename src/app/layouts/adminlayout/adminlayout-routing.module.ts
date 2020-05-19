@@ -23,6 +23,7 @@ import { ReportpersonaComponent } from 'src/app/views/admin/reportpersona/report
 import { ReportcategoriaComponent } from 'src/app/views/admin/reportcategoria/reportcategoria.component';
 import { ReportproductosComponent } from 'src/app/views/admin/reportproductos/reportproductos.component';
 import { ReportpromocionComponent } from 'src/app/views/admin/reportpromocion/reportpromocion.component';
+import { DtoComponent } from 'src/app/views/admin/dto/dto.component';
 
 export const AdminlayoutRoutingModule: Routes = [
     {path: '' , component: StartComponent},
@@ -48,5 +49,6 @@ export const AdminlayoutRoutingModule: Routes = [
     {path: 'reportpersona' , component: ReportpersonaComponent},
     {path: 'reportcategoria' , component: ReportcategoriaComponent},
     {path: 'reportproductos' , component: ReportproductosComponent},
-    {path: 'reportpromociones' , component: ReportpromocionComponent}
+    {path: 'reportpromociones' , component: ReportpromocionComponent},
+    {path: 'dto' , component: DtoComponent}
 ];

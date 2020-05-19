@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col">
+        <mat-form-field class="search-form-field">
+            <input matInput [(ngModel)]="searchKey" placeholder="search" autocomplete="off" (keyup)="searchFiltrer()"
+                class="inputSearch">
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h6 class="text-center">Lista Descuento</h6>
+        <div>
+            <div class="mat-elevation-z8 ">
+                <mat-table [dataSource]="listDto" matSort>
+                    <ng-container matColumnDef="dto">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Descuento</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{ element.dto}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="estado">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>estado</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{ element.estado}}</mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button mat-icon-button (click)="onEdit(row)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="loading">
+                        <mat-footer-cell *matFooterCellDef colspan="6">
+                            Loading data...
+                        </mat-footer-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="noData">
+                        <mat-footer-cell *matFooterCellDef colspan="6">
+                            no data
+                        </mat-footer-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                    <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': listDto !== null}">
+                    </mat-footer-row>
+                    <mat-footer-row *matFooterRowDef="['noData']"
+                        [ngClass]="{'hide': !(listDto != null && listDto.data.length===0)}">
+                    </mat-footer-row>
+                </mat-table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5"></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>
