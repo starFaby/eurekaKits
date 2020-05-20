@@ -41,26 +41,26 @@
   <mat-sidenav-content>
     <mat-toolbar class="colorToolbar">
       <mat-toolbar-row>
-        <button mat-icon-button (click)="opened = !opened">
+        <button mat-icon-button matTooltip="Administrador" (click)="opened = !opened" *ngIf="authService.onGetTokenAdmin()">
           <mat-icon>list_alt</mat-icon>
         </button>
-        <button mat-icon-button [routerLink]="['/clientCategoriaoList']">
+        <button mat-icon-button matTooltip="Ver Categorias" [routerLink]="['/clientCategoriaoList']">
           <mat-icon>visibility</mat-icon>
         </button>
         <span class="spacer"></span>
-        <button mat-icon-button [routerLink]="['/clientFacturasptbe']">
-          Facturas
+        <button mat-icon-button matTooltip="Ver Facturas" *ngIf="authService.onLoggedIn()" [routerLink]="['/clientFacturasptbe']">
+          Fact
         </button>
-        <button mat-icon-button [routerLink]="['/']">
-          <mat-icon matBadge="15" matBadgeColor="warn">notifications_active</mat-icon>
+        <button mat-icon-button matTooltip="Notificaciones"  [routerLink]="['/']">
+          <mat-icon matBadge="{{ cantPromo }}" matBadgeColor="warn">notifications_active</mat-icon>
         </button>
-        <button mat-icon-button *ngIf="!authService.onLoggedIn()" [routerLink]="['/registForm']">
+        <button mat-icon-button matTooltip="Registrate" *ngIf="!authService.onLoggedIn()" [routerLink]="['/registForm']">
           <mat-icon class="example-icon" aria-hidden="false" aria-label="registrer icon">assignment</mat-icon>
         </button>
-        <button mat-icon-button *ngIf="!authService.onLoggedIn()" [routerLink]="['/login']">
+        <button mat-icon-button matTooltip="Logeate" *ngIf="!authService.onLoggedIn()" [routerLink]="['/login']">
           <mat-icon class="example-icon" aria-hidden="false" aria-label="user icon">perm_identity</mat-icon>
         </button>
-        <button mat-icon-button *ngIf="authService.onLoggedIn()" (click)="authService.logout()"
+        <button mat-icon-button matTooltip="Salir de Sesion" *ngIf="authService.onLoggedIn()" (click)="authService.logout()"
           [routerLink]="['/login']">
           <mat-icon class="example-icon" aria-hidden="false" aria-label="user icon">directions_run</mat-icon>
         </button>

@@ -17,7 +17,7 @@ export class Personadminformvali {
             nombres: ['', Validators.required],
             apellidos: ['', Validators.required],
             fechanacimiento: ['', Validators.required],
-            email: ['', Validators.required],
+            email: ['', Validators.required, Validators.pattern('[^@]*@[^@]*')],
             password: ['', Validators.required],
             requerimiento: ['', Validators.required],
             estado: ['', Validators.required],

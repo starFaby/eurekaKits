@@ -18,6 +18,7 @@ import { PaypalService } from 'src/app/services/paypal.service';
 import { TransbancService } from 'src/app/services/transbanc.service';
 import { EfectService } from 'src/app/services/efect.service';
 import { PaypalbuyService } from 'src/app/services/paypalbuy.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clientformapago',
@@ -71,7 +72,8 @@ export class ClientformapagoComponent implements OnInit {
     private paypalService: PaypalService,
     private transbancService: TransbancService,
     private efectService: EfectService,
-    private paypalbuyService: PaypalbuyService
+    private paypalbuyService: PaypalbuyService,
+    private router: Router
   ) {
     this.formFormPago = this.formapagoformvali.formFormPago;
     this.formTransBanc = this.transbancformvali.formTransBanc;
@@ -91,7 +93,7 @@ export class ClientformapagoComponent implements OnInit {
     const idpersona = localStorage.getItem('idpersona');
     this.consultasService.onGetpersonafactura(idpersona).subscribe(
       res => {
-        if (res != null){
+        if (res != null) {
           this.personaFactura = res.map(t => t); // muestra facturas por persona que haya comprado
         } else {
           console.log('No Tiene Facturas ):');
@@ -116,7 +118,7 @@ export class ClientformapagoComponent implements OnInit {
     const idpersona = localStorage.getItem('idpersona');
     this.consultasService.onGetPagoFactPaypal(idpersona).subscribe(
       res => {
-        if (res != null){
+        if (res != null) {
           this.Paypaltransbefec1 = res.map(t => t); // muestra facturas paypal
         } else {
           console.log('No Tiene Facturas Paypal');
@@ -131,7 +133,7 @@ export class ClientformapagoComponent implements OnInit {
     const idpersona = localStorage.getItem('idpersona');
     this.consultasService.onGetPagoFactTransBanc(idpersona).subscribe(
       res => {
-        if (res != null){
+        if (res != null) {
           this.Paypaltransbefec2 = res.map(t => t);
         } else {
           console.log('No Tiene Facturas de Transferencia Bancaria');
@@ -146,7 +148,7 @@ export class ClientformapagoComponent implements OnInit {
     const idpersona = localStorage.getItem('idpersona');
     this.consultasService.onGetPagoFactEfectivo(idpersona).subscribe(
       res => {
-        if (res != null){
+        if (res != null) {
           this.Paypaltransbefec3 = res.map(t => t);
         } else {
           console.log('No Tiene Facturas Efectivo');
@@ -241,6 +243,28 @@ export class ClientformapagoComponent implements OnInit {
       }
     }
   }
+  onGetSuccess() {
+    this.consultasService.onGetSuccess().subscribe(
+      res => {
+        console.log(res);
+        console.log('Compardo exitosamente faby star');
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  onGetCancel() {
+    this.consultasService.onGetCancel().subscribe(
+      res => {
+        console.log(res);
+        console.log('Cancelado exitosamente faby star');
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
   onSubmit2() { // para guardar en paypal
     console.log(this.paypal);
     if (this.paypal.idformapago !== '' && this.paypal.numfactura !== '' && this.paypal.preciofactura !== '') {
@@ -251,11 +275,14 @@ export class ClientformapagoComponent implements OnInit {
             date => {
               console.log(date);
               this.paypalbuyService.onSavePaypalBuy(this.paypal).subscribe(
-                 date1 => {
+                date1 => {
+                  console.log('PAYPAL');
                   console.log(date1);
+                  this.onGetPagoFactPaypal();
                   // tslint:disable-next-line:no-string-literal
                   const link = date1['newLInk'];
                   window.open(link, 'paypal', 'width=200,height=100');
+                  this.router.navigate(['/clientFacturasptbe']);
                 },
                 err => {
                   console.log(err);
@@ -287,6 +314,7 @@ export class ClientformapagoComponent implements OnInit {
             date => {
               console.log(date);
               this.onGetPagoFactTransBanc();
+              this.router.navigate(['/clientFacturasptbe']);
             },
             err => {
               console.log(err);
@@ -311,6 +339,7 @@ export class ClientformapagoComponent implements OnInit {
             date => {
               console.log(date);
               this.onGetPagoFactEfectivo();
+              this.router.navigate(['/clientFacturasptbe']);
             },
             err => {
               console.log(err);

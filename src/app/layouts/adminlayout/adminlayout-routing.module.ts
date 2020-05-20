@@ -24,15 +24,16 @@ import { ReportcategoriaComponent } from 'src/app/views/admin/reportcategoria/re
 import { ReportproductosComponent } from 'src/app/views/admin/reportproductos/reportproductos.component';
 import { ReportpromocionComponent } from 'src/app/views/admin/reportpromocion/reportpromocion.component';
 import { DtoComponent } from 'src/app/views/admin/dto/dto.component';
+import { AdminGuard } from 'src/app/guard/admin.guard';
 
 export const AdminlayoutRoutingModule: Routes = [
     {path: '' , component: StartComponent},
     {path: 'nofound' , component: NofoundComponent},
-    {path: 'pers' , component: PersonaComponent},
-    {path: 'productos' , component: ProductosComponent},
-    {path: 'categorias' , component: CategoriaComponent},
-    {path: 'categoriaList' , component: CategorialistComponent},
-    {path: 'productoList' , component: ProductolistComponent},
+    {path: 'pers' , component: PersonaComponent, canActivate: [AdminGuard]},
+    {path: 'productos' , component: ProductosComponent, canActivate: [AdminGuard]},
+    {path: 'categorias' , component: CategoriaComponent, canActivate: [AdminGuard]},
+    // {path: 'categoriaList' , component: CategorialistComponent},
+    // {path: 'productoList' , component: ProductolistComponent},
     {path: 'clientCategoriaoList' , component: ClientcategoriaComponent},
     {path: 'clientCateprodu/:id' , component: ClientcateproduComponent},
     {path: 'clientProd/:id' , component: ClientprodComponent},
@@ -40,15 +41,15 @@ export const AdminlayoutRoutingModule: Routes = [
     {path: 'canasta' , component: CanastaComponent, canActivate: [AuthGuard]},
     {path: 'registForm' , component: ClientpersonformComponent},
     {path: 'login' , component: LoginComponent},
-    {path: 'promo' , component: PromocionComponent},
-    {path: 'promoList' , component: PromocionComponent},
+    {path: 'promo' , component: PromocionComponent, canActivate: [AdminGuard]},
+    // {path: 'promoList' , component: PromocionComponent},
     {path: 'formaPago' , component: ClientformapagoComponent, canActivate: [AuthGuard]},
     {path: 'clientPromo/:id' , component: ClientpromoComponent},
     {path: 'clientFacturasptbe' , component: ClientfacturasptbeComponent , canActivate: [AuthGuard]},
     {path: 'clientFactura/:id' , component: ClientfacturaComponent , canActivate: [AuthGuard]},
-    {path: 'reportpersona' , component: ReportpersonaComponent},
-    {path: 'reportcategoria' , component: ReportcategoriaComponent},
-    {path: 'reportproductos' , component: ReportproductosComponent},
-    {path: 'reportpromociones' , component: ReportpromocionComponent},
-    {path: 'dto' , component: DtoComponent}
+    {path: 'reportpersona' , component: ReportpersonaComponent, canActivate: [AdminGuard]},
+    {path: 'reportcategoria' , component: ReportcategoriaComponent, canActivate: [AdminGuard]},
+    {path: 'reportproductos' , component: ReportproductosComponent, canActivate: [AdminGuard]},
+    {path: 'reportpromociones' , component: ReportpromocionComponent, canActivate: [AdminGuard]},
+    {path: 'dto' , component: DtoComponent, canActivate: [AdminGuard]}
 ];

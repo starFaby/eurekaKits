@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     };
     image.src = '../../../assets/img/tdtd.png';
     image1.onload = () => {
-      this.ctx.drawImage(image1, 230, 90, 50, 50);
+      this.ctx.drawImage(image1, 190, 90, 100, 50);
     };
     image1.src = '../../../assets/img/euk.png';
   }

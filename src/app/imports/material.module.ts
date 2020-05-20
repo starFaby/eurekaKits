@@ -3,7 +3,7 @@ import {
   MatButtonModule, MatExpansionModule, MatSidenavModule, MatListModule,
   MatIconModule, MatToolbarModule, MatFormFieldModule, MatRadioModule,
   MatSelectModule, MatInputModule, MatGridListModule, MatCardModule,
-  MatTableModule, MatPaginatorModule, MatDialogModule, MatTabsModule, MatDatepickerModule, MatNativeDateModule, MatAutocompleteModule
+  MatTableModule, MatPaginatorModule, MatDialogModule, MatTabsModule, MatDatepickerModule, MatNativeDateModule, MatAutocompleteModule, MatBadgeModule, MatTooltipModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 
@@ -27,7 +27,9 @@ const MaterialComponents = [
   MatTabsModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatBadgeModule,
+  MatTooltipModule
 ];
 @NgModule({
   imports: [MaterialComponents],

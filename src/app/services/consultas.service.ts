@@ -113,4 +113,10 @@ export class ConsultasService {
    onGetReportPromociones() { // ver facturas pagadas por el numero de factura
     return this.http.get<Reportpromociones[]>(`${this.API_URI}/consultas/reportpromo`);
    }
+   onGetSuccess() { // ver facturas pagadas por el numero de factura
+    return this.http.get(`${this.API_URI}/paypalbuy/success`);
+   }
+   onGetCancel() { // ver facturas pagadas por el numero de factura
+    return this.http.get(`${this.API_URI}/paypalbuy/cancel`);
+   }
 }

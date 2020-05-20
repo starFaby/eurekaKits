@@ -26,6 +26,14 @@ import { TelefonoService } from './services/telefono.service';
 import { AuthGuard } from './guard/auth.guard';
 import { ConsultasService } from './services/consultas.service';
 import { FormapagoService } from './services/formapago.service';
+import { AdminGuard } from './guard/admin.guard';
+import { DtoService } from './services/dto.service';
+import { EfectService } from './services/efect.service';
+import { FacturaService } from './services/factura.service';
+import { PaypalService } from './services/paypal.service';
+import { PaypalbuyService } from './services/paypalbuy.service';
+import { PromocionService } from './services/promocion.service';
+import { TransbancService } from './services/transbanc.service';
 
 @NgModule({
   declarations: [
@@ -48,10 +56,12 @@ import { FormapagoService } from './services/formapago.service';
     PdfViewerModule
   ],
   providers: [
-    CategoriaService, CateproduService, AuthService,
-    DetaventaService, DireccionService, PersonaService,
-    ProductoService, TelefonoService, AuthGuard,
-    ConsultasService, FormapagoService,
+    AuthService, CategoriaService, CateproduService, ConsultasService,
+    DetaventaService, DireccionService, DtoService, EfectService,
+    FacturaService, FormapagoService, PaypalService, PaypalbuyService,
+    PersonaService, ProductoService, TelefonoService, TransbancService,
+    AuthGuard, AdminGuard,
+      PromocionService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokeninterceptorService,

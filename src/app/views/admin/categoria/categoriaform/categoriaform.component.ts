@@ -37,9 +37,9 @@ export class CategoriaformComponent implements OnInit {
     if (this.formCategoria.valid) {
       if (this.formCategoria.get('idcategoria').value == null) {
         const newCategoria: Categoria = {
-          nombre: this.formCategoria.get('nombre').value,
+          nombre: this.formCategoria.get('nombre').value.trim(),
           image: this.file,
-          estado: this.formCategoria.get('estado').value
+          estado: this.formCategoria.get('estado').value.trim()
         };
         console.log(newCategoria);
         this.categoriaService.onSaveCategoria(newCategoria).subscribe(
@@ -53,9 +53,9 @@ export class CategoriaformComponent implements OnInit {
         const idCategoria = this.formCategoria.get('idcategoria').value;
         console.log(idCategoria);
         const newCategoria: Categoria = {
-          nombre: this.formCategoria.get('nombre').value,
+          nombre: this.formCategoria.get('nombre').value.trim(),
           image: this.file,
-          estado: this.formCategoria.get('estado').value
+          estado: this.formCategoria.get('estado').value.trim()
         };
         console.log(newCategoria);
         this.categoriaService.onUpdateCategoria(idCategoria, newCategoria).subscribe(

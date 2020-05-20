@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Persona } from '../models/persona';
 import { Login } from '../models/login';
+import jwt from 'jwt-decode';
 
 
 @Injectable({
@@ -46,5 +47,19 @@ export class AuthService {
   }
   onGetToken() {
     return localStorage.getItem('token');
+  }
+  onGetTokenAdmin() {
+    if (this.onGetToken() != null) {
+      const tokenAuth = this.onGetToken();
+      const tokenAdmin = this.onGetTokenInvert(tokenAuth);
+      if (tokenAdmin === 6) {
+        return !!tokenAuth;
+      }
+    }
+  }
+  onGetTokenInvert(token: string) {
+    const aux = jwt(token);
+    const newToken = aux.subject;
+    return newToken;
   }
 }

@@ -68,7 +68,7 @@ export class ProductolistComponent implements OnInit {
   onEdit(row) {
     const newproducto: Producto = {
       idproducto: row.idproducto,
-      idcategoria: row.idcategoria,
+      idcategoria: null,
       nombre: row.nombre,
       image: null,
       precio: row.precio,
