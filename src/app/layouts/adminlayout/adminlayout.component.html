@@ -49,7 +49,7 @@
         </button>
         <span class="spacer"></span>
         <button mat-icon-button matTooltip="Ver Facturas" *ngIf="authService.onLoggedIn()" [routerLink]="['/clientFacturasptbe']">
-          Fact
+          <mat-icon> insert_drive_file</mat-icon>
         </button>
         <button mat-icon-button matTooltip="Notificaciones"  [routerLink]="['/']">
           <mat-icon matBadge="{{ cantPromo }}" matBadgeColor="warn">notifications_active</mat-icon>
