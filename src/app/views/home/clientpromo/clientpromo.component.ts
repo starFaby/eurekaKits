@@ -56,7 +56,8 @@ export class ClientpromoComponent implements OnInit {
   onGetPromocionuni() {
     this.activatedRoute.params.subscribe(
       params => {
-        this.id = params['id'];
+        // tslint:disable-next-line:no-string-literal
+        this.id = atob(params['id']);
         this.consultasService.onGetPromocionuni(this.id).subscribe(
           res => {
             console.log(res);
@@ -172,7 +173,7 @@ export class ClientpromoComponent implements OnInit {
               dates => {
                 console.log(dates);
                 // tslint:disable-next-line:no-string-literal
-                localStorage.setItem('idfactura', dates['idfactura']);
+                localStorage.setItem('idfactura', '1'); // dates['idfactura']
                 this.onGetValiBottom();
               },
               err => {

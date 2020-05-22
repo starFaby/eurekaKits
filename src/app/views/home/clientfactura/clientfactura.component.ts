@@ -85,7 +85,7 @@ export class ClientfacturaComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.subscribe(
       param => {
         // tslint:disable-next-line:no-string-literal
-        this.id = param['id'];
+        this.id = atob(param['id']);
         this.consultasService.onGetFacturadv(this.id).subscribe(
           res => {
             console.log(res);

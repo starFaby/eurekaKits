@@ -20,7 +20,7 @@ export class ClientcateproduComponent implements OnInit {
     this.activatedRoute.params.subscribe(
       params => {
         // tslint:disable-next-line:no-string-literal
-        this.id = params['id'];
+        this.id = atob(params['id']);
         this.cateproduService.onGetProducto(this.id).subscribe(
           res => {
             this.cateProd = res;
@@ -37,7 +37,7 @@ export class ClientcateproduComponent implements OnInit {
   }
 
   onSelectedProducto(id: string) {
-    this.router.navigate(['/clientProd', id]);
+    this.router.navigate(['/clientProd', btoa(id)]);
   }
 
 }

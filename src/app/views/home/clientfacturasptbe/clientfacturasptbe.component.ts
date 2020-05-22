@@ -80,6 +80,6 @@ export class ClientfacturasptbeComponent implements OnInit {
     );
   }
   onSelectedFactura(id: string) {
-    this.router.navigate(['/clientFactura', id]);
+    this.router.navigate(['/clientFactura', btoa(id)]);
   }
 }

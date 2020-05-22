@@ -64,7 +64,7 @@ export class ClientprodComponent implements OnInit {
     this.activatedRoute.params.subscribe(
       params => {
         // tslint:disable-next-line:no-string-literal
-        this.id = params['id'];
+        this.id = atob(params['id']);
         this.consultasService.onGetproductouni(this.id).subscribe(
           res => {
             this.productuni = res.map(t => t);
@@ -177,7 +177,7 @@ export class ClientprodComponent implements OnInit {
               dates => {
                 console.log(dates);
                 // tslint:disable-next-line:no-string-literal
-                localStorage.setItem('idfactura', dates['idfactura']);
+                localStorage.setItem('idfactura', '1'); // dates['idfactura']
                 this.onGetValiBottom();
               },
               err => {
