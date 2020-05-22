@@ -107,7 +107,11 @@ export class ClientformapagoComponent implements OnInit {
   onGetTipoPago() { // paypal transferencia bancaria efectivo los tres metodos
     this.consultasService.onGettipopago().subscribe(
       res => {
-        this.tipoPago = res.map(t => t);
+        if (res != null) {
+          this.tipoPago = res.map(t => t); // muestra tipo de pago
+        } else {
+          console.log('No Tiene Tipo de pago');
+        }
       },
       err => {
         console.log(err);

@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.formLogin.valid) {
       const newLogin: Login = {
-        email: this.formLogin.get('email').value.trim(),
-        password: this.formLogin.get('password').value.trim(),
+        email: this.formLogin.get('email').value,
+        password: this.formLogin.get('password').value,
       };
       this.authService.onLoginIn(newLogin).subscribe(
         res => {

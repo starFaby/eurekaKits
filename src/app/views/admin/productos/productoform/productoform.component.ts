@@ -55,12 +55,12 @@ export class ProductoformComponent implements OnInit {
     if (this.formProducto.valid) {
       if (this.formProducto.get('idproducto').value == null) {
         const newProducto: Producto = {
-          idcategoria: this.formProducto.get('idcategoria').value.trim(),
-          nombre: this.formProducto.get('nombre').value.trim(),
+          idcategoria: this.formProducto.get('idcategoria').value,
+          nombre: this.formProducto.get('nombre').value,
           image: this.file,
-          precio: this.formProducto.get('precio').value.trim(),
-          stock: this.formProducto.get('stock').value.trim(),
-          estado: this.formProducto.get('estado').value.trim()
+          precio: this.formProducto.get('precio').value,
+          stock: this.formProducto.get('stock').value,
+          estado: this.formProducto.get('estado').value
         };
         console.log(newProducto);
         this.productoService.onSaveProductos(newProducto).subscribe(
@@ -73,15 +73,15 @@ export class ProductoformComponent implements OnInit {
         this.productoformvali.oninitializeFomrGroup();
         this.onClose();
       } else {
-        const idProducto = this.formProducto.get('idproducto').value.trim();
+        const idProducto = this.formProducto.get('idproducto').value;
         console.log(idProducto);
         const newProducto: Producto = {
-          idcategoria: this.formProducto.get('idcategoria').value.trim(),
-          nombre: this.formProducto.get('nombre').value.trim(),
+          idcategoria: this.formProducto.get('idcategoria').value,
+          nombre: this.formProducto.get('nombre').value,
           image: this.file,
-          precio: this.formProducto.get('precio').value.trim(),
-          stock: this.formProducto.get('stock').value.trim(),
-          estado: this.formProducto.get('estado').value.trim()
+          precio: this.formProducto.get('precio').value,
+          stock: this.formProducto.get('stock').value,
+          estado: this.formProducto.get('estado').value
         };
         console.log(newProducto);
         this.productoService.onUpdateProductos(idProducto, newProducto).subscribe(

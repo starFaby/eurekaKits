@@ -99,16 +99,16 @@ export class PersonaformComponent implements OnInit {
     if (this.formPersonaAdmin.valid) {
       if (this.formPersonaAdmin.get('idpersona').value == null) {
         const newPersona: Persona = {
-          idtelefono: this.formPersonaAdmin.get('idtelefono').value.trim(),
-          iddireccion: this.formPersonaAdmin.get('iddireccion').value.trim(),
-          cedula: this.formPersonaAdmin.get('cedula').value.trim(),
-          nombres: this.formPersonaAdmin.get('nombres').value.trim(),
-          apellidos: this.formPersonaAdmin.get('apellidos').value.trim(),
-          fechanacimiento: this.formPersonaAdmin.get('fechanacimiento').value.trim(),
-          email: this.formPersonaAdmin.get('email').value.trim(),
-          password: this.formPersonaAdmin.get('password').value.trim(),
-          requerimiento: this.formPersonaAdmin.get('requerimiento').value.trim(),
-          estado: this.formPersonaAdmin.get('estado').value.trim(),
+          idtelefono: this.formPersonaAdmin.get('idtelefono').value,
+          iddireccion: this.formPersonaAdmin.get('iddireccion').value,
+          cedula: this.formPersonaAdmin.get('cedula').value,
+          nombres: this.formPersonaAdmin.get('nombres').value,
+          apellidos: this.formPersonaAdmin.get('apellidos').value,
+          fechanacimiento: this.formPersonaAdmin.get('fechanacimiento').value,
+          email: this.formPersonaAdmin.get('email').value,
+          password: this.formPersonaAdmin.get('password').value,
+          requerimiento: this.formPersonaAdmin.get('requerimiento').value,
+          estado: this.formPersonaAdmin.get('estado').value,
         };
         this.personaService.onSavePersona(newPersona).subscribe(
           res => {
@@ -122,16 +122,16 @@ export class PersonaformComponent implements OnInit {
       } else {
         const idCategoria = this.formPersonaAdmin.get('idpersona').value;
         const newPersona: Persona = {
-          idtelefono: this.formPersonaAdmin.get('idtelefono').value.trim(),
-          iddireccion: this.formPersonaAdmin.get('iddireccion').value.trim(),
-          cedula: this.formPersonaAdmin.get('cedula').value.trim(),
-          nombres: this.formPersonaAdmin.get('nombres').value.trim(),
-          apellidos: this.formPersonaAdmin.get('apellidos').value.trim(),
-          fechanacimiento: this.formPersonaAdmin.get('fechanacimiento').value.trim(),
-          email: this.formPersonaAdmin.get('email').value.trim(),
-          password: this.formPersonaAdmin.get('password').value.trim(),
-          requerimiento: this.formPersonaAdmin.get('requerimiento').value.trim(),
-          estado: this.formPersonaAdmin.get('estado').value.trim(),
+          idtelefono: this.formPersonaAdmin.get('idtelefono').value,
+          iddireccion: this.formPersonaAdmin.get('iddireccion').value,
+          cedula: this.formPersonaAdmin.get('cedula').value,
+          nombres: this.formPersonaAdmin.get('nombres').value,
+          apellidos: this.formPersonaAdmin.get('apellidos').value,
+          fechanacimiento: this.formPersonaAdmin.get('fechanacimiento').value,
+          email: this.formPersonaAdmin.get('email').value,
+          password: this.formPersonaAdmin.get('password').value,
+          requerimiento: this.formPersonaAdmin.get('requerimiento').value,
+          estado: this.formPersonaAdmin.get('estado').value,
         };
         this.personaService.onUpdatePersona(idCategoria, newPersona).subscribe(
           res => {

@@ -33,12 +33,12 @@ export class PromoformComponent implements OnInit {
     if (this.formPromo.valid) {
       if (this.formPromo.get('idpromociones').value == null) {
         const newPromocion: Promocion = {
-          idproducto: this.formPromo.get('idproducto').value.trim(),
-          dto: this.formPromo.get('dto').value.trim(),
-          fechainicio: this.formPromo.get('fechainicio').value.trim(),
-          fechafin: this.formPromo.get('fechafin').value.trim(),
-          descripcion: this.formPromo.get('descripcion').value.trim(),
-          estado: this.formPromo.get('estado').value.trim(),
+          idproducto: this.formPromo.get('idproducto').value,
+          dto: this.formPromo.get('dto').value,
+          fechainicio: this.formPromo.get('fechainicio').value,
+          fechafin: this.formPromo.get('fechafin').value,
+          descripcion: this.formPromo.get('descripcion').value,
+          estado: this.formPromo.get('estado').value,
         };
         this.promocionService.onSavePromocion(newPromocion).subscribe(
           res => {
@@ -50,12 +50,12 @@ export class PromoformComponent implements OnInit {
       } else {
         const idPromociones = this.formPromo.get('idpromociones').value;
         const newPromocion: Promocion = {
-          idproducto: this.formPromo.get('idproducto').value.trim(),
-          dto: this.formPromo.get('dto').value.trim(),
-          fechainicio: this.formPromo.get('fechainicio').value.trim(),
-          fechafin: this.formPromo.get('fechafin').value.trim(),
-          descripcion: this.formPromo.get('descripcion').value.trim(),
-          estado: this.formPromo.get('estado').value.trim(),
+          idproducto: this.formPromo.get('idproducto').value,
+          dto: this.formPromo.get('dto').value,
+          fechainicio: this.formPromo.get('fechainicio').value,
+          fechafin: this.formPromo.get('fechafin').value,
+          descripcion: this.formPromo.get('descripcion').value,
+          estado: this.formPromo.get('estado').value,
         };
         console.log('fromulario', newPromocion);
         this.promocionService.onUpdatePromocion(idPromociones, newPromocion).subscribe(

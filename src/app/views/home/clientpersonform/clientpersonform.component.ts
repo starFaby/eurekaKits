@@ -107,16 +107,16 @@ export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestr
     if (this.formPersona.valid) {
       if (this.formPersona.get('idpersona').value == null) {
         const newPersona: Persona = {
-          idtelefono: this.formPersona.get('idtelefono').value.trim(),
-          iddireccion: this.formPersona.get('iddireccion').value.trim(),
-          cedula: this.formPersona.get('cedula').value.trim(),
-          nombres: this.formPersona.get('nombres').value.trim(),
-          apellidos: this.formPersona.get('apellidos').value.trim(),
-          fechanacimiento: this.formPersona.get('fechanacimiento').value.trim(),
-          email: this.formPersona.get('email').value.trim(),
-          password: this.formPersona.get('password').value.trim(),
-          requerimiento: this.formPersona.get('requerimiento').value.trim(),
-          estado: this.formPersona.get('estado').value.trim(),
+          idtelefono: this.formPersona.get('idtelefono').value,
+          iddireccion: this.formPersona.get('iddireccion').value,
+          cedula: this.formPersona.get('cedula').value,
+          nombres: this.formPersona.get('nombres').value,
+          apellidos: this.formPersona.get('apellidos').value,
+          fechanacimiento: this.formPersona.get('fechanacimiento').value,
+          email: this.formPersona.get('email').value,
+          password: this.formPersona.get('password').value,
+          requerimiento: this.formPersona.get('requerimiento').value,
+          estado: this.formPersona.get('estado').value,
         };
         this.authService.onLoginUp(newPersona).subscribe(
           res => {

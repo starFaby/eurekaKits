@@ -26,14 +26,14 @@ export class DtoformComponent implements OnInit {
     if (this.formDto.valid) {
       if (this.formDto.get('iddto').value == null) {
         const newDto: Dto = {
-          dto: this.formDto.get('dto').value.trim(),
-          estado: this.formDto.get('estado').value.trim()
+          dto: this.formDto.get('dto').value,
+          estado: this.formDto.get('estado').value
         };
       } else {
-        const iddto = this.formDto.get('iddto').value.trim();
+        const iddto = this.formDto.get('iddto').value;
         const newDto: Dto = {
-          dto: this.formDto.get('dto').value.trim(),
-          estado: this.formDto.get('estado').value.trim()
+          dto: this.formDto.get('dto').value,
+          estado: this.formDto.get('estado').value
         };
         this.dtoService.onUpdateCategoria(iddto, newDto).subscribe(
           res => {
