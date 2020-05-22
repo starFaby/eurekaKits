@@ -12,19 +12,35 @@
                             {{ item.nombre }}
                         </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="formPromo.controls && (formPromo.dirty || formPromo.touched)">
+                        <p *ngIf="formPromo.controls['idproducto'].touched && formPromo.controls['idproducto'].errors?.required">
+                            El Producto es requerido</p>
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input formControlName="dto" matInput placeholder="dto">
+                    <mat-error *ngIf="formPromo.controls && (formPromo.dirty || formPromo.touched)">
+                        <p *ngIf="formPromo.controls['dto'].touched && formPromo.controls['dto'].errors?.required">
+                            El Descuento es requerido</p>
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Fecha Inicio</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="fechainicio">
+                    <mat-error *ngIf="formPromo.controls && (formPromo.dirty || formPromo.touched)">
+                        <p *ngIf="formPromo.controls['fechainicio'].touched && formPromo.controls['fechainicio'].errors?.required">
+                            La Fecha Inicio es requerida</p>
+                    </mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Fecha Fin</mat-label>
                     <input matInput [matDatepicker]="picker1" formControlName="fechafin">
+                    <mat-error *ngIf="formPromo.controls && (formPromo.dirty || formPromo.touched)">
+                        <p *ngIf="formPromo.controls['fechafin'].touched && formPromo.controls['fechafin'].errors?.required">
+                            La Fecha Fin es requerida</p>
+                    </mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
@@ -36,12 +52,20 @@
                     <textarea matInput formControlName="descripcion" placeholder="descripcion" placeholder="descripcion"
                         cdkTextareaAutosize cdkAutosizeMinRows="4.3" cdkAutosizeMaxRows="4.3">
                     </textarea>
+                    <mat-error *ngIf="formPromo.controls && (formPromo.dirty || formPromo.touched)">
+                        <p *ngIf="formPromo.controls['descripcion'].touched && formPromo.controls['descripcion'].errors?.required">
+                            La Descripcion es requerida</p>
+                    </mat-error>
                 </mat-form-field>
                 <label for="">Estado</label>
                 <mat-radio-group formControlName="estado">
                     <mat-radio-button value="1">Activo</mat-radio-button>
                     <mat-radio-button value="2">Inactivo</mat-radio-button>
                 </mat-radio-group>
+                <mat-error *ngIf="formPromo.controls && (formPromo.dirty || formPromo.touched)">
+                    <p *ngIf="formPromo.controls['estado'].touched && formPromo.controls['estado'].errors?.required">
+                        El Estado es requerido</p>
+                </mat-error>
                 <div class="row">
                     <div class="col">
                         <button mat-fab color="primary" type="submit" [disabled]="formPromo.invalid">Submit</button>

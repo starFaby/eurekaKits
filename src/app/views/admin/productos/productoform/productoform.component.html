@@ -14,27 +14,51 @@
                             {{ item.nombre }}
                         </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
+                        <p *ngIf="formProducto.controls['idcategoria'].touched && formProducto.controls['idcategoria'].errors?.required">
+                            La Categoria es requerida</p>
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input formControlName="nombre" matInput placeholder="nombre">
+                    <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
+                        <p *ngIf="formProducto.controls['nombre'].touched && formProducto.controls['nombre'].errors?.required">
+                            El Nombre es requerido</p>
+                    </mat-error>
                 </mat-form-field>
                 <div class="container-input-file">
                     <div class="custom-file">
                         <input formControlName="image" type="file" name="image" (change)="onPhotoSelected($event)"
                             #photoInput>
+                            <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
+                                <p *ngIf="formProducto.controls['image'].touched && formProducto.controls['image'].errors?.required">
+                                    La Imagen es requerida</p>
+                            </mat-error>
                     </div>
                 </div>
                 <mat-form-field>
                     <input type="number" formControlName="precio" matInput placeholder="precio">
+                    <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
+                        <p *ngIf="formProducto.controls['precio'].touched && formProducto.controls['precio'].errors?.required">
+                            El Precio es Requerido</p>
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <input type="number" formControlName="stock" matInput placeholder="stock">
+                    <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
+                        <p *ngIf="formProducto.controls['stock'].touched && formProducto.controls['stock'].errors?.required">
+                            El Stock es Requerida</p>
+                    </mat-error>
                 </mat-form-field>
                 <label for="">Estado</label>
                 <mat-radio-group  formControlName="estado" matInput>
                     <mat-radio-button  value="1">Activo</mat-radio-button>
                     <mat-radio-button value="2">Inactivo</mat-radio-button>
                 </mat-radio-group>
+                <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
+                    <p *ngIf="formProducto.controls['estado'].touched && formProducto.controls['estado'].errors?.required">
+                        El Estado es Requerido</p>
+                </mat-error>
                 <div class="row">
                     <div class="col">
                         <button type="submit" class="btn btn-primary btn-lg btn-block"

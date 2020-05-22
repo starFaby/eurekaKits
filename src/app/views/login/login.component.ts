@@ -5,6 +5,7 @@ import { Login } from 'src/app/models/login';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import jwt from 'jwt-decode';
+import { Generalvalidunit } from 'src/app/validators/generalvalidunit';
 
 @Component({
   selector: 'app-login',

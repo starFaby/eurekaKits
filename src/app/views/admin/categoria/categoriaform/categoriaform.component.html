@@ -8,10 +8,16 @@
                 </mat-form-field>
                 <mat-form-field>
                     <input formControlName="nombre" matInput placeholder="nombre">
+                    <mat-error *ngIf="formCategoria.controls && (formCategoria.dirty || formCategoria.touched)">
+                        <p *ngIf="formCategoria.controls['nombre'].touched && formCategoria.controls['nombre'].errors?.required">El Nombre es requiredo</p>
+                    </mat-error>
                 </mat-form-field>
                 <div class="container-input-file">
                     <div class="custom-file">
-                        <input formControlName="image" type="file" name="image" (change)="onPhotoSelected($event)" #photoInput> 
+                        <input formControlName="image" type="file" name="image" (change)="onPhotoSelected($event)" #photoInput>
+                        <mat-error *ngIf="formCategoria.controls && (formCategoria.dirty || formCategoria.touched)">
+                            <p *ngIf="formCategoria.controls['image'].touched && formCategoria.controls['image'].errors?.required">La Imagen es requireda</p>
+                        </mat-error> 
                     </div>
                 </div>
                 <label for="">Estado</label>
@@ -19,6 +25,9 @@
                     <mat-radio-button value="1">Activo</mat-radio-button>
                     <mat-radio-button value="2">Inactivo</mat-radio-button>
                 </mat-radio-group>
+                <mat-error *ngIf="formCategoria.controls && (formCategoria.dirty || formCategoria.touched)">
+                    <p *ngIf="formCategoria.controls['estado'].touched && formCategoria.controls['estado'].errors?.required">El Estado es requiredo</p>
+                </mat-error> 
                 <div class="row">
                     <div class="col">
                         <button  mat-fab color="primary" type="submit" [disabled]="formCategoria.invalid">Submit</button>

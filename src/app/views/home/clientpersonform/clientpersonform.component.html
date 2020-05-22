@@ -15,18 +15,33 @@
                 <mat-form-field>
                     <mat-label>Cedula</mat-label>
                     <input matInput formControlName="cedula">
+                    <mat-error *ngIf="formPersona.controls && (formPersona.dirty || formPersona.touched)">
+                        <p *ngIf="formPersona.controls['cedula'].touched && formPersona.controls['cedula'].errors?.required">La cedula es requerido</p>
+                        <p *ngIf="formPersona.controls['cedula'].errors?.pattern">Cedula invalida solo dijite numeros</p>
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Nombres</mat-label>
                     <input matInput formControlName="nombres">
+                    <mat-error *ngIf="formPersona.controls && (formPersona.dirty || formPersona.touched)">
+                        <p *ngIf="formPersona.controls['nombres'].touched && formPersona.controls['nombres'].errors?.required">Los nombres  es requerido</p>
+                        <p *ngIf="formPersona.controls['nombres'].errors?.pattern">Nombres Invalido solo dijite letras</p>
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Apellidos</mat-label>
                     <input matInput formControlName="apellidos">
+                    <mat-error *ngIf="formPersona.controls && (formPersona.dirty || formPersona.touched)">
+                        <p *ngIf="formPersona.controls['apellidos'].touched && formPersona.controls['apellidos'].errors?.required">Los Apellidos es requerido</p>
+                        <p *ngIf="formPersona.controls['apellidos'].errors?.pattern">Apellidos Invalidos solo dijite letras</p>
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Choose a date</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="fechanacimiento">
+                    <mat-error *ngIf="formPersona.controls && (formPersona.dirty || formPersona.touched)">
+                        <p *ngIf="formPersona.controls['fechanacimiento'].touched && formPersona.controls['fechanacimiento'].errors?.required">La fecha es requerida</p>
+                    </mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -42,6 +57,9 @@
                         <mat-option *ngFor="let item of arregloTelefono" value="{{item.idtelefono}}">
                             {{item.convencional}}</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="formPersona.controls && (formPersona.dirty || formPersona.touched)">
+                        <p *ngIf="formPersona.controls['idtelefono'].touched && formPersona.controls['idtelefono'].errors?.required">El Telefono es requerido</p>
+                    </mat-error>
                 </mat-form-field>
                 <div class="row">
                     <div class="col">
@@ -55,14 +73,24 @@
                         <mat-option *ngFor="let item of arregloDireccion" value="{{item.iddireccion}}">
                          {{item.parroquia}}/{{item.calleprincipal}}/{{item.numeracion}}/{{item.callesecundaria}}</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="formPersona.controls && (formPersona.dirty || formPersona.touched)">
+                        <p *ngIf="formPersona.controls['iddireccion'].touched && formPersona.controls['iddireccion'].errors?.required">La direccion es requerida</p>
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email">
+                    <mat-error *ngIf="formPersona.controls && (formPersona.dirty || formPersona.touched)">
+                        <p *ngIf="formPersona.controls['email'].touched && formPersona.controls['email'].errors?.required">El email es required</p>
+                        <p *ngIf="formPersona.controls['email'].errors?.email && formPersona.controls['email'].errors?.pattern">email invalido</p>
+                    </mat-error>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Password</mat-label>
                     <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+                    <mat-error *ngIf="formPersona.controls && (formPersona.dirty || formPersona.touched)">
+                        <p *ngIf="formPersona.controls['password'].touched && formPersona.controls['password'].errors?.required">El password es required</p>
+                    </mat-error>
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                         [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -74,12 +102,18 @@
                         <mat-option *ngFor="let item of arregloCategoria" value="{{item.nombre}}">
                             {{item.nombre}}</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="formPersona.controls && (formPersona.dirty || formPersona.touched)">
+                        <p *ngIf="formPersona.controls['requerimiento'].touched && formPersona.controls['requerimiento'].errors?.required">El requerimiento es requerido</p>
+                    </mat-error>
                 </mat-form-field>
                 <label for="">Estado</label>
                 <mat-radio-group matInput formControlName="estado">
                     <mat-radio-button value="1">Activo</mat-radio-button>
                     <mat-radio-button value="2">Inactivo</mat-radio-button>
                 </mat-radio-group>
+                <mat-error *ngIf="formPersona.controls && (formPersona.dirty || formPersona.touched)">
+                    <p *ngIf="formPersona.controls['estado'].touched && formPersona.controls['estado'].errors?.required">El estado es requerido</p>
+                </mat-error>
             </div>
             <div class="row">
                 <div class="col">

@@ -8,13 +8,20 @@
                 </mat-form-field>
                 <mat-form-field>
                     <input formControlName="dto" matInput placeholder="dto">
+                    <mat-error *ngIf="formDto.controls && (formDto.dirty || formDto.touched)">
+                        <p *ngIf="formDto.controls['dto'].touched && formDto.controls['dto'].errors?.required">
+                            El Descuento es requerido</p>
+                    </mat-error>
                 </mat-form-field>
-
                 <label for="">Estado</label>
                 <mat-radio-group formControlName="estado">
                     <mat-radio-button value="1">Activo</mat-radio-button>
                     <mat-radio-button value="2">Inactivo</mat-radio-button>
                 </mat-radio-group>
+                <mat-error *ngIf="formDto.controls && (formDto.dirty || formDto.touched)">
+                    <p *ngIf="formDto.controls['estado'].touched && formDto.controls['estado'].errors?.required">
+                        El Estado es Requerido</p>
+                </mat-error>
                 <div class="row">
                     <div class="col">
                         <button  mat-fab color="primary" type="submit" [disabled]="formDto.invalid">Submit</button>

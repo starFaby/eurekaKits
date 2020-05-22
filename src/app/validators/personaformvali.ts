@@ -6,18 +6,20 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class Personaformvali {
     formPersona: FormGroup;
     constructor(private formBuilder: FormBuilder) {
-        this.onValidatorProducto();
+        this.onValidatorPersona();
     }
-    onValidatorProducto(){
+    onValidatorPersona() {
         this.formPersona = this.formBuilder.group({
             idpersona: [null],
             idtelefono: ['', Validators.required],
             iddireccion: ['', Validators.required],
-            cedula: ['', Validators.required],
-            nombres: ['', Validators.required],
-            apellidos: ['', Validators.required],
+            cedula: ['',
+                [Validators.required, Validators.pattern('^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$'),
+                Validators.minLength(10), Validators.maxLength(13)]],
+            nombres: ['', [Validators.required, Validators.pattern('^[\u00F1A-Za-z _]*[\u00F1A-Za-z][\u00F1A-Za-z _]*$')]],
+            apellidos: ['', [Validators.required, Validators.pattern('^[\u00F1A-Za-z _]*[\u00F1A-Za-z][\u00F1A-Za-z _]*$')]],
             fechanacimiento: ['', Validators.required],
-            email: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
             password: ['', Validators.required],
             requerimiento: ['', Validators.required],
             estado: ['', Validators.required],

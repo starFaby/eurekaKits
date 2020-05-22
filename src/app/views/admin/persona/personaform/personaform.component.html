@@ -10,18 +10,48 @@
                     <mat-form-field>
                         <mat-label>Cedula</mat-label>
                         <input matInput formControlName="cedula">
+                        <mat-error
+                            *ngIf="formPersonaAdmin.controls && (formPersonaAdmin.dirty || formPersonaAdmin.touched)">
+                            <p
+                                *ngIf="formPersonaAdmin.controls['cedula'].touched && formPersonaAdmin.controls['cedula'].errors?.required">
+                                La cedula es requerido</p>
+                            <p *ngIf="formPersonaAdmin.controls['cedula'].errors?.pattern">Cedula invalida solo dijite
+                                numeros</p>
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Nombres</mat-label>
                         <input matInput formControlName="nombres">
+                        <mat-error
+                            *ngIf="formPersonaAdmin.controls && (formPersonaAdmin.dirty || formPersonaAdmin.touched)">
+                            <p
+                                *ngIf="formPersonaAdmin.controls['nombres'].touched && formPersonaAdmin.controls['nombres'].errors?.required">
+                                Los nombres es requerido</p>
+                            <p *ngIf="formPersonaAdmin.controls['nombres'].errors?.pattern">Nombres Invalido solo dijite
+                                letras</p>
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Apellidos</mat-label>
                         <input matInput formControlName="apellidos">
+                        <mat-error
+                            *ngIf="formPersonaAdmin.controls && (formPersonaAdmin.dirty || formPersonaAdmin.touched)">
+                            <p
+                                *ngIf="formPersonaAdmin.controls['apellidos'].touched && formPersonaAdmin.controls['apellidos'].errors?.required">
+                                Los Apellidos es requerido</p>
+                            <p *ngIf="formPersonaAdmin.controls['apellidos'].errors?.pattern">Apellidos Invalidos solo
+                                dijite letras</p>
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Choose a date</mat-label>
                         <input matInput [matDatepicker]="picker" formControlName="fechanacimiento">
+                        <mat-error
+                            *ngIf="formPersonaAdmin.controls && (formPersonaAdmin.dirty || formPersonaAdmin.touched)">
+                            <p
+                                *ngIf="formPersonaAdmin.controls['fechanacimiento'].touched && formPersonaAdmin.controls['fechanacimiento'].errors?.required">
+                                La fecha es requerida</p>
+                        </mat-error>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
@@ -37,6 +67,12 @@
                             <mat-option *ngFor="let item of arregloTelefono" value="{{item.idtelefono}}">
                                 {{item.convencional}}</mat-option>
                         </mat-select>
+                        <mat-error
+                            *ngIf="formPersonaAdmin.controls && (formPersonaAdmin.dirty || formPersonaAdmin.touched)">
+                            <p
+                                *ngIf="formPersonaAdmin.controls['idtelefono'].touched && formPersonaAdmin.controls['idtelefono'].errors?.required">
+                                El Telefono es requerido</p>
+                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>
@@ -56,15 +92,36 @@
                             <mat-option *ngFor="let item of arregloDireccion" value="{{item.iddireccion}}">
                                 {{item.parroquia}}/{{item.calleprincipal}}/{{item.numeracion}}/{{item.callesecundaria}}
                             </mat-option>
+                            <mat-error
+                                *ngIf="formPersonaAdmin.controls && (formPersonaAdmin.dirty || formPersonaAdmin.touched)">
+                                <p
+                                    *ngIf="formPersonaAdmin.controls['iddireccion'].touched && formPersonaAdmin.controls['iddireccion'].errors?.required">
+                                    La direccion es requerida</p>
+                            </mat-error>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Email</mat-label>
                         <input matInput formControlName="email">
+                        <mat-error
+                            *ngIf="formPersonaAdmin.controls && (formPersonaAdmin.dirty || formPersonaAdmin.touched)">
+                            <p
+                                *ngIf="formPersonaAdmin.controls['email'].touched && formPersonaAdmin.controls['email'].errors?.required">
+                                El email es requiredo</p>
+                            <p
+                                *ngIf="formPersonaAdmin.controls['email'].errors?.email && formPersonaAdmin.controls['email'].errors?.pattern">
+                                email invalido</p>
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field>
                         <mat-label>Password</mat-label>
                         <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+                        <mat-error
+                            *ngIf="formPersonaAdmin.controls && (formPersonaAdmin.dirty || formPersonaAdmin.touched)">
+                            <p
+                                *ngIf="formPersonaAdmin.controls['password'].touched && formPersonaAdmin.controls['password'].errors?.required">
+                                El password es required</p>
+                        </mat-error>
                         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                             [attr.aria-pressed]="hide">
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -76,12 +133,24 @@
                             <mat-option *ngFor="let item of arregloCategoria" value="{{item.nombre}}">
                                 {{item.nombre}}</mat-option>
                         </mat-select>
+                        <mat-error
+                            *ngIf="formPersonaAdmin.controls && (formPersonaAdmin.dirty || formPersonaAdmin.touched)">
+                            <p
+                                *ngIf="formPersonaAdmin.controls['requerimiento'].touched && formPersonaAdmin.controls['requerimiento'].errors?.required">
+                                El requerimiento es requerido</p>
+                        </mat-error>
                     </mat-form-field>
                     <label for="">Estado</label>
                     <mat-radio-group matInput formControlName="estado">
                         <mat-radio-button value="1">Activo</mat-radio-button>
                         <mat-radio-button value="2">Inactivo</mat-radio-button>
                     </mat-radio-group>
+                    <mat-error
+                        *ngIf="formPersonaAdmin.controls && (formPersonaAdmin.dirty || formPersonaAdmin.touched)">
+                        <p
+                            *ngIf="formPersonaAdmin.controls['estado'].touched && formPersonaAdmin.controls['estado'].errors?.required">
+                            El estado es requerido</p>
+                    </mat-error>
                     <div class="row">
                         <div class="col">
                             <button mat-fab color="primary" type="submit"
