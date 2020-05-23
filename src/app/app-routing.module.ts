@@ -4,7 +4,7 @@ import { AdminlayoutComponent } from './layouts/adminlayout/adminlayout.componen
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'start', pathMatch: 'full' },
+  { path: '', redirectTo: '/', pathMatch: 'full' },
   {
     path: '', component: AdminlayoutComponent,
     children: [

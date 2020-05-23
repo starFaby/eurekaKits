@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,16 +7,25 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
   @ViewChild('canva', { static: false }) canva: ElementRef<HTMLCanvasElement>;
+  @ViewChild('colorf', { static: false }) colorf: ElementRef<HTMLCanvasElement>;
   ctx: CanvasRenderingContext2D;
   cWidth;
   cHeight;
 
-  constructor() { }
+  constructor(private renderer: Renderer2, private el: ElementRef) { }
 
   ngOnInit() {
   }
   ngAfterViewInit() {
-    this.onGetCanvasInit();
+    this.onGetColor();
+  }
+  onGetColor() {
+    this.renderer.setStyle(this.colorf.nativeElement, 'background', 'linear-gradient(90deg, rgba(100,149,237,1)'
+      + ' 0%, rgba(255,255,255,1) 91%)');
+    this.renderer.setStyle(this.colorf.nativeElement, 'margin', '3px');
+    this.renderer.setStyle(this.colorf.nativeElement, 'border', '3px solid #6495ed');
+    this.renderer.setStyle(this.colorf.nativeElement, 'width', '100%');
+    this.renderer.setStyle(this.colorf.nativeElement, 'height', '200px');
   }
   onGetCanvasInit() {
     this.ctx = this.canva.nativeElement.getContext('2d');
@@ -38,10 +47,9 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       this.ctx.drawImage(image, 10, 20, 50, 50);
     };
     image.src = '../../../assets/img/tdtd.png';
-    image1.onload = () => {
-      this.ctx.drawImage(image1, 190, 90, 100, 50);
-    };
-    image1.src = '../../../assets/img/euk.png';
+    this.ctx.font = 'bold 150%  comic sans';
+    this.ctx.fillStyle = '#000';
+    this.ctx.fillText('Eureka kits', 170, 130);
   }
 
 
