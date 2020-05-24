@@ -95,7 +95,7 @@ export class ReportproductosComponent implements OnInit {
     ];
     return columns;
   }
-  getheaderStyles() {
+  getheadStyles() {
     const headerStyle = {
       fillColor: [200, 255, 255],
       textColor: 0,
@@ -126,7 +126,7 @@ export class ReportproductosComponent implements OnInit {
     this.doc = new jsPDF('p', 'pt');
     this.doc.setFont('helvetica');
     let rows = [];
-    const headerStyles = this.getheaderStyles();
+    const headStyles = this.getheadStyles();
     const bodyStyles = this.getbodyStyles();
     const alternateRowStyles = this.getalternateRowStyles();
     const pageContent = data => {
@@ -162,10 +162,10 @@ export class ReportproductosComponent implements OnInit {
         this.doc.setFontSize(8);
         this.doc.autoTable(this.getColumns(), rows, {
           startY: 90,
-          margin: { top: 205, right: 40, bottom: 100 },
-          addPageContent: pageContent,
+          margin: { top: 90, right: 40, bottom: 100 },
+          didDrawPage: pageContent,
           // tslint:disable-next-line:object-literal-shorthand
-          headerStyles: headerStyles,
+          headStyles: headStyles,
           // tslint:disable-next-line:object-literal-shorthand
           bodyStyles: bodyStyles,
           // tslint:disable-next-line:object-literal-shorthand
@@ -187,12 +187,12 @@ export class ReportproductosComponent implements OnInit {
         this.doc.setFontSize(8);
         this.doc.autoTable(this.getColumns(), rows, {
           startY: first.finalY + 20,
-          margin: { top: 205, right: 40, bottom: 100 },
-          addPageContent: pageContent,
+          margin: { top: 90, right: 40, bottom: 100 },
+          didDrawPage: pageContent,
           // tslint:disable-next-line:object-literal-shorthand
           alternateRowStyles: alternateRowStyles,
           // tslint:disable-next-line:object-literal-shorthand
-          headerStyles: headerStyles,
+          headStyles: headStyles,
           // tslint:disable-next-line:object-literal-shorthand
           bodyStyles: bodyStyles,
           styles: {

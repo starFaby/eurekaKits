@@ -59,6 +59,7 @@ export class CanastaComponent implements OnInit {
   searchKey: string;
   ngOnInit() {
     this.onGetPersona();
+    this.onGetViewNumFactura();
     this.onGetDescuento();
     this.onGetDetaVentaAll();
   }
@@ -73,6 +74,11 @@ export class CanastaComponent implements OnInit {
       }
     );
   }
+  onGetViewNumFactura() {
+    const aux = localStorage.getItem('idfactura');
+    this.numFactura = this.addCero(aux);
+    console.log(this.numFactura);
+  }
   onGetDetaVentaAll() {
     const idFactura = localStorage.getItem('idfactura');
     this.consultasService.onGetDetaVentadvp(idFactura).subscribe(
@@ -81,7 +87,7 @@ export class CanastaComponent implements OnInit {
           this.detalleVenta = res;
           this.newFactura.subtotal = this.detalleVenta.map(t => t.total).reduce((acc, value) => acc + value);
           const auxIva = (this.newFactura.subtotal * 0.12);
-          this.newFactura.dto = this.newFactura.subtotal * (this.newDto.dto / 100);
+          this.newFactura.dto = (this.newFactura.subtotal * (this.newDto.dto / 100)).toFixed(2);
           // tslint:disable-next-line:radix
           this.newFactura.iva = parseFloat(auxIva.toFixed(2));
           this.newFactura.total = (this.newFactura.subtotal + this.newFactura.iva - this.newFactura.dto).toFixed(2);
@@ -111,7 +117,7 @@ export class CanastaComponent implements OnInit {
       err => {
         console.log(err);
       }
-    )
+    );
   }
   onSubmit() {
     const id = localStorage.getItem('idfactura');
@@ -153,5 +159,26 @@ export class CanastaComponent implements OnInit {
     //  this.categoriaformvali.formCategoria.reset();
     //  this.categoriaformvali.oninitializeFomrGroup();
     // this.matDialogRef.close();
+  }
+  addCero(i) {
+    if (i < 10) {
+      i = '000000' + i;
+    }
+    if (i >= 10 && i < 100) {
+      i = '00000' + i;
+    }
+    if (i >= 100 && i < 1000) {
+      i = '0000' + i;
+    }
+    if (i >= 1000 && i < 10000) {
+      i = '000' + i;
+    }
+    if (i >= 10000 && i < 100000) {
+      i = '00' + i;
+    }
+    if (i >= 100000 && i < 1000000) {
+      i = '0' + i;
+    }
+    return i;
   }
 }
