@@ -82,7 +82,8 @@
                                                 <br>
                                             </div>
                                         </div>
-                                        <button type="button" class="btn" (click)="onSubmit2()"><img src="https://www.paypalobjects.com/webstatic/es_MX/mktg/logos-buttons/redesign/btn_10.png" alt="PayPal" class="imagePaypal"/></button>
+                                        <button type="button" class="btn" *ngIf="!confirmPaypal" (click)="onGetPagoFacturaPaypal()"><img src="https://www.paypalobjects.com/webstatic/es_MX/mktg/logos-buttons/redesign/btn_10.png" alt="PayPal" class="imagePaypal"/></button>
+                                        <button type="button" class="btn btn-primary" *ngIf="confirmPaypal" (click)="onGetConfirmPAypal()">Confirmar Pago</button>
                                     </div>
                                 </div>
                             </div>
@@ -166,12 +167,13 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <h1 class="text-center">Imagen del Boucher Cancelado</h1>
                                 <img [src]="photoSelected || '../../../../assets/img/noImage.jpg'" alt="" width="500"
                                     height="400" (click)="photoInput.click()">
                             </div>
                         </div>
                         <div class="row">
-                            <button class="btn btn-primary" (click)="onSubmit3()">Pagar</button>
+                            <button mat-fab color="primary" class="btn" (click)="onSubmit3()">Pagar</button>
                         </div>
                     </div>
                 </div>
@@ -209,7 +211,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <button class="btn btn-primary" (click)="onSubmit4()">Pagar</button>
+                                            <button mat-fab color="primary" class="btn" (click)="onSubmit4()">Pagar</button>
                                         </div>
                                     </div>
                                 </div>

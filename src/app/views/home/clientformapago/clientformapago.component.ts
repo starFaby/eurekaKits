@@ -28,6 +28,7 @@ import { Router } from '@angular/router';
 export class ClientformapagoComponent implements OnInit {
   link;
   file: File;
+  confirmPaypal;
   formFormPago: FormGroup;
   formTransBanc: FormGroup;
   photoSelected: string | ArrayBuffer;
@@ -269,6 +270,43 @@ export class ClientformapagoComponent implements OnInit {
       }
     );
   }
+  onGetConfirmPAypal() {
+    if (this.paypal.idformapago !== '' && this.paypal.numfactura !== '' && this.paypal.preciofactura !== '') {
+      let mensaje;
+      const opcion = confirm('Al hacer click en Aceptar. Generas tu factura'
+        + ' si no haz comparado aun, haz click en cancelar y vuelve mas tarde a cancelar');
+      if (opcion === true) {
+        mensaje = 'Has clickado OK';
+        console.log(mensaje);
+        this.onSubmit2();
+      } else {
+        mensaje = 'Has clickado Cancelar';
+        console.log(mensaje);
+      }
+    } else {
+      console.log('Seleccciona una Factura a Cancelar');
+    }
+  }
+  onGetPagoFacturaPaypal() {
+    if (this.paypal.idformapago !== '' && this.paypal.numfactura !== '' && this.paypal.preciofactura !== '') {
+      this.paypalbuyService.onSavePaypalBuy(this.paypal).subscribe(
+        date1 => {
+          console.log('PAYPAL');
+          console.log(date1);
+          this.onGetPagoFactPaypal();
+          // tslint:disable-next-line:no-string-literal
+          const link = date1['newLInk'];
+          window.open(link); // , 'paypal', 'width=200,height=100'
+          this.confirmPaypal = true;
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    } else {
+      console.log('Seleccciona una Factura a Cancelar');
+    }
+  }
   onSubmit2() { // para guardar en paypal
     console.log(this.paypal);
     if (this.paypal.idformapago !== '' && this.paypal.numfactura !== '' && this.paypal.preciofactura !== '') {
@@ -278,20 +316,7 @@ export class ClientformapagoComponent implements OnInit {
           this.formapagoService.onUpdateFormaPagoEstado(this.paypal.idformapago, this.newFormapago).subscribe(
             date => {
               console.log(date);
-              this.paypalbuyService.onSavePaypalBuy(this.paypal).subscribe(
-                date1 => {
-                  console.log('PAYPAL');
-                  console.log(date1);
-                  this.onGetPagoFactPaypal();
-                  // tslint:disable-next-line:no-string-literal
-                  const link = date1['newLInk'];
-                  window.open(link, 'paypal', 'width=200,height=100');
-                  this.router.navigate(['/clientFacturasptbe']);
-                },
-                err => {
-                  console.log(err);
-                }
-              );
+              this.router.navigate(['/clientFacturasptbe']);
             },
             err => {
               console.log(err);

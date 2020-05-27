@@ -20,12 +20,11 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.onGetColor();
   }
   onGetColor() {
-    this.renderer.setStyle(this.colorf.nativeElement, 'background', 'linear-gradient(90deg, rgba(100,149,237,1)'
-      + ' 0%, rgba(255,255,255,1) 91%)');
+    this.renderer.setStyle(this.colorf.nativeElement, 'background', '#33FF55');
     this.renderer.setStyle(this.colorf.nativeElement, 'margin', '3px');
-    this.renderer.setStyle(this.colorf.nativeElement, 'border', '3px solid #6495ed');
-    this.renderer.setStyle(this.colorf.nativeElement, 'width', '100%');
-    this.renderer.setStyle(this.colorf.nativeElement, 'height', '200px');
+   // this.renderer.setStyle(this.colorf.nativeElement, 'border', '3px solid #6495ed');
+   // this.renderer.setStyle(this.colorf.nativeElement, 'width', '100%');
+   // this.renderer.setStyle(this.colorf.nativeElement, 'height', '45%');
   }
   onGetCanvasInit() {
     this.ctx = this.canva.nativeElement.getContext('2d');

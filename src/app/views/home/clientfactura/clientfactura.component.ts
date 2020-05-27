@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { autoTable } from 'jspdf-autotable';
 import { DatePipe } from '@angular/common';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import kjua from 'kjua';
@@ -381,7 +380,7 @@ export class ClientfacturaComponent implements OnInit, OnDestroy {
         this.doc.autoTable(this.getColumns(), rows, {
           startY: 240,
           margin: { top: 240, right: 40, bottom: 300 },
-          didDrawPage : pageContent,
+          didDrawPage: pageContent,
           // tslint:disable-next-line:object-literal-shorthand
           headStyles: headStyles,
           // tslint:disable-next-line:object-literal-shorthand
@@ -410,7 +409,7 @@ export class ClientfacturaComponent implements OnInit, OnDestroy {
           // tslint:disable-next-line:object-literal-shorthand
           alternateRowStyles: alternateRowStyles,
           // tslint:disable-next-line:object-literal-shorthand
-           headStyles: headStyles,
+          headStyles: headStyles,
           // tslint:disable-next-line:object-literal-shorthand
           bodyStyles: bodyStyles,
           styles: {
