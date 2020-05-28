@@ -23,6 +23,12 @@
                                         <mat-option *ngFor="let item of personaFactura" value="{{item.idfactura}}">
                                             {{item.numfactura}}</mat-option>
                                     </mat-select>
+                                    <mat-error
+                                        *ngIf="formFormPago.controls && (formFormPago.dirty || formFormPago.touched)">
+                                        <p
+                                            *ngIf="formFormPago.controls['idfactura'].touched && formFormPago.controls['idfactura'].errors?.required">
+                                            Es requerido la factura</p>
+                                    </mat-error>
                                 </mat-form-field>
                                 <mat-form-field>
                                     <mat-label>Select forma de pago</mat-label>
@@ -30,12 +36,24 @@
                                         <mat-option *ngFor="let item of tipoPago" [value]="item.idtipopago">
                                             {{item.nombre}}</mat-option>
                                     </mat-select>
+                                    <mat-error
+                                        *ngIf="formFormPago.controls && (formFormPago.dirty || formFormPago.touched)">
+                                        <p
+                                            *ngIf="formFormPago.controls['idtipopago'].touched && formFormPago.controls['idtipopago'].errors?.required">
+                                            Es requerido el tipo de pago</p>
+                                    </mat-error>
                                 </mat-form-field>
                                 <label for="">Estado</label>
                                 <mat-radio-group formControlName="estado">
                                     <mat-radio-button value="1">Activo</mat-radio-button>
                                     <mat-radio-button value="0">Inactivo</mat-radio-button>
                                 </mat-radio-group>
+                                <mat-error
+                                        *ngIf="formFormPago.controls && (formFormPago.dirty || formFormPago.touched)">
+                                        <p
+                                            *ngIf="formFormPago.controls['estado'].touched && formFormPago.controls['estado'].errors?.required">
+                                            Es requerido el estado</p>
+                                    </mat-error>
                                 <div class="row">
                                     <div class="col">
                                         <button mat-fab color="primary" type="submit"
@@ -82,8 +100,12 @@
                                                 <br>
                                             </div>
                                         </div>
-                                        <button type="button" class="btn" *ngIf="!confirmPaypal" (click)="onGetPagoFacturaPaypal()"><img src="https://www.paypalobjects.com/webstatic/es_MX/mktg/logos-buttons/redesign/btn_10.png" alt="PayPal" class="imagePaypal"/></button>
-                                        <button type="button" class="btn btn-primary" *ngIf="confirmPaypal" (click)="onGetConfirmPAypal()">Confirmar Pago</button>
+                                        <button type="button" class="btn" *ngIf="!confirmPaypal"
+                                            (click)="onGetPagoFacturaPaypal()"><img
+                                                src="https://www.paypalobjects.com/webstatic/es_MX/mktg/logos-buttons/redesign/btn_10.png"
+                                                alt="PayPal" class="imagePaypal" /></button>
+                                        <button type="button" class="btn btn-primary" *ngIf="confirmPaypal"
+                                            (click)="onGetConfirmPAypal()">Confirmar Pago</button>
                                     </div>
                                 </div>
                             </div>
@@ -186,9 +208,8 @@
                             <div class="col-md-5 mx-auto">
                                 <mat-form-field>
                                     <mat-label>Select numero Factura</mat-label>
-                                    <mat-select  (selectionChange)="onNumFactEfectivo($event)">
-                                        <mat-option *ngFor="let item of Paypaltransbefec3"
-                                            value="{{item.idfactura}}">
+                                    <mat-select (selectionChange)="onNumFactEfectivo($event)">
+                                        <mat-option *ngFor="let item of Paypaltransbefec3" value="{{item.idfactura}}">
                                             {{item.numfactura}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -211,7 +232,8 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <button mat-fab color="primary" class="btn" (click)="onSubmit4()">Pagar</button>
+                                            <button mat-fab color="primary" class="btn"
+                                                (click)="onSubmit4()">Pagar</button>
                                         </div>
                                     </div>
                                 </div>

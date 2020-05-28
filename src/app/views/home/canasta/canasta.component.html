@@ -105,11 +105,11 @@
                 <div class="mat-elevation-z8 ">
                     <mat-table [dataSource]="listCanasta" matSort>
                         <ng-container matColumnDef="idFactura">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>idFactura</mat-header-cell>
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Factura</mat-header-cell>
                             <mat-cell *matCellDef="let element">{{ element.idfactura}}</mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="idProducto">
-                            <mat-header-cell *matHeaderCellDef mat-sort-header>idProducto</mat-header-cell>
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Producto</mat-header-cell>
                             <mat-cell *matCellDef="let element">{{element.idproducto}}</mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="cantidad">

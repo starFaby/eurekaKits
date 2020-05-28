@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Promouni } from 'src/app/models/promouni';
 import { Factura } from 'src/app/models/factura';
 import { FacturaService } from 'src/app/services/factura.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-clientpromo',
@@ -42,10 +43,11 @@ export class ClientpromoComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-  //  private productoService: ProductoService,
+    //  private productoService: ProductoService,
     private detaventaService: DetaventaService,
     private consultasService: ConsultasService,
-    private facturaService: FacturaService
+    private facturaService: FacturaService,
+    private toast: ToastrService
   ) {
   }
   API_URI_IMAGE = this.consultasService.API_URI_IMAGE;
@@ -60,18 +62,27 @@ export class ClientpromoComponent implements OnInit {
         this.id = atob(params['id']);
         this.consultasService.onGetPromocionuni(this.id).subscribe(
           res => {
-            console.log(res);
-            this.promouni = res.map(t => t);
-            this.detalleVentas.idproducto = this.promouni[0].idproducto;
-            this.detalleVentas.estado = this.promouni[0].estado;
-            this.detalleVentas.precio = this.promouni[0].precio;
-            this.detalleVentas.total = this.promouni[0].precio  - (this.promouni[0].precio * (this.promouni[0].dto / 100));
-            console.log(this.promouni);
+            if (res !== null) {
+              console.log(res);
+              this.promouni = res.map(t => t);
+              this.detalleVentas.idproducto = this.promouni[0].idproducto;
+              this.detalleVentas.estado = this.promouni[0].estado;
+              this.detalleVentas.precio = this.promouni[0].precio;
+              this.detalleVentas.total = this.promouni[0].precio - (this.promouni[0].precio * (this.promouni[0].dto / 100));
+              console.log(this.promouni);
+            } else {
+              this.toast.info('Lo siento', 'Existe un error en el producto', {
+                timeOut: 3000
+              });
+            }
+
           },
           err => {
             if (err instanceof HttpErrorResponse) {
-              if (err.status === 404) {
-                console.log('No existe productos');
+              if (err.status === 0) {
+                this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                  timeOut: 3000
+                });
               }
             }
           }
@@ -79,8 +90,10 @@ export class ClientpromoComponent implements OnInit {
       },
       err => {
         if (err instanceof HttpErrorResponse) {
-          if (err.status === 404) {
-            console.log('No existe productos');
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
           }
         }
       }
@@ -112,6 +125,9 @@ export class ClientpromoComponent implements OnInit {
 
   onGetViewCanasta() {
     if (localStorage.getItem('idfactura') != null && localStorage.getItem('idpersona') != null) {
+      this.toast.info('Elejiste', 'Tus compras se visualizan aqui', {
+        timeOut: 3000
+      });
       this.router.navigate(['/canasta']);
     } else {
       this.onGetLogin();
@@ -159,11 +175,23 @@ export class ClientpromoComponent implements OnInit {
               dates => {
                 console.log(dates);
                 // tslint:disable-next-line:no-string-literal
-                localStorage.setItem('idfactura', dates['idfactura']);
+                localStorage.setItem('idfactura', dates['result']);
                 this.onGetValiBottom();
+                this.toast.success(`N° Factura es: ${this.factura.numfactura}`, 'Factura creada', {
+                  timeOut: 3000
+                });
+                this.toast.info('Elija', 'Puede ahora añadir a la cesta', {
+                  timeOut: 3000
+                });
               },
               err => {
-                console.log(err);
+                if (err instanceof HttpErrorResponse) {
+                  if (err.status === 0) {
+                    this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                      timeOut: 3000
+                    });
+                  }
+                }
               }
             );
           } else {
@@ -175,9 +203,21 @@ export class ClientpromoComponent implements OnInit {
                 // tslint:disable-next-line:no-string-literal
                 localStorage.setItem('idfactura', '1'); // dates['idfactura']
                 this.onGetValiBottom();
+                this.toast.success(`N° Factura es: ${this.factura.numfactura}`, 'Factura creada', {
+                  timeOut: 3000
+                });
+                this.toast.info('Elija', 'Puede ahora añadir a la cesta', {
+                  timeOut: 3000
+                });
               },
               err => {
-                console.log(err);
+                if (err instanceof HttpErrorResponse) {
+                  if (err.status === 0) {
+                    this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                      timeOut: 3000
+                    });
+                  }
+                }
               }
             );
           }
@@ -202,6 +242,9 @@ export class ClientpromoComponent implements OnInit {
         this.detaventaService.onSaveDetaVenta(this.detalleVentas).subscribe(
           res => {
             console.log(res);
+            this.toast.info('Producto', 'Añadido a la cesta', {
+              timeOut: 3000
+            });
           },
           err => {
             if (err instanceof HttpErrorResponse) {

@@ -9,6 +9,7 @@ import { ConsultasService } from 'src/app/services/consultas.service';
 import { Consultas } from 'src/app/models/consultas';
 import { Facturadv } from 'src/app/models/facturadv';
 import { Facturatotal } from 'src/app/models/Facturatotal';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-clientfactura',
@@ -59,6 +60,7 @@ export class ClientfacturaComponent implements OnInit, OnDestroy {
     private router: Router,
     private consultasService: ConsultasService,
     private activatedRoute: ActivatedRoute,
+    private toast: ToastrService
   ) {
   }
   pageInit(e: HTMLElement) {
@@ -428,6 +430,9 @@ export class ClientfacturaComponent implements OnInit, OnDestroy {
     this.viewPdf();
   }
   dowloadPdf() {
+    this.toast.success('Exito', 'Descarga Exitosa', {
+      timeOut: 3000
+    });
     this.doc.save(`Factura Nº ${this.facturatotal[0].numfactura}`);
   }
   viewPdf() {

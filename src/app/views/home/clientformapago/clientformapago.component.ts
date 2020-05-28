@@ -19,6 +19,8 @@ import { TransbancService } from 'src/app/services/transbanc.service';
 import { EfectService } from 'src/app/services/efect.service';
 import { PaypalbuyService } from 'src/app/services/paypalbuy.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-clientformapago',
@@ -74,7 +76,8 @@ export class ClientformapagoComponent implements OnInit {
     private transbancService: TransbancService,
     private efectService: EfectService,
     private paypalbuyService: PaypalbuyService,
-    private router: Router
+    private router: Router,
+    private toast: ToastrService
   ) {
     this.formFormPago = this.formapagoformvali.formFormPago;
     this.formTransBanc = this.transbancformvali.formTransBanc;
@@ -97,11 +100,19 @@ export class ClientformapagoComponent implements OnInit {
         if (res != null) {
           this.personaFactura = res.map(t => t); // muestra facturas por persona que haya comprado
         } else {
-          console.log('No Tiene Facturas ):');
+          this.toast.info('Lo siento', 'No tiene facturas', {
+            timeOut: 3000
+          });
         }
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -111,11 +122,19 @@ export class ClientformapagoComponent implements OnInit {
         if (res != null) {
           this.tipoPago = res.map(t => t); // muestra tipo de pago
         } else {
-          console.log('No Tiene Tipo de pago');
+          this.toast.info('Lo siento', 'No tiene facturas tipo de pago', {
+            timeOut: 3000
+          });
         }
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -126,11 +145,19 @@ export class ClientformapagoComponent implements OnInit {
         if (res != null) {
           this.Paypaltransbefec1 = res.map(t => t); // muestra facturas paypal
         } else {
-          console.log('No Tiene Facturas Paypal');
+          this.toast.info('Lo siento', 'No tiene facturas Paypal', {
+            timeOut: 3000
+          });
         }
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -141,11 +168,19 @@ export class ClientformapagoComponent implements OnInit {
         if (res != null) {
           this.Paypaltransbefec2 = res.map(t => t);
         } else {
-          console.log('No Tiene Facturas de Transferencia Bancaria');
+          this.toast.info('Lo siento', 'No Tiene Facturas de Transferencia Bancaria', {
+            timeOut: 3000
+          });
         }
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -157,10 +192,19 @@ export class ClientformapagoComponent implements OnInit {
           this.Paypaltransbefec3 = res.map(t => t);
         } else {
           console.log('No Tiene Facturas Efectivo');
+          this.toast.info('Lo siento', 'No Tiene Facturas Efectivo', {
+            timeOut: 3000
+          });
         }
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -175,7 +219,13 @@ export class ClientformapagoComponent implements OnInit {
         this.paypal.preciofactura = this.pagofactindiv[0].total;
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -191,7 +241,13 @@ export class ClientformapagoComponent implements OnInit {
         this.transbanc.image = this.file;
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -206,7 +262,13 @@ export class ClientformapagoComponent implements OnInit {
         this.efectivo.preciofactura = this.pagofactindiv[0].total;
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -214,10 +276,19 @@ export class ClientformapagoComponent implements OnInit {
     this.facturaService.onUpdateFacturaEstado(idFactura, this.newfacturaEstado).subscribe(
       res => {
         console.log(res);
+        this.toast.success('Exito', 'Operacion exitosa', {
+          timeOut: 3000
+        });
         this.onGetPersonaFactura();
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -239,16 +310,25 @@ export class ClientformapagoComponent implements OnInit {
             this.onGetPagoFactPaypal();
             this.onGetPagoFactTransBanc();
             this.onGetPagoFactEfectivo();
+            this.toast.success('Exito', 'Factura Guardada', {
+              timeOut: 3000
+            });
           },
           err => {
-            console.log(err);
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 0) {
+                this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                  timeOut: 3000
+                });
+              }
+            }
           }
         );
         this.onGetClearFormaPAgo();
       }
     }
   }
-  onGetSuccess() {
+  onGetSuccess() { // respuesta que viene de paypal por la compra echa
     this.consultasService.onGetSuccess().subscribe(
       res => {
         console.log(res);
@@ -259,7 +339,7 @@ export class ClientformapagoComponent implements OnInit {
       }
     );
   }
-  onGetCancel() {
+  onGetCancel() { // respuesta que viene de paypal por la compra echa
     this.consultasService.onGetCancel().subscribe(
       res => {
         console.log(res);
@@ -272,19 +352,22 @@ export class ClientformapagoComponent implements OnInit {
   }
   onGetConfirmPAypal() {
     if (this.paypal.idformapago !== '' && this.paypal.numfactura !== '' && this.paypal.preciofactura !== '') {
-      let mensaje;
       const opcion = confirm('Al hacer click en Aceptar. Generas tu factura'
         + ' si no haz comparado aun, haz click en cancelar y vuelve mas tarde a cancelar');
       if (opcion === true) {
-        mensaje = 'Has clickado OK';
-        console.log(mensaje);
+        this.toast.success('Exito', 'Factura creada', {
+          timeOut: 3000
+        });
         this.onSubmit2();
       } else {
-        mensaje = 'Has clickado Cancelar';
-        console.log(mensaje);
+        this.toast.info('info', 'Puedes volver mas tarde a cancelar tu factura', {
+          timeOut: 3000
+        });
       }
     } else {
-      console.log('Seleccciona una Factura a Cancelar');
+      this.toast.warning('No Seleccionaste', 'Selecciona al menos una factura', {
+        timeOut: 3000
+      });
     }
   }
   onGetPagoFacturaPaypal() {
@@ -298,13 +381,24 @@ export class ClientformapagoComponent implements OnInit {
           const link = date1['newLInk'];
           window.open(link); // , 'paypal', 'width=200,height=100'
           this.confirmPaypal = true;
+          this.toast.warning('Load...', 'Pago paypal externo', {
+            timeOut: 3000
+          });
         },
         err => {
-          console.log(err);
+          if (err instanceof HttpErrorResponse) {
+            if (err.status === 0) {
+              this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                timeOut: 3000
+              });
+            }
+          }
         }
       );
     } else {
-      console.log('Seleccciona una Factura a Cancelar');
+      this.toast.warning('No selected', 'Seleccionana al menos una factura para continuar', {
+        timeOut: 3000
+      });
     }
   }
   onSubmit2() { // para guardar en paypal
@@ -319,16 +413,30 @@ export class ClientformapagoComponent implements OnInit {
               this.router.navigate(['/clientFacturasptbe']);
             },
             err => {
-              console.log(err);
+              if (err instanceof HttpErrorResponse) {
+                if (err.status === 0) {
+                  this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                    timeOut: 3000
+                  });
+                }
+              }
             }
           );
         },
         err => {
-          console.log(err);
+          if (err instanceof HttpErrorResponse) {
+            if (err.status === 0) {
+              this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                timeOut: 3000
+              });
+            }
+          }
         }
       );
     } else {
-      console.log('Estoy Vacio');
+      this.toast.warning('No selected', 'Seleccionana al menos una factura para continuar', {
+        timeOut: 3000
+      });
     }
   }
   onSubmit3() { // Para Guardar en transferencia Bancaria
@@ -346,16 +454,30 @@ export class ClientformapagoComponent implements OnInit {
               this.router.navigate(['/clientFacturasptbe']);
             },
             err => {
-              console.log(err);
+              if (err instanceof HttpErrorResponse) {
+                if (err.status === 0) {
+                  this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                    timeOut: 3000
+                  });
+                }
+              }
             }
           );
         },
         err => {
-          console.log(err);
+          if (err instanceof HttpErrorResponse) {
+            if (err.status === 0) {
+              this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                timeOut: 3000
+              });
+            }
+          }
         }
       );
     } else {
-      console.log('Estamos Vacios');
+      this.toast.warning('No selected', 'Seleccionana al menos una factura para continuar', {
+        timeOut: 3000
+      });
     }
   }
   onSubmit4() { // Para guardar en efectivo
@@ -371,16 +493,30 @@ export class ClientformapagoComponent implements OnInit {
               this.router.navigate(['/clientFacturasptbe']);
             },
             err => {
-              console.log(err);
+              if (err instanceof HttpErrorResponse) {
+                if (err.status === 0) {
+                  this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                    timeOut: 3000
+                  });
+                }
+              }
             }
           );
         },
         err => {
-          console.log(err);
+          if (err instanceof HttpErrorResponse) {
+            if (err.status === 0) {
+              this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                timeOut: 3000
+              });
+            }
+          }
         }
       );
     } else {
-      console.log('vacio :(');
+      this.toast.warning('No selected', 'Seleccionana al menos una factura para continuar', {
+        timeOut: 3000
+      });
     }
   }
   onGetClearFormaPAgo() {

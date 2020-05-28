@@ -15,6 +15,7 @@ import { ConsultasService } from 'src/app/services/consultas.service';
 import { Productouni } from 'src/app/models/productouni';
 import { Idfactura } from 'src/app/models/idfactura';
 import { FacturaService } from 'src/app/services/factura.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-clientprod',
@@ -51,7 +52,8 @@ export class ClientprodComponent implements OnInit {
     private detaventaformvali: Detaventaformvali,
     private detaventaService: DetaventaService,
     private consultasService: ConsultasService,
-    private facturaService: FacturaService
+    private facturaService: FacturaService,
+    private toast: ToastrService
   ) {
     this.formDetaVenta = this.detaventaformvali.formDetaVenta;
   }
@@ -67,17 +69,25 @@ export class ClientprodComponent implements OnInit {
         this.id = atob(params['id']);
         this.consultasService.onGetproductouni(this.id).subscribe(
           res => {
-            this.productuni = res.map(t => t);
-            this.detalleVentas.idproducto = this.productuni[0].idproducto;
-            this.detalleVentas.estado = this.productuni[0].estado;
-            this.detalleVentas.precio = this.productuni[0].precio;
-            this.detalleVentas.total = this.productuni[0].precio;
-            console.log(this.productuni);
+            if (res !== null) {
+              this.productuni = res.map(t => t);
+              this.detalleVentas.idproducto = this.productuni[0].idproducto;
+              this.detalleVentas.estado = this.productuni[0].estado;
+              this.detalleVentas.precio = this.productuni[0].precio;
+              this.detalleVentas.total = this.productuni[0].precio;
+              console.log(this.productuni);
+            } else {
+              this.toast.info('Lo siento', 'Existe un error en el producto', {
+                timeOut: 3000
+              });
+            }
           },
           err => {
             if (err instanceof HttpErrorResponse) {
-              if (err.status === 404) {
-                console.log('No existe productos');
+              if (err.status === 0) {
+                this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                  timeOut: 3000
+                });
               }
             }
           }
@@ -85,8 +95,10 @@ export class ClientprodComponent implements OnInit {
       },
       err => {
         if (err instanceof HttpErrorResponse) {
-          if (err.status === 404) {
-            console.log('No existe productos');
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
           }
         }
       }
@@ -116,6 +128,9 @@ export class ClientprodComponent implements OnInit {
   }
   onGetViewCanasta() {
     if (localStorage.getItem('idfactura') != null && localStorage.getItem('idpersona') != null) {
+      this.toast.info('Elejiste', 'Tus compras se visualizan aqui', {
+        timeOut: 3000
+      });
       this.router.navigate(['/canasta']);
     } else {
       this.onGetLogin();
@@ -165,6 +180,12 @@ export class ClientprodComponent implements OnInit {
                 // tslint:disable-next-line:no-string-literal
                 localStorage.setItem('idfactura', dates['result']);
                 this.onGetValiBottom();
+                this.toast.success(`N° Factura es: ${this.factura.numfactura}`, 'Factura creada', {
+                  timeOut: 3000
+                });
+                this.toast.info('Elija', 'Puede ahora añadir a la cesta', {
+                  timeOut: 3000
+                });
               },
               err => {
                 console.log(err);
@@ -179,15 +200,33 @@ export class ClientprodComponent implements OnInit {
                 // tslint:disable-next-line:no-string-literal
                 localStorage.setItem('idfactura', '1'); // dates['idfactura']
                 this.onGetValiBottom();
+                this.toast.success(`N° Factura es: ${this.factura.numfactura}`, 'Factura creada', {
+                  timeOut: 3000
+                });
+                this.toast.info('Elija', 'Puede ahora añadir a la cesta', {
+                  timeOut: 3000
+                });
               },
               err => {
-                console.log(err);
+                if (err instanceof HttpErrorResponse) {
+                  if (err.status === 0) {
+                    this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                      timeOut: 3000
+                    });
+                  }
+                }
               }
             );
           }
         },
         err => {
-          console.log(err);
+          if (err instanceof HttpErrorResponse) {
+            if (err.status === 0) {
+              this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                timeOut: 3000
+              });
+            }
+          }
         }
       );
     } else {
@@ -202,6 +241,9 @@ export class ClientprodComponent implements OnInit {
         this.detaventaService.onSaveDetaVenta(this.detalleVentas).subscribe(
           res => {
             console.log(res);
+            this.toast.info('Producto', 'Añadido a la cesta', {
+              timeOut: 3000
+            });
           },
           err => {
             if (err instanceof HttpErrorResponse) {

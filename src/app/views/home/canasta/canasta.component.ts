@@ -13,6 +13,7 @@ import { Numfactura } from 'src/app/models/numfactura';
 import { Factura } from 'src/app/models/factura';
 import { FacturaService } from 'src/app/services/factura.service';
 import { Dto } from 'src/app/models/dto';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -46,7 +47,8 @@ export class CanastaComponent implements OnInit {
     private authService: AuthService,
     private consultasService: ConsultasService,
     private fecha: Fecha,
-    private facturaService: FacturaService
+    private facturaService: FacturaService,
+    private toast: ToastrService
     // private categoriaformvali: Categoriaformvali
   ) {
     this.fechaFact = this.fecha.dateExat();
@@ -97,12 +99,17 @@ export class CanastaComponent implements OnInit {
           this.authBottom = true;
         } else {
           this.authBottom = false;
+          this.toast.info('Lo siento', 'No has Añadido productos a tu cesta', {
+            timeOut: 3000
+          });
         }
       },
       err => {
         if (err instanceof HttpErrorResponse) {
-          if (err.status === 404) {
-            console.log('No existe datos');
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
           }
         }
       }
@@ -115,7 +122,13 @@ export class CanastaComponent implements OnInit {
         this.newDto.dto = this.dto[0].dto;
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -123,11 +136,20 @@ export class CanastaComponent implements OnInit {
     const id = localStorage.getItem('idfactura');
     this.facturaService.onUpdateFactura(id, this.newFactura).subscribe(
       res => {
+        this.toast.success('Exito', 'Factura Guardada', {
+          timeOut: 3000
+        });
         localStorage.removeItem('idfactura');
         this.router.navigate(['/formaPago']);
       },
       err => {
-        console.log('Error al  Actualizar', err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -138,14 +160,6 @@ export class CanastaComponent implements OnInit {
     this.searchKey = '';
     this.searchFiltrer();
   }
-  onCreate() {
-    //  this.categoriaformvali.oninitializeFomrGroup();
-    /*  const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-      dialogConfig.width = '60%';
-      this.dialog.open(CanastaComponent, dialogConfig);*/
-  }
   onDelete(row) {
     this.detaventaService.onDeleteDetaVenta(row).subscribe(
       res => {
@@ -154,11 +168,6 @@ export class CanastaComponent implements OnInit {
       },
       err => console.log(err)
     );
-  }
-  onCloseDialog() {
-    //  this.categoriaformvali.formCategoria.reset();
-    //  this.categoriaformvali.oninitializeFomrGroup();
-    // this.matDialogRef.close();
   }
   addCero(i) {
     if (i < 10) {
