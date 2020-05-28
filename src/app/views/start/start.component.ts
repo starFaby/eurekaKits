@@ -3,6 +3,7 @@ import { ConsultasService } from 'src/app/services/consultas.service';
 import { Promocionppi } from 'src/app/models/promocionppi';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-start',
@@ -11,7 +12,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class StartComponent implements OnInit {
   promociones: Promocionppi[];
-  constructor(private consultasService: ConsultasService, private router: Router) { }
+  constructor(
+    private consultasService: ConsultasService,
+    private router: Router,
+    private toast: ToastrService) { }
   API_URI_IMAGE = this.consultasService.API_URI_IMAGE;
   ngOnInit() {
     this.onGetPromocionesppi();
@@ -22,16 +26,23 @@ export class StartComponent implements OnInit {
         if (res != null) {
           this.promociones = res;
           console.log(this.promociones);
+          this.toast.success('Exist', 'Promociones', {
+            timeOut: 3000
+          });
         } else {
           console.log('No existe Promociones');
+          this.toast.info('info', 'No existe Promociones', {
+            timeOut: 3000
+          });
         }
       },
       err => {
         if (err instanceof HttpErrorResponse) {
-          if (err.status === 404) {
-            console.log('No existe promociones');
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
           }
-
         }
       }
     );

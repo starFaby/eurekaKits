@@ -40,6 +40,7 @@ import { ReportpromocionComponent } from 'src/app/views/admin/reportpromocion/re
 import { DtoformComponent } from 'src/app/views/admin/dto/dtoform/dtoform.component';
 import { DtoComponent } from 'src/app/views/admin/dto/dto.component';
 import { DtolistComponent } from 'src/app/views/admin/dto/dtolist/dtolist.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -85,7 +86,12 @@ import { DtolistComponent } from 'src/app/views/admin/dto/dtolist/dtolist.compon
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    PdfViewerModule
+    PdfViewerModule,
+    ToastrModule.forRoot({
+      timeOut: 500,
+      positionClass: 'toast-top-right',
+      preventDuplicates: false
+    })
   ],
   entryComponents: [
     CategoriaformComponent,

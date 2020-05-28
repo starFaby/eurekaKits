@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import jwt from 'jwt-decode';
 import { Generalvalidunit } from 'src/app/validators/generalvalidunit';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginformvalid: Loginformvalid,
     private authService: AuthService,
-    private router: Router) {
+    private router: Router,
+    private toast: ToastrService) {
     this.formLogin = this.loginformvalid.formLogin;
   }
   ngOnInit() {
@@ -32,15 +35,37 @@ export class LoginComponent implements OnInit {
       };
       this.authService.onLoginIn(newLogin).subscribe(
         res => {
-          console.log(res);
+          console.log('===> ', res);
           // tslint:disable-next-line:no-string-literal
           this.token = res['token'];
-          localStorage.setItem('idpersona',  this.onGetIdPersona(this.token));
+          localStorage.setItem('idpersona', this.onGetIdPersona(this.token));
           localStorage.setItem('token', this.token);
           this.router.navigate(['/clientCategoriaoList']);
+          this.toast.success('Bienvenido', 'logeado Correctamente', {
+            timeOut: 3000
+          });
         },
         err => {
-          console.log(err);
+          if (err instanceof HttpErrorResponse) {
+            if (err.status === 0) {
+              this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                timeOut: 3000
+              });
+            } else if (err.status === 401) {
+              this.toast.error('Error', 'Usuario no Encontrado', {
+                timeOut: 3000
+              });
+            } else if (err.status === 409) {
+              this.toast.error('Error', 'Password Incorrecto', {
+                timeOut: 3000
+              });
+            } else if (err.status === 404) {
+              this.toast.error('Error', 'Usuario No encontrado', {
+                timeOut: 3000
+              });
+            }
+
+          }
         }
       );
     }

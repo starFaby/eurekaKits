@@ -34,6 +34,7 @@ import { PaypalService } from './services/paypal.service';
 import { PaypalbuyService } from './services/paypalbuy.service';
 import { PromocionService } from './services/promocion.service';
 import { TransbancService } from './services/transbanc.service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,12 @@ import { TransbancService } from './services/transbanc.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    PdfViewerModule
+    PdfViewerModule,
+    ToastrModule.forRoot({
+      timeOut: 500,
+      positionClass: 'toast-top-right',
+      preventDuplicates: false
+    })
   ],
   providers: [
     AuthService, CategoriaService, CateproduService, ConsultasService,
