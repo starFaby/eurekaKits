@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Pagosptbe } from 'src/app/models/pagosptbe';
 import { ConsultasService } from 'src/app/services/consultas.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-clientfacturasptbe',
@@ -18,7 +20,8 @@ export class ClientfacturasptbeComponent implements OnInit {
   Pagosptbe3: Pagosptbe[]; // ver facturas pagadas echos en Efectivo
   constructor(
     private consultasService: ConsultasService,
-    private router: Router
+    private router: Router,
+    private toast: ToastrService
     ) {
     this.idpersona = localStorage.getItem('idpersona');
   }
@@ -37,11 +40,19 @@ export class ClientfacturasptbeComponent implements OnInit {
             this.paypal = 'Paypal';
           }
         } else {
-          console.log('No Datos');
+          this.toast.info('Info', 'No Tienes Facturas en Paypal', {
+            timeOut: 3000
+          });
         }
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -54,11 +65,19 @@ export class ClientfacturasptbeComponent implements OnInit {
             this.TransfBanc = 'Trasnferencia Bancaria';
           }
         } else {
-          console.log('No Datos');
+          this.toast.info('Info', 'No Tienes Facturas en Trasnferencia Bancaria', {
+            timeOut: 3000
+          });
         }
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -71,11 +90,19 @@ export class ClientfacturasptbeComponent implements OnInit {
             this.efectivo = 'Efectivo';
           }
         } else {
-          console.log('No Datos');
+          this.toast.info('Info', 'No Tienes Facturas en efectivo', {
+            timeOut: 3000
+          });
         }
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }

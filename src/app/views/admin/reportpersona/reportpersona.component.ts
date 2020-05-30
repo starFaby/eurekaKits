@@ -8,6 +8,8 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { ConsultasService } from 'src/app/services/consultas.service';
 import { Reportproducto } from 'src/app/models/reportproducto';
 import { Reportpersona } from 'src/app/models/reportpersona';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-reportpersona',
@@ -49,6 +51,7 @@ export class ReportpersonaComponent implements OnInit {
   constructor(
     private router: Router,
     private consultasService: ConsultasService,
+    private toast: ToastrService
   ) {
   }
   pageInit(e: HTMLElement) {
@@ -65,12 +68,20 @@ export class ReportpersonaComponent implements OnInit {
           this.reportpersona = res;
           this.PdfViewer();
         } else {
+          this.toast.info('Info', 'No existe datos', {
+            timeOut: 3000
+          });
           this.router.navigate(['/nofound']);
-          console.log('No datos');
         }
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -221,6 +232,9 @@ export class ReportpersonaComponent implements OnInit {
   }
   dowloadPdf() {
     this.doc.save(`REPORTE PERSONA`);
+    this.toast.success('Exito', 'Descarga completada', {
+      timeOut: 3000
+    });
   }
   viewPdf() {
     try {

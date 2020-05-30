@@ -7,6 +7,8 @@ import kjua from 'kjua';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { ConsultasService } from 'src/app/services/consultas.service';
 import { Categoria } from 'src/app/models/categoria';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-reportcategoria',
@@ -49,6 +51,7 @@ export class ReportcategoriaComponent implements OnInit {
     private router: Router,
     private consultasService: ConsultasService,
     private activatedRoute: ActivatedRoute,
+    private toast: ToastrService
   ) {
   }
   pageInit(e: HTMLElement) {
@@ -65,12 +68,20 @@ export class ReportcategoriaComponent implements OnInit {
           this.categoria = res;
           this.PdfViewer();
         } else {
+          this.toast.info('Info', 'No existe datos', {
+            timeOut: 3000
+          });
           this.router.navigate(['/nofound']);
-          console.log('No datos');
         }
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -207,6 +218,9 @@ export class ReportcategoriaComponent implements OnInit {
   }
   dowloadPdf() {
     this.doc.save(`REPORTE DE CATEGORIAS`);
+    this.toast.success('Exito', 'Descarga completada', {
+      timeOut: 3000
+    });
   }
   viewPdf() {
     try {

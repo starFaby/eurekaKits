@@ -29,10 +29,9 @@ export class AdminlayoutComponent implements OnInit {
   onGetPromocionesppi() {
     this.consultasService.onGetPromocionppi().subscribe(
       res => {
-        if (res != null) {
+        if (res !== null) {
           this.promociones = res;
           this.cantPromo = this.promociones.length;
-          console.log(this.promociones.length);
         } else {
           this.toast.info('info', 'No existe Promociones', {
             timeOut: 3000

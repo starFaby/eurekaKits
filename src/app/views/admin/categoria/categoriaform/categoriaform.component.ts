@@ -46,10 +46,17 @@ export class CategoriaformComponent implements OnInit {
         };
         this.categoriaService.onSaveCategoria(newCategoria).subscribe(
           res => {
-            console.log(res);
-            this.toast.success('Exito', 'Categoria Agregada', {
-              timeOut: 3000
-            });
+            if (res !== null) {
+              this.toast.success('Exito', 'Categoria Agregada', {
+                timeOut: 3000
+              });
+              this.onCloseCategoriaForm();
+            } else {
+              this.toast.error('Error', 'Error a Agregar', {
+                timeOut: 3000
+              });
+              this.onCloseCategoriaForm();
+            }
           },
           err => {
             if (err instanceof HttpErrorResponse) {
@@ -64,19 +71,24 @@ export class CategoriaformComponent implements OnInit {
         this.onCloseCategoriaForm();
       } else {
         const idCategoria = this.formCategoria.get('idcategoria').value;
-        console.log(idCategoria);
         const newCategoria: Categoria = {
           nombre: this.formCategoria.get('nombre').value,
           image: this.file,
           estado: this.formCategoria.get('estado').value
         };
-        console.log(newCategoria);
         this.categoriaService.onUpdateCategoria(idCategoria, newCategoria).subscribe(
           res => {
-            console.log(res);
-            this.toast.success('Exito', 'Categoria Actualizada', {
-              timeOut: 3000
-            });
+            if (res === true) {
+              this.toast.success('Exito', 'Categoria Actualizada', {
+                timeOut: 3000
+              });
+              this.onCloseCategoriaForm();
+            } else {
+              this.toast.error('Error', 'Error a Actualizar', {
+                timeOut: 3000
+              });
+              this.onCloseCategoriaForm();
+            }
             this.onCloseCategoriaForm();
           },
           err => {
