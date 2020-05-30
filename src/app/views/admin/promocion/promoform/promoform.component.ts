@@ -7,6 +7,8 @@ import { Promocion } from 'src/app/models/promocion';
 import { ProductoService } from 'src/app/services/producto.service';
 import { Producto } from 'src/app/models/producto';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-promoform',
@@ -21,7 +23,8 @@ export class PromoformComponent implements OnInit {
     private matDialogRef: MatDialogRef<PromoformComponent>,
     private promocionService: PromocionService,
     private productoService: ProductoService,
-    private router: Router
+    private router: Router,
+    private toast: ToastrService
   ) {
     this.formPromo = this.promoformvali.formPromo;
   }
@@ -43,8 +46,20 @@ export class PromoformComponent implements OnInit {
         this.promocionService.onSavePromocion(newPromocion).subscribe(
           res => {
             console.log(res);
+            this.toast.success('Exito', 'Promocion Agregada', {
+              timeOut: 3000
+            });
+            this.onClosePromoForm();
           },
-          err => console.log(err)
+          err => {
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 0) {
+                this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                  timeOut: 3000
+                });
+              }
+            }
+          }
         );
         this.onClosePromoForm();
       } else {
@@ -61,13 +76,21 @@ export class PromoformComponent implements OnInit {
         this.promocionService.onUpdatePromocion(idPromociones, newPromocion).subscribe(
           res => {
             console.log(res);
+            this.toast.success('Exito', 'Promocion Actualizada', {
+              timeOut: 3000
+            });
+            this.onClosePromoForm();
           },
           err => {
-            console.log(err);
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 0) {
+                this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                  timeOut: 3000
+                });
+              }
+            }
           }
         );
-        this.promoformvali.formPromo.reset();
-        this.promoformvali.oninitializeFomrGroup();
         this.onClosePromoForm();
       }
     }
@@ -80,11 +103,22 @@ export class PromoformComponent implements OnInit {
   onGetProducto() {
     this.productoService.onGetProductos().subscribe(
       res => {
-        this.arregloProducto = res;
-        console.log(res);
+        if (res !== null) {
+          this.arregloProducto = res;
+        } else {
+          this.toast.info('Info', 'No existe productos', {
+            timeOut: 3000
+          });
+        }
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }

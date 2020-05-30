@@ -25,12 +25,10 @@ export class StartComponent implements OnInit {
       res => {
         if (res != null) {
           this.promociones = res;
-          console.log(this.promociones);
           this.toast.success('Exist', 'Promociones', {
             timeOut: 3000
           });
         } else {
-          console.log('No existe Promociones');
           this.toast.info('info', 'No existe Promociones', {
             timeOut: 3000
           });

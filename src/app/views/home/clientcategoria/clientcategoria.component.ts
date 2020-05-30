@@ -3,6 +3,7 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 import { Router } from '@angular/router';
 import { Categoria } from 'src/app/models/categoria';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -12,7 +13,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ClientcategoriaComponent implements OnInit {
   categoria: Categoria[];
-  constructor(private categoriaService: CategoriaService, private router: Router) { }
+  constructor(
+    private categoriaService: CategoriaService,
+    private router: Router,
+    private toast: ToastrService) { }
   API_URI_IMAGE = this.categoriaService.API_URI_IMAGE;
   ngOnInit() {
     this.onGetCategoriasAll();
@@ -20,13 +24,20 @@ export class ClientcategoriaComponent implements OnInit {
   onGetCategoriasAll() {
     this.categoriaService.onGetCategorias().subscribe(
       res => {
-        this.categoria = res;
-        console.log(this.categoria);
+        if (res !== null) {
+          this.categoria = res;
+        } else {
+          this.toast.info('info', 'No existe Categorias', {
+            timeOut: 3000
+          });
+        }
       },
       err => {
         if (err instanceof HttpErrorResponse) {
-          if (err.status === 404) {
-            console.log('No existe Categorias');
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
           }
         }
       }

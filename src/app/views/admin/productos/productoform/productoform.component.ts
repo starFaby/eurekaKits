@@ -5,6 +5,8 @@ import { MatDialogRef } from '@angular/material';
 import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
 import { CategoriaService } from 'src/app/services/categoria.service';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-productoform',
@@ -20,7 +22,8 @@ export class ProductoformComponent implements OnInit {
     private productoformvali: Productoformvali,
     private matDialogRef: MatDialogRef<ProductoformComponent>,
     private productoService: ProductoService,
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    private toast: ToastrService
   ) {
     this.formProducto = this.productoformvali.formProducto;
   }
@@ -31,9 +34,23 @@ export class ProductoformComponent implements OnInit {
   onGetCategoriasAll() {
     this.categoriaService.onGetCategorias().subscribe(
       res => {
-        this.arrayCategoria = res;
+        if (res !== null) {
+          this.arrayCategoria = res;
+        } else {
+          this.toast.success('Info', 'No existe Categorias', {
+            timeOut: 3000
+          });
+        }
       },
-      err => console.log(err)
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
+      }
     );
   }
   onCloseDialog() {
@@ -62,15 +79,24 @@ export class ProductoformComponent implements OnInit {
           stock: this.formProducto.get('stock').value,
           estado: this.formProducto.get('estado').value
         };
-        console.log(newProducto);
         this.productoService.onSaveProductos(newProducto).subscribe(
           res => {
             console.log(res);
+            this.toast.success('Exito', 'Producto Agregado', {
+              timeOut: 3000
+            });
+            this.onClose();
           },
-          err => console.log(err)
+          err => {
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 0) {
+                this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                  timeOut: 3000
+                });
+              }
+            }
+          }
         );
-        this.productoformvali.formProducto.reset();
-        this.productoformvali.oninitializeFomrGroup();
         this.onClose();
       } else {
         const idProducto = this.formProducto.get('idproducto').value;
@@ -86,12 +112,20 @@ export class ProductoformComponent implements OnInit {
         console.log(newProducto);
         this.productoService.onUpdateProductos(idProducto, newProducto).subscribe(
           res => {
-            this.formProducto.reset();
-            this.productoformvali.oninitializeFomrGroup();
+            console.log(res);
+            this.toast.success('Exito', 'Producto Actualizado', {
+              timeOut: 3000
+            });
             this.onClose();
           },
           err => {
-            console.log(err);
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 0) {
+                this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                  timeOut: 3000
+                });
+              }
+            }
           }
         );
       }

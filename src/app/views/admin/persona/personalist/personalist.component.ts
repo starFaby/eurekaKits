@@ -7,6 +7,8 @@ import { Personaformvali } from 'src/app/validators/personaformvali';
 import { PersonaService } from 'src/app/services/persona.service';
 import { Router } from '@angular/router';
 import { Personadminformvali } from 'src/app/validators/personadminformvali';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -23,7 +25,8 @@ export class PersonalistComponent implements OnInit {
     private consultasService: ConsultasService,
     private personadminformvali: Personadminformvali,
     private personaService: PersonaService,
-    private router: Router
+    private router: Router,
+    private toast: ToastrService
   ) {
     this.formPersonaAdmin = this.personadminformvali.formPersonaAdmin;
   }
@@ -47,11 +50,21 @@ export class PersonalistComponent implements OnInit {
           this.listPersona.paginator = this.paginator;
         } else {
           this.onCreate();
+          this.toast.success('Info', 'No existen personas ', {
+            timeOut: 3000
+          });
           this.router.navigate(['/nofound']);
-          console.log('No datos');
         }
       },
-      err => console.log(err)
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
+      }
     );
   }
   searchFiltrer() {
@@ -99,9 +112,20 @@ export class PersonalistComponent implements OnInit {
     this.personaService.onDeletePersona(id, newPersona).subscribe(
       res => {
         console.log(res);
+        this.toast.success('Exito', 'Persona eliminada', {
+          timeOut: 3000
+        });
         this.onGetPersonaAll();
       },
-      err => console.log(err)
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
+      }
     );
   }
 }

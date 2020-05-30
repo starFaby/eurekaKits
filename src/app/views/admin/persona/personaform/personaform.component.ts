@@ -13,6 +13,8 @@ import { ClientdireccformComponent } from 'src/app/views/home/clientdireccform/c
 import { Persona } from 'src/app/models/persona';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Personadminformvali } from 'src/app/validators/personadminformvali';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-personaform',
@@ -32,7 +34,8 @@ export class PersonaformComponent implements OnInit {
     private personaService: PersonaService,
     private direccionService: DireccionService,
     private telefonoService: TelefonoService,
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    private toast: ToastrService
   ) {
     this.formPersonaAdmin = this.personadminformvali.formPersonaAdmin;
   }
@@ -44,38 +47,72 @@ export class PersonaformComponent implements OnInit {
   }
 
   onGetReiniciarDirecTele() {
-    console.log('entraste a telefono o direccion');
     this.onGetTelefonoAll();
     this.onGetDireccionesAll();
   }
   onGetDireccionesAll() {
     this.direccionService.onGetDireccions().subscribe(
       res => {
-        this.arregloDireccion = res;
+        if (res !== null) {
+          this.arregloDireccion = res;
+        } else {
+          this.toast.success('Info', 'No existe Dirección', {
+            timeOut: 3000
+          });
+        }
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
   onGetTelefonoAll() {
     this.telefonoService.onGetTelefonos().subscribe(
       res => {
-        this.arregloTelefono = res;
+        if (res !== null) {
+          this.arregloTelefono = res;
+        } else {
+          this.toast.success('Info', 'No existe Telefonos', {
+            timeOut: 3000
+          });
+        }
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
   onGetCategorias() {
     this.categoriaService.onGetCategorias().subscribe(
       res => {
-        console.log(res);
-        this.arregloCategoria = res;
+        if (res !== null) {
+          this.arregloCategoria = res;
+        } else {
+          this.toast.success('Info', 'No existe Categorias', {
+            timeOut: 3000
+          });
+        }
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -113,10 +150,19 @@ export class PersonaformComponent implements OnInit {
         this.personaService.onSavePersona(newPersona).subscribe(
           res => {
             console.log(res);
-            this.onGetClear();
+            this.toast.success('Exito', 'Persona Agregada', {
+              timeOut: 3000
+            });
+            this.onGetClose();
           },
           err => {
-            console.log(err);
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 0) {
+                this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                  timeOut: 3000
+                });
+              }
+            }
           }
         );
       } else {
@@ -136,16 +182,23 @@ export class PersonaformComponent implements OnInit {
         this.personaService.onUpdatePersona(idCategoria, newPersona).subscribe(
           res => {
             console.log(res);
+            this.toast.success('Exito', 'Persona Actualizada', {
+              timeOut: 3000
+            });
+            this.onGetClose();
           },
           err => {
-            console.log(err);
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 0) {
+                this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                  timeOut: 3000
+                });
+              }
+            }
           }
         );
       }
     }
-  }
-  onGetClear() {
-    this.personadminformvali.oninitializeFomrGroup();
   }
   onGetClose() {
     this.formPersonaAdmin.reset();

@@ -6,6 +6,8 @@ import { Categoriaformvali } from 'src/app/validators/categoriaformvali';
 import { Categoria } from 'src/app/models/categoria';
 import { ConsultasService } from 'src/app/services/consultas.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-categorialist',
@@ -21,7 +23,8 @@ export class CategorialistComponent implements OnInit {
     private categoriaService: CategoriaService,
     private categoriaformvali: Categoriaformvali,
     private consultasService: ConsultasService,
-    private router: Router) { }
+    private router: Router,
+    private toast: ToastrService) { }
   form = this.categoriaformvali.formCategoria;
   listCategoria: MatTableDataSource<any>;
   displayedColumns: string[] = ['nombre', 'image', 'estado', 'actions'];
@@ -45,7 +48,15 @@ export class CategorialistComponent implements OnInit {
           console.log('No datos');
         }
       },
-      err => console.log(err)
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
+      }
     );
   }
   searchFiltrer() {
@@ -84,9 +95,20 @@ export class CategorialistComponent implements OnInit {
     this.categoriaService.onDeleteCategoria(id, newCategoria).subscribe(
       res => {
         console.log(res);
+        this.toast.success('Exito', 'Categoria Elimnada', {
+          timeOut: 3000
+        });
         this.onGetCategoriasAll();
       },
-      err => console.log(err)
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
+      }
     );
   }
 }

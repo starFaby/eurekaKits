@@ -4,6 +4,8 @@ import { Categoriaformvali } from 'src/app/validators/categoriaformvali';
 import { MatDialogRef } from '@angular/material';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/app/models/categoria';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-categoriaform',
@@ -17,7 +19,8 @@ export class CategoriaformComponent implements OnInit {
   constructor(
     private categoriaformvali: Categoriaformvali,
     private matDialogRef: MatDialogRef<CategoriaformComponent>,
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    private toast: ToastrService
   ) {
     this.formCategoria = this.categoriaformvali.formCategoria;
   }
@@ -41,12 +44,22 @@ export class CategoriaformComponent implements OnInit {
           image: this.file,
           estado: this.formCategoria.get('estado').value
         };
-        console.log(newCategoria);
         this.categoriaService.onSaveCategoria(newCategoria).subscribe(
           res => {
             console.log(res);
+            this.toast.success('Exito', 'Categoria Agregada', {
+              timeOut: 3000
+            });
           },
-          err => console.log(err)
+          err => {
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 0) {
+                this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                  timeOut: 3000
+                });
+              }
+            }
+          }
         );
         this.onCloseCategoriaForm();
       } else {
@@ -61,9 +74,19 @@ export class CategoriaformComponent implements OnInit {
         this.categoriaService.onUpdateCategoria(idCategoria, newCategoria).subscribe(
           res => {
             console.log(res);
+            this.toast.success('Exito', 'Categoria Actualizada', {
+              timeOut: 3000
+            });
+            this.onCloseCategoriaForm();
           },
           err => {
-            console.log(err);
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 0) {
+                this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                  timeOut: 3000
+                });
+              }
+            }
           }
         );
         this.formCategoria.reset();

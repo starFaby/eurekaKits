@@ -6,6 +6,8 @@ import { ConsultasService } from 'src/app/services/consultas.service';
 import { Router } from '@angular/router';
 import { DtoformComponent } from '../dtoform/dtoform.component';
 import { FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-dtolist',
@@ -19,7 +21,8 @@ export class DtolistComponent implements OnInit {
     private dialog: MatDialog,
     private dtoformvali: Dtoformvali,
     private consultasService: ConsultasService,
-    private router: Router
+    private router: Router,
+    private toast: ToastrService
   ) {
     this.formDto = this.dtoformvali.formDto;
   }
@@ -35,18 +38,27 @@ export class DtolistComponent implements OnInit {
     this.consultasService.onGetDto().subscribe(
       res => {
         if (res != null) {
-          console.log(res);
           this.dto = res;
           this.listDto = new MatTableDataSource(this.dto);
           this.listDto.sort = this.sort;
           this.listDto.paginator = this.paginator;
         } else {
+          this.toast.info('Info', 'No existe datos', {
+            timeOut: 3000
+          });
           this.onCreate();
           this.router.navigate(['/nofound']);
-          console.log('No datos');
         }
       },
-      err => console.log(err)
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
+      }
     );
   }
   searchFiltrer() {

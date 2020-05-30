@@ -4,6 +4,8 @@ import { Dtoformvali } from 'src/app/validators/dtoformvali';
 import { MatDialogRef } from '@angular/material';
 import { Dto } from 'src/app/models/dto';
 import { DtoService } from 'src/app/services/dto.service';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-dtoform',
@@ -15,7 +17,8 @@ export class DtoformComponent implements OnInit {
   constructor(
     private dtoformvali: Dtoformvali,
     private matDialogRef: MatDialogRef<DtoformComponent>,
-    private dtoService: DtoService
+    private dtoService: DtoService,
+    private toast: ToastrService
   ) {
     this.formDto = this.dtoformvali.formDto;
    }
@@ -38,13 +41,21 @@ export class DtoformComponent implements OnInit {
         this.dtoService.onUpdateCategoria(iddto, newDto).subscribe(
           res => {
             console.log(res);
+            this.toast.success('Exito', 'Descuento Actualizado', {
+              timeOut: 3000
+            });
+            this.onCloseDtoForm();
           },
           err => {
-            console.log(err);
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 0) {
+                this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                  timeOut: 3000
+                });
+              }
+            }
           }
         );
-        this.formDto.reset();
-        this.dtoformvali.oninitializeFomrGroup();
         this.onCloseDtoForm();
       }
     }

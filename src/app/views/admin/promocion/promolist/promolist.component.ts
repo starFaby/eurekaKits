@@ -8,6 +8,8 @@ import { PromoformComponent } from '../promoform/promoform.component';
 import { ConsultasService } from 'src/app/services/consultas.service';
 import { Promocionpp } from 'src/app/models/promocionpp';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-promolist',
@@ -22,7 +24,8 @@ export class PromolistComponent implements OnInit {
     private promocionService: PromocionService,
     private promoformvali: Promoformvali,
     private consultasService: ConsultasService,
-    private router: Router
+    private router: Router,
+    private toast: ToastrService
   ) {
     this.formPromo = this.promoformvali.formPromo;
   }
@@ -44,11 +47,21 @@ export class PromolistComponent implements OnInit {
           this.listPromo.paginator = this.paginator;
         } else {
           this.onCreate();
+          this.toast.info('Info', 'No existen Datos', {
+            timeOut: 3000
+          });
           this.router.navigate(['/nofound']);
-          console.log('No datos');
         }
       },
-      err => console.log(err)
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
+      }
     );
   }
   searchFiltrer() {
@@ -90,9 +103,20 @@ export class PromolistComponent implements OnInit {
     this.promocionService.onDeletePromocion(id, newPromocion).subscribe(
       res => {
         console.log(res);
+        this.toast.success('Exito', 'Persona Eliminada', {
+          timeOut: 3000
+        });
         this.onGetCategoriasAll();
       },
-      err => console.log(err)
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
+      }
     );
   }
 

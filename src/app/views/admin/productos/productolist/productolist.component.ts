@@ -7,6 +7,8 @@ import { Producto } from 'src/app/models/producto';
 import { ConsultasService } from 'src/app/services/consultas.service';
 import { Productoview } from 'src/app/models/productoview';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-productolist',
@@ -21,7 +23,8 @@ export class ProductolistComponent implements OnInit {
     private productoService: ProductoService,
     private productoformvali: Productoformvali,
     private consultasService: ConsultasService,
-    private router: Router
+    private router: Router,
+    private toast: ToastrService
   ) { }
   form = this.productoformvali.formProducto;
   listProductos: MatTableDataSource<any>;
@@ -44,10 +47,20 @@ export class ProductolistComponent implements OnInit {
         } else {
           this.onCreate();
           this.router.navigate(['/nofound']);
-          console.log('No datos');
+          this.toast.info('Info', 'No existe producto', {
+            timeOut: 3000
+          });
         }
       },
-      err => console.log(err)
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
+      }
     );
   }
   searchFiltrer() {
@@ -89,9 +102,20 @@ export class ProductolistComponent implements OnInit {
     this.productoService.onDeleteProductos(id, newProducto).subscribe(
       res => {
         console.log(res);
+        this.toast.success('Exito', 'Producto Eliminado', {
+          timeOut: 3000
+        });
         this.onGetProducto();
       },
-      err => console.log(err)
+      err => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
+      }
     );
   }
 }
