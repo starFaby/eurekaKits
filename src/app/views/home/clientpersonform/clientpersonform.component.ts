@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy, ElementRef, Renderer2 } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatSelect } from '@angular/material';
 import { ClienteleformComponent } from '../clienteleform/clienteleform.component';
 import { ClientdireccformComponent } from '../clientdireccform/clientdireccform.component';
@@ -17,6 +17,9 @@ import jwt from 'jwt-decode';
 import { Router } from '@angular/router';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { Categoria } from 'src/app/models/categoria';
+import { ConsultasService } from 'src/app/services/consultas.service';
+import { Email } from 'src/app/models/email';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-clientpersonform',
@@ -24,12 +27,14 @@ import { Categoria } from 'src/app/models/categoria';
   styleUrls: ['./clientpersonform.component.scss']
 })
 export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('emailclear', { static: false }) emailclear: ElementRef;
   hide = true;
   token;
   id;
   arregloTelefono: Telefono[];
   arregloDireccion: Direccion[];
   arregloCategoria: Categoria[];
+  email: Email[];
   formPersona: FormGroup;
   constructor(
     private dialog: MatDialog,
@@ -38,7 +43,10 @@ export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestr
     private telefonoService: TelefonoService,
     private authService: AuthService,
     private router: Router,
-    private categoriaService: CategoriaService
+    private categoriaService: CategoriaService,
+    private consultasService: ConsultasService,
+    private toast: ToastrService,
+    private renderer: Renderer2
   ) {
     this.formPersona = this.personaformvali.formPersona;
   }
@@ -52,7 +60,6 @@ export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestr
   ngOnDestroy() {
   }
   onGetReiniciarDirecTele() {
-    console.log('entraste a telefono o direccion');
     this.onGetTelefonoAll();
     this.onGetDireccionesAll();
   }
@@ -70,6 +77,28 @@ export class ClientpersonformComponent implements OnInit, AfterViewInit, OnDestr
     this.telefonoService.onGetTelefonos().subscribe(
       res => {
         this.arregloTelefono = res;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+  onGetEmail(event) {
+    const newEmail: Email = {
+      email: event.target.value
+    };
+    this.consultasService.onGetEmail(newEmail).subscribe(
+      res => {
+        if (res !== null) {
+          this.renderer.setProperty(this.emailclear.nativeElement, 'value', '');
+          this.toast.info('Existe', 'Ya Existe el email', {
+            timeOut: 3000
+          });
+        } else {
+          this.toast.info('info', 'Email valido', {
+            timeOut: 3000
+          });
+        }
       },
       err => {
         console.log(err);

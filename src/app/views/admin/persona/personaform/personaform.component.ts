@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { Personaformvali } from 'src/app/validators/personaformvali';
 import { FormGroup } from '@angular/forms';
 import { DireccionService } from 'src/app/services/direccion.service';
@@ -15,6 +15,8 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 import { Personadminformvali } from 'src/app/validators/personadminformvali';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ConsultasService } from 'src/app/services/consultas.service';
+import { Email } from 'src/app/models/email';
 
 @Component({
   selector: 'app-personaform',
@@ -22,10 +24,12 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./personaform.component.scss']
 })
 export class PersonaformComponent implements OnInit {
+  @ViewChild('emailclear', { static: false }) emailclear: ElementRef;
   hide = true;
   arregloTelefono: Telefono[];
   arregloDireccion: Direccion[];
   arregloCategoria: Categoria[];
+  email: Email[];
   formPersonaAdmin: FormGroup;
   constructor(
     private dialog: MatDialog,
@@ -35,7 +39,9 @@ export class PersonaformComponent implements OnInit {
     private direccionService: DireccionService,
     private telefonoService: TelefonoService,
     private categoriaService: CategoriaService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private consultasService: ConsultasService,
+    private renderer: Renderer2
   ) {
     this.formPersonaAdmin = this.personadminformvali.formPersonaAdmin;
   }
@@ -113,6 +119,28 @@ export class PersonaformComponent implements OnInit {
             });
           }
         }
+      }
+    );
+  }
+  onGetEmail(event) {
+    const newEmail: Email = {
+      email: event.target.value
+    };
+    this.consultasService.onGetEmail(newEmail).subscribe(
+      res => {
+        if (res !== null) {
+          this.renderer.setProperty(this.emailclear.nativeElement, 'value', '');
+          this.toast.info('Existe', 'Ya Existe el email', {
+            timeOut: 3000
+          });
+        } else {
+          this.toast.info('info', 'Email valido', {
+            timeOut: 3000
+          });
+        }
+      },
+      err => {
+        console.log(err);
       }
     );
   }
@@ -204,5 +232,9 @@ export class PersonaformComponent implements OnInit {
     this.formPersonaAdmin.reset();
     this.personadminformvali.oninitializeFomrGroup();
     this.matDialogRef.close();
+  }
+  onGetClear() {
+    this.personadminformvali.oninitializeFomrGroup();
+    this.formPersonaAdmin.reset();
   }
 }

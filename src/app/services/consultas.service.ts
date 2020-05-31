@@ -24,6 +24,7 @@ import { Reportpersona } from '../models/reportpersona';
 import { Reportpromociones } from '../models/reportpromociones';
 import { Productoview } from '../models/productoview';
 import { Dto } from '../models/dto';
+import { Email } from '../models/email';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,12 @@ export class ConsultasService {
    }
   onGetPersona() {
     return this.http.get<Persona[]>(`${this.API_URI}/consultas/pers`);
+   }
+   onGetEmail(email: Email) {
+    const newEmail: Email = {
+      email: email.email
+    };
+    return this.http.post<Email[]>(`${this.API_URI}/consultas/email`, newEmail);
    }
   onGetPersonapdt(id: string) {
     return this.http.get<Consultas[]>(`${this.API_URI}/consultas/pdt/${id}`);

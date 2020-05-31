@@ -79,7 +79,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Email</mat-label>
-                    <input matInput formControlName="email">
+                    <input matInput formControlName="email" (change)="onGetEmail($event)" #emailclear>
                     <mat-error *ngIf="formPersona.controls && (formPersona.dirty || formPersona.touched)">
                         <p *ngIf="formPersona.controls['email'].touched && formPersona.controls['email'].errors?.required">El email es required</p>
                         <p *ngIf="formPersona.controls['email'].errors?.email && formPersona.controls['email'].errors?.pattern">email invalido</p>

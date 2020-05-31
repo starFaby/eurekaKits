@@ -96,7 +96,6 @@ export class PersonalistComponent implements OnInit {
       requerimiento: row.requerimiento,
       estado: row.estado,
     };
-    console.log(newPersona);
     this.formPersonaAdmin.setValue(newPersona);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
