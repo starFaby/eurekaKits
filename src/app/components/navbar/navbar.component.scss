@@ -1,0 +1,18 @@
+mat-sidenav-container {
+    height: auto;
+  }
+  mat-sidenav,
+  mat-sidenav-content {
+    padding: 16px;
+  }
+  mat-sidenav {
+    background-color: cornsilk;
+    width: 200px;
+  }
+  .spacer {
+    flex: 1 1 auto;
+  }
+  .colorToolbar {
+    background-color: #6495ed;
+  }
+  

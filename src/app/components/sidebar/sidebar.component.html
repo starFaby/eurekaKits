@@ -1,1 +1,27 @@
-<p>sidebar works!</p>
+<mat-nav-list>
+    <a mat-list-item [routerLink]="[ '/' ]" (click)="onSidenavClose()">
+        <mat-icon>home</mat-icon> <span class="nav-caption">Home</span>
+    </a>
+  </mat-nav-list>
+
+<mat-list-item [matMenuTriggerFor]="menu">
+    <mat-icon>call_to_action</mat-icon>
+    <a matline>Actions</a>
+</mat-list-item>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item [routerLink]="['/pers']" (click)="onSidenavClose()">Personas</button>
+  <button mat-menu-item [routerLink]="['/categorias']" (click)="onSidenavClose()">Categorias</button>
+  <button mat-menu-item [routerLink]="['/productos']" (click)="onSidenavClose()">Productos</button>
+  <button mat-menu-item [routerLink]="['/promo']" (click)="onSidenavClose()">Promociones</button>
+  <button mat-menu-item [routerLink]="['/dto']" (click)="onSidenavClose()">Descuento</button>
+</mat-menu>
+<mat-list-item [matMenuTriggerFor]="menu1">
+    <mat-icon>insert_drive_file</mat-icon>
+    <a matline>Report</a>
+</mat-list-item>
+<mat-menu #menu1="matMenu">
+  <button mat-menu-item [routerLink]="['/reportpersona']" (click)="onSidenavClose()">R. Persona</button>
+  <button mat-menu-item [routerLink]="['/reportcategoria']" (click)="onSidenavClose()">R. Categoria</button>
+  <button mat-menu-item [routerLink]="['/reportproductos']" (click)="onSidenavClose()">R. Producto</button>
+  <button mat-menu-item [routerLink]="['/reportpromociones']" (click)="onSidenavClose()">R. Promociones</button>
+</mat-menu>

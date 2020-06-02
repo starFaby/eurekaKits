@@ -14,41 +14,14 @@ import { ToastrService } from 'ngx-toastr';
 export class AdminlayoutComponent implements OnInit {
   opened: true;
   panelOpenState = false;
-  promociones: Promocionppi[];
-  cantPromo;
   constructor(
     private location: Location,
-    public authService: AuthService,
-    private consultasService: ConsultasService,
-    private toast: ToastrService) {
+    public authService: AuthService) {
 
   }
   ngOnInit() {
-    this.onGetPromocionesppi();
   }
-  onGetPromocionesppi() {
-    this.consultasService.onGetPromocionppi().subscribe(
-      res => {
-        if (res !== null) {
-          this.promociones = res;
-          this.cantPromo = this.promociones.length;
-        } else {
-          this.toast.info('info', 'No existe Promociones', {
-            timeOut: 3000
-          });
-        }
-      },
-      err => {
-        if (err instanceof HttpErrorResponse) {
-          if (err.status === 0) {
-            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
-              timeOut: 3000
-            });
-          }
-        }
-      }
-    );
-  }
+
   backto() {
     this.location.back();
   }
