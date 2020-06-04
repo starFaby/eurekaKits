@@ -43,7 +43,6 @@ export class ClientcategoriaComponent implements OnInit {
       }
     );
   }
-
   onSelectedCategoria(id: string) {
     this.router.navigate(['/clientCateprodu', btoa(id)]);
   }
