@@ -49,11 +49,11 @@
                                     <mat-radio-button value="0">Inactivo</mat-radio-button>
                                 </mat-radio-group>
                                 <mat-error
-                                        *ngIf="formFormPago.controls && (formFormPago.dirty || formFormPago.touched)">
-                                        <p
-                                            *ngIf="formFormPago.controls['estado'].touched && formFormPago.controls['estado'].errors?.required">
-                                            Es requerido el estado</p>
-                                    </mat-error>
+                                    *ngIf="formFormPago.controls && (formFormPago.dirty || formFormPago.touched)">
+                                    <p
+                                        *ngIf="formFormPago.controls['estado'].touched && formFormPago.controls['estado'].errors?.required">
+                                        Es requerido el estado</p>
+                                </mat-error>
                                 <div class="row">
                                     <div class="col">
                                         <button mat-fab color="primary" type="submit"
@@ -64,6 +64,39 @@
                         </mat-card-content>
                     </mat-card>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 my-2">
+        <div class="row">
+            <div class="col-md-5 mx-auto">
+                <mat-card>
+                    <mat-card-content>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="text-center">Forma de Envio</h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h3>Domicilio</h3>
+                                        <p>En el caso de domicilio pongase en contacto</p>
+                                        <p><b>Tlf.</b>2510534</p>
+                                        <p><b>Cel.</b>0962628816</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h3>A Convenir</h3>
+                                        <p>Deve dirijirse</p>
+                                        <p><b>Direcciòn:</b>Av.Velasco Ibarra 146 y remijio</p>
+                                        <p>crespo(Caran N3-131)</p>
+                                        <p><b>Preguntar Por:</b></p>
+                                        <p><b>Sr:</b> Roberto Brito</p>
+                                        <p><b>Ubicacion en  Mapa</b></p>
+                                        <a href="https://www.google.com/maps/dir//-0.2275511,-78.4997453/@-0.2276222,-78.5004185,19z" target="_blank" rel="noopener noreferrer"><mat-icon>visibility</mat-icon></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
             </div>
         </div>
     </div>
@@ -127,21 +160,21 @@
                                 <div class="col-md-6">
                                     <mat-card-content>
                                         <b>Nombres:</b>
-                                        <h5>Ing</h5>
+                                        <h5>Roberto Alfonso</h5>
                                         <b>Apellidos:</b>
-                                        <h5>Ing</h5>
+                                        <h5>Brito Ceballos</h5>
                                         <b>Cedula:</b>
-                                        <h5>17</h5>
+                                        <h5>1709765067</h5>
                                     </mat-card-content>
                                 </div>
                                 <div class="col-md-6">
                                     <mat-card-content>
                                         <b>Tipo de Cuenta:</b>
-                                        <h5>Ing</h5>
+                                        <h5>Ahorros</h5>
                                         <b>Numero de Cuenta:</b>
-                                        <h5>Ing</h5>
+                                        <h5>4264656900</h5>
                                         <b>Banco:</b>
-                                        <h5>Pichincha</h5>
+                                        <h5>Banco Pichincha</h5>
                                     </mat-card-content>
                                 </div>
                             </div>

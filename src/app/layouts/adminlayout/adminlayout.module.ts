@@ -42,7 +42,6 @@ import { DtoComponent } from 'src/app/views/admin/dto/dto.component';
 import { DtolistComponent } from 'src/app/views/admin/dto/dtolist/dtolist.component';
 import { ToastrModule } from 'ngx-toastr';
 
-
 @NgModule({
   declarations: [
     StartComponent,

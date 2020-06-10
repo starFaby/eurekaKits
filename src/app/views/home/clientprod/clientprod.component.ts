@@ -240,10 +240,34 @@ export class ClientprodComponent implements OnInit {
         this.detalleVentas.idfactura = localStorage.getItem('idfactura');
         this.detaventaService.onSaveDetaVenta(this.detalleVentas).subscribe(
           res => {
-            console.log(res);
-            this.toast.info('Producto', 'Añadido a la cesta', {
-              timeOut: 3000
-            });
+            if (res !== null) {
+              console.log(res);
+              this.toast.info('Producto', 'Añadido a la cesta', {
+                timeOut: 3000
+              });
+              const id = this.detalleVentas.idproducto;
+              const stockFin = this.productuni[0].stock - this.detalleVentas.cantidad;
+              const newProducto: Producto = {
+                stock: stockFin
+              };
+              this.productoService.onUpdateStock(id, newProducto).subscribe(
+                resS => {
+                  if (resS !== null) {
+                    this.toast.success('Stock', 'Actualizado', {
+                      timeOut: 3000
+                    });
+                  } else {
+                    this.toast.warning('Error', 'Error slActualizado', {
+                      timeOut: 3000
+                    });
+                  }
+                }
+              );
+            } else {
+              this.toast.warning('Producto', 'No se pudo añadir', {
+                timeOut: 3000
+              });
+            }
           },
           err => {
             if (err instanceof HttpErrorResponse) {

@@ -10,6 +10,9 @@
         <mat-icon>visibility</mat-icon>
       </button>
       <span class="spacer"></span>
+      <button mat-icon-button matTooltip="Ver Facturas Pendientes" *ngIf="authService.onLoggedIn()" [routerLink]="['/formaPago']">
+        <mat-icon> attach_money</mat-icon>
+      </button>
       <button mat-icon-button matTooltip="Ver Facturas" *ngIf="authService.onLoggedIn()" [routerLink]="['/clientFacturasptbe']">
         <mat-icon>insert_drive_file</mat-icon>
       </button>

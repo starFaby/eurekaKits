@@ -48,4 +48,10 @@ export class ProductoService {
     fd.append('estado', producto.estado);
     return this.http.put(`${this.API_URI}/producto/${id}`, fd);
   }
+  onUpdateStock(id: string, producto: Producto): Observable<any> {
+    const newProductoStock: Producto = {
+      stock: producto.stock
+    };
+    return this.http.put(`${this.API_URI}/producto/stock/${id}`, newProductoStock);
+  }
 }

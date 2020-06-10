@@ -44,7 +44,7 @@ import { ToastrModule } from 'ngx-toastr';
     AdminlayoutComponent,
     NavbarComponent,
     SidebarComponent,
-    BacktoDirective
+    BacktoDirective // directiva pra mostrar boton en todo el proyecto
   ],
   imports: [
     BrowserModule,

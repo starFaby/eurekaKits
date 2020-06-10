@@ -8,7 +8,11 @@
                 <div class="col-md-6">
                     <mat-card>
                         <mat-card-content>
-                            <img [src]="API_URI_IMAGE + promouni[0].image" alt="">
+                            <div class="row">
+                                <div class="col-md-12 d-flex justify-content-center aling-items-center">
+                                    <img [src]="API_URI_IMAGE + promouni[0].image" alt="">
+                                </div>
+                            </div>
                         </mat-card-content>
                     </mat-card>
                 </div>
@@ -32,43 +36,73 @@
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <button mat-mini-fab matTooltip="Disminuir Cantidad" type="button" color="warn" class="m-1"
-                                                (click)="onCountD()">-</button>
-                                            <button mat-mini-fab matTooltip="Aumentar Cantidad" type="button" color="primary" class="m-1"
-                                                (click)="onCountA()">+</button>
+                                            <span>Elija la Cantidad</span>
+                                            <button mat-mini-fab matTooltip="Disminuir Cantidad" type="button"
+                                                color="warn" class="mx-1" (click)="onCountD()">-</button>
+                                            <button mat-mini-fab matTooltip="Aumentar Cantidad" type="button"
+                                                color="primary" (click)="onCountA()">+</button>
                                         </div>
                                         <div class="col-md-2">
-                                            $<input class="inputOculto form-control sizeLetter" type="text" [(ngModel)]="cont"
+                                            <p>Cantidad</p>
+                                            <input class="inputOculto sizeLetter" type="text" [(ngModel)]="cont"
                                                 disabled>
                                         </div>
                                         <div class="col-md-2">
-                                            $<input class="inputOculto form-control sizeLetter" type="text"
-                                                [(ngModel)]="detalleVentas.precio" disabled>
+                                            <p>Precio</p>
+                                            <input class="inputOculto sizeLetter" type="text"
+                                                [(ngModel)]="'$'+detalleVentas.precio" disabled>
                                         </div>
                                         <div class="col-md-2">
-                                            %<input class="inputOculto form-control sizeLetter" type="text"
-                                                [(ngModel)]="promouni[0].dto" disabled>
+                                            <p>Descuento</p>
+                                            <input class="inputOculto sizeLetter" type="text"
+                                                [(ngModel)]="'$'+promouni[0].dto" disabled>
                                         </div>
                                         <div class="col-md-3">
-                                            $<input class="inputOculto form-control sizeLetter" type="text"
-                                                [(ngModel)]="detalleVentas.total" disabled>
+                                            <p>Precio Final</p>
+                                            <input class="inputOculto sizeLetter" type="text"
+                                                [(ngModel)]="'$'+detalleVentas.total" disabled>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="row">
-                                        <button mat-fab color="warn" matTooltip="Debes Logearte" type="button" class="m-2" *ngIf="viewBotonLogin" (click)="onGetLogin()">
-                                            Login
-                                        </button>
-                                        <button mat-fab color="accent" matTooltip="Crear Factura" type="button" class="m-2" *ngIf="viewBotonFactura" (click)="onsaveFactura()">
-                                            Factura 
-                                        </button>
-                                        <button mat-fab color="primary" matTooltip="Añadir producto a la cesta" type="submit" class="m-2" *ngIf="viewBotonCarroCanasta"  (click)="onSubmit()">
-                                            <mat-icon>shopping_cart</mat-icon>
-                                        </button>
-                                        <button mat-fab color="primary" matTooltip="Ver Productos comprados" type="button" class="m-2" *ngIf="viewBotonCarroCanasta"  (click)="onGetViewCanasta()">
-                                            <mat-icon>visibility</mat-icon> 
-                                        </button>
+                                        <div class="col-md-12" *ngIf="viewBotonLogin">
+                                            <span>
+                                                <p>Debes Logearte</p>
+                                            </span>
+                                            <button mat-fab color="warn" matTooltip="Debes Logearte" type="button"
+                                                class="mx-2" (click)="onGetLogin()">
+                                                Login
+                                            </button>
+                                        </div>
+                                        <div class="col-md-12" *ngIf="viewBotonFactura">
+                                            <span>
+                                                <p>Debes Logearte</p>
+                                            </span>
+                                            <button mat-fab color="accent" matTooltip="Crear Factura" type="button"
+                                                class="mx-2" (click)="onsaveFactura()">
+                                                Factura
+                                            </button>
+                                        </div>
+                                        <div class="col-md-12 my-3" *ngIf="viewBotonCarroCanasta">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <span><p>Añadir a la Cesta</p></span>
+                                                    <button mat-fab color="primary"
+                                                        matTooltip="Añadir producto a la cesta" type="submit"
+                                                        class="mx-2" (click)="onSubmit()">
+                                                        <mat-icon>shopping_cart</mat-icon>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span><p>Ver Factura</p></span>
+                                                    <button mat-fab color="primary" matTooltip="Ver Productos comprados"
+                                                        type="button" class="mx-2" (click)="onGetViewCanasta()">
+                                                        <mat-icon>visibility</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
