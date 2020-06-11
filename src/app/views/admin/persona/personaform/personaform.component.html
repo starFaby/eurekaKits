@@ -1,5 +1,5 @@
 <form [formGroup]="formPersonaAdmin" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-    <mat-grid-list cols="2" rowHeight="450px">
+    <mat-grid-list cols="2" rowHeight="460px">
         <mat-grid-tile>
             <div class="col-sm-12">
                 <div class="controleContainer">
@@ -153,14 +153,14 @@
                     </mat-error>
                     <div class="row">
                         <div class="col">
-                            <button mat-fab color="primary" type="submit"
+                            <button mat-fab color="primary" type="submit" class="btn-block"
                                 [disabled]="formPersonaAdmin.invalid">Submit</button>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-warning btn-lg" (click)="onGetClear()">Clear</button>
+                            <button type="button" class="btn btn-warning btn-lg btn-block" (click)="onGetClear()">Clear</button>
                         </div>
                         <div class="col">
-                            <button type="button" class="btn btn-danger btn-lg" (click)="onGetClose()">Close</button>
+                            <button type="button" class="btn btn-danger btn-lg btn-block" (click)="onGetClose()">Close</button>
                         </div>
                     </div>
                 </div>

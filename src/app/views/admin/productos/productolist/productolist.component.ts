@@ -28,7 +28,7 @@ export class ProductolistComponent implements OnInit {
   ) { }
   form = this.productoformvali.formProducto;
   listProductos: MatTableDataSource<any>;
-  displayedColumns: string[] = ['categoria', 'nombre', 'image', 'precio', 'stock', 'estado', 'actions'];
+  displayedColumns: string[] = ['categoria', 'nombre', 'describir', 'image', 'precio', 'stock', 'estado', 'actions'];
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   searchKey: string;
@@ -39,6 +39,7 @@ export class ProductolistComponent implements OnInit {
   onGetProducto() {
     this.consultasService.onGetProducto().subscribe(
       res => {
+        console.log(res);
         if (res != null) {
           this.productosview = res;
           this.listProductos = new MatTableDataSource(this.productosview);
@@ -83,6 +84,7 @@ export class ProductolistComponent implements OnInit {
       idproducto: row.idproducto,
       idcategoria: null,
       nombre: row.nombre,
+      describir: row.describir,
       image: null,
       precio: row.precio,
       stock: row.stock,

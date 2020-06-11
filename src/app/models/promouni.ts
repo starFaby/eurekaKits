@@ -3,6 +3,7 @@ export interface Promouni {
     idproducto: any;
     idcategoria: any;
     nombre: any;
+    describir: any;
     image: any;
     precio: any;
     dto: any;

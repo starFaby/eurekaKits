@@ -101,9 +101,13 @@
                             <mat-header-cell *matHeaderCellDef mat-sort-header>Factura</mat-header-cell>
                             <mat-cell *matCellDef="let element">{{ element.idfactura}}</mat-cell>
                         </ng-container>
-                        <ng-container matColumnDef="idProducto">
+                        <ng-container matColumnDef="producto">
                             <mat-header-cell *matHeaderCellDef mat-sort-header>Producto</mat-header-cell>
-                            <mat-cell *matCellDef="let element">{{element.idproducto}}</mat-cell>
+                            <mat-cell *matCellDef="let element">{{element.nombre}}</mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="descripcion">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Descripcion</mat-header-cell>
+                            <mat-cell *matCellDef="let element">{{element.describir}}</mat-cell>
                         </ng-container>
                         <ng-container matColumnDef="cantidad">
                             <mat-header-cell *matHeaderCellDef mat-sort-header>cantidad</mat-header-cell>
@@ -120,10 +124,7 @@
                         <ng-container matColumnDef="actions">
                             <mat-header-cell *matHeaderCellDef></mat-header-cell>
                             <mat-cell *matCellDef="let row">
-                                <button mat-icon-button>
-                                    <mat-icon>visibility</mat-icon>
-                                </button>
-                                <button mat-icon-button color="warn" (click)="onDelete(row.iddetalleventa)">
+                                <button mat-icon-button color="warn" (click)="onDelete(row)">
                                     <mat-icon>delete</mat-icon>
                                 </button>
                             </mat-cell>

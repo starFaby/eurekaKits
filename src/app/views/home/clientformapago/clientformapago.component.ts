@@ -252,7 +252,6 @@ export class ClientformapagoComponent implements OnInit {
     );
   }
   onNumFactEfectivo(event) { // para ver los datos de la siguiente factura comprada en transferencia bancaria y guardar
-    console.log(event.value);
     const numfactura = event.value;
     this.consultasService.onGetPagoFactIndiv(numfactura).subscribe(
       res => {
@@ -353,7 +352,7 @@ export class ClientformapagoComponent implements OnInit {
   onGetConfirmPAypal() {
     if (this.paypal.idformapago !== '' && this.paypal.numfactura !== '' && this.paypal.preciofactura !== '') {
       const opcion = confirm('Al hacer click en Aceptar. Generas tu factura'
-        + ' si no haz comparado aun, haz click en cancelar y vuelve mas tarde a cancelar');
+        + ' si no haz comprado aun, haz click en cancelar y vuelve mas tarde a cancelar');
       if (opcion === true) {
         this.toast.success('Exito', 'Factura creada', {
           timeOut: 3000
@@ -402,7 +401,6 @@ export class ClientformapagoComponent implements OnInit {
     }
   }
   onSubmit2() { // para guardar en paypal
-    console.log(this.paypal);
     if (this.paypal.idformapago !== '' && this.paypal.numfactura !== '' && this.paypal.preciofactura !== '') {
       this.paypalService.onSavePaypal(this.paypal).subscribe(
         res => {

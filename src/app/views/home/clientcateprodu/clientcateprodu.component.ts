@@ -23,6 +23,7 @@ export class ClientcateproduComponent implements OnInit {
         this.id = atob(params['id']);
         this.cateproduService.onGetProducto(this.id).subscribe(
           res => {
+            console.log(res);
             this.cateProd = res;
           },
           err => {

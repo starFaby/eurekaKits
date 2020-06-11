@@ -52,7 +52,7 @@ export class AuthService {
     if (this.onGetToken() != null) {
       const tokenAuth = this.onGetToken();
       const tokenAdmin = this.onGetTokenInvert(tokenAuth);
-      if (tokenAdmin === 6) {
+      if (tokenAdmin === 1) {
         return !!tokenAuth;
       }
     }

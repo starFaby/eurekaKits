@@ -1,11 +1,12 @@
 export interface Promocionppi {
-    idproducto: string;
-    idpromociones: string;
-    nombre: string;
-    dto: string;
-    image: string;
-    fechainicio: string;
-    fechafin: string;
-    descripcion: string;
-    estado: string;
+    idproducto: any;
+    idpromociones: any;
+    nombre: any;
+    describir: any;
+    dto: any;
+    image: any;
+    fechainicio: any;
+    fechafin: any;
+    descripcion: any;
+    estado: any;
 }

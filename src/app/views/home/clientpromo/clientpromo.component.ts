@@ -11,6 +11,8 @@ import { Promouni } from 'src/app/models/promouni';
 import { Factura } from 'src/app/models/factura';
 import { FacturaService } from 'src/app/services/factura.service';
 import { ToastrService } from 'ngx-toastr';
+import { Producto } from 'src/app/models/producto';
+import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
   selector: 'app-clientpromo',
@@ -43,7 +45,7 @@ export class ClientpromoComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    //  private productoService: ProductoService,
+    private productoService: ProductoService,
     private detaventaService: DetaventaService,
     private consultasService: ConsultasService,
     private facturaService: FacturaService,
@@ -62,14 +64,13 @@ export class ClientpromoComponent implements OnInit {
         this.id = atob(params['id']);
         this.consultasService.onGetPromocionuni(this.id).subscribe(
           res => {
+            console.log(res);
             if (res !== null) {
-              console.log(res);
               this.promouni = res.map(t => t);
               this.detalleVentas.idproducto = this.promouni[0].idproducto;
               this.detalleVentas.estado = this.promouni[0].estado;
               this.detalleVentas.precio = this.promouni[0].precio;
               this.detalleVentas.total = this.promouni[0].precio - (this.promouni[0].precio * (this.promouni[0].dto / 100));
-              console.log(this.promouni);
             } else {
               this.toast.info('Lo siento', 'Existe un error en el producto', {
                 timeOut: 3000
@@ -241,10 +242,33 @@ export class ClientpromoComponent implements OnInit {
         this.detalleVentas.idfactura = localStorage.getItem('idfactura');
         this.detaventaService.onSaveDetaVenta(this.detalleVentas).subscribe(
           res => {
-            console.log(res);
-            this.toast.info('Producto', 'Añadido a la cesta', {
-              timeOut: 3000
-            });
+            if (res !== null) {
+              this.toast.info('Producto', 'Añadido a la cesta', {
+                timeOut: 3000
+              });
+              const id = this.detalleVentas.idproducto;
+              const stockFin = this.promouni[0].stock - this.detalleVentas.cantidad;
+              const newProducto: Producto = {
+                stock: stockFin
+              };
+              this.productoService.onUpdateStock(id, newProducto).subscribe(
+                resS => {
+                  if (resS !== null) {
+                    this.toast.success('Stock', 'Actualizado', {
+                      timeOut: 3000
+                    });
+                  } else {
+                    this.toast.warning('Error', 'Error slActualizado', {
+                      timeOut: 3000
+                    });
+                  }
+                }
+              );
+            } else {
+              this.toast.info('Info', 'No se pudo añadir a la cesta', {
+                timeOut: 3000
+              });
+            }
           },
           err => {
             if (err instanceof HttpErrorResponse) {

@@ -23,6 +23,7 @@ export class StartComponent implements OnInit {
   onGetPromocionesppi() {
     this.consultasService.onGetPromocionppi().subscribe(
       res => {
+        console.log(res);
         if (res != null) {
           this.promociones = res;
           this.toast.success('Exist', 'Promociones', {

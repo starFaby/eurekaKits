@@ -14,6 +14,8 @@ import { Factura } from 'src/app/models/factura';
 import { FacturaService } from 'src/app/services/factura.service';
 import { Dto } from 'src/app/models/dto';
 import { ToastrService } from 'ngx-toastr';
+import { Producto } from 'src/app/models/producto';
+import { ProductoService } from 'src/app/services/producto.service';
 
 
 @Component({
@@ -45,6 +47,7 @@ export class CanastaComponent implements OnInit {
     private detaventaService: DetaventaService,
     private router: Router,
     private authService: AuthService,
+    private productoService: ProductoService,
     private consultasService: ConsultasService,
     private fecha: Fecha,
     private facturaService: FacturaService,
@@ -55,7 +58,7 @@ export class CanastaComponent implements OnInit {
   }
   //  form = this.categoriaformvali.formCategoria;
   listCanasta: MatTableDataSource<any>;
-  displayedColumns: string[] = ['idFactura', 'idProducto', 'cantidad', 'precio', 'total', 'actions'];
+  displayedColumns: string[] = ['idFactura', 'producto', 'descripcion', 'cantidad', 'precio', 'total', 'actions'];
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   searchKey: string;
@@ -85,6 +88,7 @@ export class CanastaComponent implements OnInit {
     const idFactura = localStorage.getItem('idfactura');
     this.consultasService.onGetDetaVentadvp(idFactura).subscribe(
       res => {
+        console.log(res);
         if (res != null) {
           this.detalleVenta = res;
           this.newFactura.subtotal = this.detalleVenta.map(t => t.total).reduce((acc, value) => acc + value);
@@ -161,13 +165,56 @@ export class CanastaComponent implements OnInit {
     this.searchFiltrer();
   }
   onDelete(row) {
-    this.detaventaService.onDeleteDetaVenta(row).subscribe(
+    console.log(row);
+    const id = row.idproducto;
+    const stockFin = row.stock + row.cantidad;
+    const newProducto: Producto = {
+      stock: stockFin
+    };
+    this.productoService.onUpdateStock(id, newProducto).subscribe(
+      resS => {
+        if (resS !== null) {
+          this.toast.success('Stock', 'Actualizado', {
+            timeOut: 3000
+          });
+          const idDetalleventas = row.iddetalleventas;
+          this.detaventaService.onDeleteDetaVenta(idDetalleventas).subscribe(
+            resD => {
+              if (resD !== null) {
+                this.toast.success('Stock', 'Actualizado', {
+                  timeOut: 3000
+                });
+                this.onGetDetaVentaAll();
+              } else {
+                this.toast.error('Error', 'No Actualizado', {
+                  timeOut: 3000
+                });
+              }
+            },
+            err => {
+              if (err instanceof HttpErrorResponse) {
+                if (err.status === 0) {
+                  this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                    timeOut: 3000
+                  });
+                }
+              }
+            }
+          );
+        } else {
+          this.toast.warning('Error', 'Error slActualizado', {
+            timeOut: 3000
+          });
+        }
+      }
+    );
+    /*this.detaventaService.onDeleteDetaVenta(row).subscribe(
       res => {
         console.log(res);
         this.onGetDetaVentaAll();
       },
       err => console.log(err)
-    );
+    );*/
   }
   addCero(i) {
     if (i < 10) {

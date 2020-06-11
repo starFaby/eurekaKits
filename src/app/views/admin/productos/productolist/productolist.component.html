@@ -28,6 +28,10 @@
                         <mat-header-cell *matHeaderCellDef mat-sort-header>nombre</mat-header-cell>
                         <mat-cell *matCellDef="let element">{{ element.nombre}}</mat-cell>
                     </ng-container>
+                    <ng-container matColumnDef="describir">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>descripcion</mat-header-cell>
+                        <mat-cell *matCellDef="let element">{{ element.describir}}</mat-cell>
+                    </ng-container>
                     <ng-container matColumnDef="image">
                         <mat-header-cell *matHeaderCellDef mat-sort-header>image</mat-header-cell>
                         <mat-cell *matCellDef="let element">{{element.image}}</mat-cell>

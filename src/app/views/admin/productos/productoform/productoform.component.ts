@@ -74,6 +74,7 @@ export class ProductoformComponent implements OnInit {
         const newProducto: Producto = {
           idcategoria: this.formProducto.get('idcategoria').value,
           nombre: this.formProducto.get('nombre').value,
+          describir: this.formProducto.get('describir').value,
           image: this.file,
           precio: this.formProducto.get('precio').value,
           stock: this.formProducto.get('stock').value,
@@ -104,6 +105,7 @@ export class ProductoformComponent implements OnInit {
         const newProducto: Producto = {
           idcategoria: this.formProducto.get('idcategoria').value,
           nombre: this.formProducto.get('nombre').value,
+          describir: this.formProducto.get('describir').value,
           image: this.file,
           precio: this.formProducto.get('precio').value,
           stock: this.formProducto.get('stock').value,

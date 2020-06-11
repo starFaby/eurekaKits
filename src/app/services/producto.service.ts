@@ -21,8 +21,6 @@ export class ProductoService {
     const newProducto: Producto = {
       estado: producto.estado
     };
-    console.log('===> ' + newProducto);
-    console.log(producto.estado);
     const fd = new FormData();
     fd.append('estado', producto.estado);
     console.log(fd);
@@ -32,6 +30,7 @@ export class ProductoService {
     const fd = new FormData();
     fd.append('idcategoria', producto.idcategoria);
     fd.append('nombre', producto.nombre);
+    fd.append('describir', producto.describir);
     fd.append('image', producto.image);
     fd.append('precio', producto.precio);
     fd.append('stock', producto.stock);
@@ -42,6 +41,7 @@ export class ProductoService {
     const fd = new FormData();
     fd.append('idcategoria', producto.idcategoria);
     fd.append('nombre', producto.nombre);
+    fd.append('describir', producto.describir);
     fd.append('image', producto.image);
     fd.append('precio', producto.precio);
     fd.append('stock', producto.stock);

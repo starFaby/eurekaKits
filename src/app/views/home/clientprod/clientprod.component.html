@@ -10,7 +10,11 @@
                         <mat-card-content>
                             <div class="row">
                                 <div class="col-md-12 d-flex justify-content-center aling-items-center">
-                                    <img [src]="API_URI_IMAGE + productuni[0].image" alt="" class="img-fluid" >
+                                    <img [src]="API_URI_IMAGE + productuni[0].image" alt="" class="img-fluid">
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <h3>Descripción</h3>
+                                    <p>{{ productuni[0].describir }}</p>
                                 </div>
                             </div>
                         </mat-card-content>
@@ -84,14 +88,19 @@
                                         <div class="col-md-12" *ngIf="viewBotonCarroCanasta">
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <span><p>Añadir a la Cesta</p></span>
-                                                    <button mat-fab color="primary" matTooltip="Añadir producto a la cesta"
-                                                        type="submit" class="mx-2" (click)="onSubmit()">
+                                                    <span>
+                                                        <p>Añadir a la Cesta</p>
+                                                    </span>
+                                                    <button mat-fab color="primary"
+                                                        matTooltip="Añadir producto a la cesta" type="submit"
+                                                        class="mx-2" (click)="onSubmit()">
                                                         <mat-icon>shopping_cart</mat-icon>
                                                     </button>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <span><p>Ver Factura</p></span>
+                                                    <span>
+                                                        <p>Ver Factura</p>
+                                                    </span>
                                                     <button mat-fab color="primary" matTooltip="Ver Productos comprados"
                                                         type="button" class="mx-2" (click)="onGetViewCanasta()">
                                                         <mat-icon>visibility</mat-icon>

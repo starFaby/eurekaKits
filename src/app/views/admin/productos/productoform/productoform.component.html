@@ -1,82 +1,108 @@
 <form [formGroup]="formProducto" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
-    <mat-grid-list cols="2" rowHeight="430px">
+    <mat-grid-list cols="2" rowHeight="440px">
         <mat-grid-tile>
-            <div class="controleContainer">
-                <mat-form-field [hidden]="true">
-                    <!--[hidden]="true"-->
-                    <input type="text" formControlName="idproducto" matInput placeholder="idproducto">
-                    <mat-error>El campo $key es obligatorio</mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Categoria</mat-label>
-                    <mat-select formControlName="idcategoria" matInput>
-                        <mat-option *ngFor="let item of arrayCategoria" [value]="item.idcategoria">
-                            {{ item.nombre }}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
-                        <p *ngIf="formProducto.controls['idcategoria'].touched && formProducto.controls['idcategoria'].errors?.required">
-                            La Categoria es requerida</p>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <input formControlName="nombre" matInput placeholder="nombre">
-                    <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
-                        <p *ngIf="formProducto.controls['nombre'].touched && formProducto.controls['nombre'].errors?.required">
-                            El Nombre es requerido</p>
-                    </mat-error>
-                </mat-form-field>
-                <div class="container-input-file">
-                    <div class="custom-file">
-                        <input formControlName="image" type="file" name="image" (change)="onPhotoSelected($event)"
-                            #photoInput>
+                <div class="col-sm-12">
+                    <div class="controleContainer">
+                        <mat-form-field [hidden]="true">
+                            <!--[hidden]="true"-->
+                            <input type="text" formControlName="idproducto" matInput placeholder="idproducto">
+                            <mat-error>El campo $key es obligatorio</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Categoria</mat-label>
+                            <mat-select formControlName="idcategoria" matInput>
+                                <mat-option *ngFor="let item of arrayCategoria" [value]="item.idcategoria">
+                                    {{ item.nombre }}
+                                </mat-option>
+                            </mat-select>
                             <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
-                                <p *ngIf="formProducto.controls['image'].touched && formProducto.controls['image'].errors?.required">
-                                    La Imagen es requerida</p>
+                                <p
+                                    *ngIf="formProducto.controls['idcategoria'].touched && formProducto.controls['idcategoria'].errors?.required">
+                                    La Categoria es requerida</p>
                             </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input formControlName="nombre" matInput placeholder="nombre">
+                            <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
+                                <p
+                                    *ngIf="formProducto.controls['nombre'].touched && formProducto.controls['nombre'].errors?.required">
+                                    El Nombre es requerido</p>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <textarea matInput formControlName="describir" placeholder="describir"
+                                placeholder="describir" cdkTextareaAutosize cdkAutosizeMinRows="3"
+                                cdkAutosizeMaxRows="3">
+                            </textarea>
+                            <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
+                                <p
+                                    *ngIf="formProducto.controls['describir'].touched && formProducto.controls['describir'].errors?.required">
+                                    La Descripcion es requerida</p>
+                            </mat-error>
+                        </mat-form-field>
+                        <div class="container-input-file">
+                            <div class="custom-file">
+                                <input formControlName="image" type="file" name="image"
+                                    (change)="onPhotoSelected($event)" #photoInput>
+                                <mat-error
+                                    *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
+                                    <p
+                                        *ngIf="formProducto.controls['image'].touched && formProducto.controls['image'].errors?.required">
+                                        La Imagen es requerida</p>
+                                </mat-error>
+                            </div>
+                        </div>
+                        <mat-form-field>
+                            <input type="number" formControlName="precio" matInput placeholder="precio">
+                            <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
+                                <p
+                                    *ngIf="formProducto.controls['precio'].touched && formProducto.controls['precio'].errors?.required">
+                                    El Precio es Requerido</p>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input type="number" formControlName="stock" matInput placeholder="stock">
+                            <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
+                                <p
+                                    *ngIf="formProducto.controls['stock'].touched && formProducto.controls['stock'].errors?.required">
+                                    El Stock es Requerida</p>
+                            </mat-error>
+                        </mat-form-field>
+                        <label for="">Estado</label>
+                        <mat-radio-group formControlName="estado" matInput>
+                            <mat-radio-button value="1">Activo</mat-radio-button>
+                            <mat-radio-button value="2">Inactivo</mat-radio-button>
+                        </mat-radio-group>
+                        <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
+                            <p
+                                *ngIf="formProducto.controls['estado'].touched && formProducto.controls['estado'].errors?.required">
+                                El Estado es Requerido</p>
+                        </mat-error>
+
                     </div>
                 </div>
-                <mat-form-field>
-                    <input type="number" formControlName="precio" matInput placeholder="precio">
-                    <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
-                        <p *ngIf="formProducto.controls['precio'].touched && formProducto.controls['precio'].errors?.required">
-                            El Precio es Requerido</p>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <input type="number" formControlName="stock" matInput placeholder="stock">
-                    <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
-                        <p *ngIf="formProducto.controls['stock'].touched && formProducto.controls['stock'].errors?.required">
-                            El Stock es Requerida</p>
-                    </mat-error>
-                </mat-form-field>
-                <label for="">Estado</label>
-                <mat-radio-group  formControlName="estado" matInput>
-                    <mat-radio-button  value="1">Activo</mat-radio-button>
-                    <mat-radio-button value="2">Inactivo</mat-radio-button>
-                </mat-radio-group>
-                <mat-error *ngIf="formProducto.controls && (formProducto.dirty || formProducto.touched)">
-                    <p *ngIf="formProducto.controls['estado'].touched && formProducto.controls['estado'].errors?.required">
-                        El Estado es Requerido</p>
-                </mat-error>
-                <div class="row">
-                    <div class="col">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block"
-                            [disabled]="formProducto.invalid">Save</button>
-                    </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-warning btn-lg">Clear</button>
-                    </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-danger btn-lg" (click)="onCloseDialog()">Close</button>
-                    </div>
-                </div>
-            </div>
         </mat-grid-tile>
         <mat-grid-tile>
-            <div class="controleContainer">
-                <img [src]="photoSelected || '../../../../assets/img/noImage.jpg'" alt="" width="500" height="400"
-                    (click)="photoInput.click()">
+            <div class="row">
+                <div class="col-md-12">
+                    <img [src]="photoSelected || '../../../../assets/img/noImage.jpg'" alt="" class="imgForm"
+                        (click)="photoInput.click()">
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block"
+                                [disabled]="formProducto.invalid">Save</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-warning btn-lg btn-block">Clear</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-danger btn-lg btn-block"
+                                (click)="onCloseDialog()">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </mat-grid-tile>
     </mat-grid-list>

@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
     private toast: ToastrService) { }
 
   ngOnInit() {
+    this.onGetPromocionesppi();
   }
   onGetPromocionesppi() {
     this.consultasService.onGetPromocionppi().subscribe(
