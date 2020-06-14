@@ -103,7 +103,7 @@ export class PromolistComponent implements OnInit {
     this.promocionService.onDeletePromocion(id, newPromocion).subscribe(
       res => {
         console.log(res);
-        this.toast.success('Exito', 'Persona Eliminada', {
+        this.toast.success('Exito', 'Promoción Eliminada', {
           timeOut: 3000
         });
         this.onGetCategoriasAll();

@@ -191,7 +191,6 @@ export class ClientformapagoComponent implements OnInit {
         if (res != null) {
           this.Paypaltransbefec3 = res.map(t => t);
         } else {
-          console.log('No Tiene Facturas Efectivo');
           this.toast.info('Lo siento', 'No Tiene Facturas Efectivo', {
             timeOut: 3000
           });
@@ -209,7 +208,6 @@ export class ClientformapagoComponent implements OnInit {
     );
   }
   onNumFactPaypal(event) { // para ver los datos de la siguiente factura comprada en paypal y guardar
-    console.log(event.value);
     const numfactura = event.value;
     this.consultasService.onGetPagoFactIndiv(numfactura).subscribe(
       res => {
@@ -230,7 +228,6 @@ export class ClientformapagoComponent implements OnInit {
     );
   }
   onNumFactTrasBanc(event) { // para ver los datos de la siguiente factura comprada en transferencia bancaria y guardar
-    console.log(event.value);
     const numfactura = event.value;
     this.consultasService.onGetPagoFactIndiv(numfactura).subscribe(
       res => {
@@ -274,7 +271,6 @@ export class ClientformapagoComponent implements OnInit {
   onSubmitFacturaEstado(idFactura: any) {// para actualizar el estado de la factura
     this.facturaService.onUpdateFacturaEstado(idFactura, this.newfacturaEstado).subscribe(
       res => {
-        console.log(res);
         this.toast.success('Exito', 'Operacion exitosa', {
           timeOut: 3000
         });
@@ -303,7 +299,6 @@ export class ClientformapagoComponent implements OnInit {
         // mostrado como cero cuando ya se haya comprado
         this.formapagoService.onSaveFormaPago(newFormapago).subscribe(
           res => {
-            console.log(res);
             this.onSubmitFacturaEstado(idFactura);
             this.onGetPersonaFactura();
             this.onGetPagoFactPaypal();
@@ -330,7 +325,6 @@ export class ClientformapagoComponent implements OnInit {
   onGetSuccess() { // respuesta que viene de paypal por la compra echa
     this.consultasService.onGetSuccess().subscribe(
       res => {
-        console.log(res);
         console.log('Compardo exitosamente faby star');
       },
       err => {
@@ -373,8 +367,6 @@ export class ClientformapagoComponent implements OnInit {
     if (this.paypal.idformapago !== '' && this.paypal.numfactura !== '' && this.paypal.preciofactura !== '') {
       this.paypalbuyService.onSavePaypalBuy(this.paypal).subscribe(
         date1 => {
-          console.log('PAYPAL');
-          console.log(date1);
           this.onGetPagoFactPaypal();
           // tslint:disable-next-line:no-string-literal
           const link = date1['newLInk'];
@@ -404,10 +396,8 @@ export class ClientformapagoComponent implements OnInit {
     if (this.paypal.idformapago !== '' && this.paypal.numfactura !== '' && this.paypal.preciofactura !== '') {
       this.paypalService.onSavePaypal(this.paypal).subscribe(
         res => {
-          console.log(res);
           this.formapagoService.onUpdateFormaPagoEstado(this.paypal.idformapago, this.newFormapago).subscribe(
             date => {
-              console.log(date);
               this.router.navigate(['/clientFacturasptbe']);
             },
             err => {
@@ -439,15 +429,12 @@ export class ClientformapagoComponent implements OnInit {
   }
   onSubmit3() { // Para Guardar en transferencia Bancaria
     this.transbanc.image = this.file;
-    console.log(this.transbanc);
     // tslint:disable-next-line:max-line-length
     if (this.transbanc.idformapago !== '' && this.transbanc.numfactura !== '' && this.transbanc.preciofactura !== '' && this.transbanc.image !== undefined) {
       this.transbancService.onSaveTransBanc(this.transbanc).subscribe(
         res => {
-          console.log(res);
           this.formapagoService.onUpdateFormaPagoEstado(this.transbanc.idformapago, this.newFormapago).subscribe(
             date => {
-              console.log(date);
               this.onGetPagoFactTransBanc();
               this.router.navigate(['/clientFacturasptbe']);
             },
@@ -479,14 +466,11 @@ export class ClientformapagoComponent implements OnInit {
     }
   }
   onSubmit4() { // Para guardar en efectivo
-    console.log(this.efectivo);
     if (this.efectivo.idformapago !== '' && this.efectivo.numfactura !== '' && this.efectivo.preciofactura !== '') {
       this.efectService.onSaveEfectivo(this.efectivo).subscribe(
         res => {
-          console.log(res);
           this.formapagoService.onUpdateFormaPagoEstado(this.efectivo.idformapago, this.newFormapago).subscribe(
             date => {
-              console.log(date);
               this.onGetPagoFactEfectivo();
               this.router.navigate(['/clientFacturasptbe']);
             },
