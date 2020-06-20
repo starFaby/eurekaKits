@@ -10,6 +10,7 @@ import { Consultas } from 'src/app/models/consultas';
 import { Facturadv } from 'src/app/models/facturadv';
 import { Facturatotal } from 'src/app/models/Facturatotal';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-clientfactura',
@@ -75,11 +76,23 @@ export class ClientfacturaComponent implements OnInit, OnDestroy {
     const idpersona = localStorage.getItem('idpersona');
     this.consultasService.onGetPersonapdt(idpersona).subscribe(
       res => {
-        console.log(res);
-        this.persona = res.map(t => t);
+        if (res !== null) {
+          this.persona = res.map(t => t);
+        } else {
+          this.toast.warning('Warning', 'Persona erronea', {
+            timeOut: 3000
+          });
+          this.router.navigate(['/login']);
+        }
       },
       err => {
-        console.log(err);
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 0) {
+            this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+              timeOut: 3000
+            });
+          }
+        }
       }
     );
   }
@@ -90,11 +103,9 @@ export class ClientfacturaComponent implements OnInit, OnDestroy {
         this.id = atob(param['id']);
         this.consultasService.onGetFacturadv(this.id).subscribe(
           res => {
-            console.log(res);
             this.facturadv = res;
             this.consultasService.onGetFacturaTotal(this.id).subscribe(
               datat => {
-                console.log(datat);
                 this.facturatotal = datat.map(t => t);
                 const date = new Date(this.facturatotal[0].created_at);
                 this.fechaFactura = `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
@@ -109,12 +120,24 @@ export class ClientfacturaComponent implements OnInit, OnDestroy {
                 this.PdfViewer();
               },
               err => {
-                console.log(err);
+                if (err instanceof HttpErrorResponse) {
+                  if (err.status === 0) {
+                    this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                      timeOut: 3000
+                    });
+                  }
+                }
               }
             );
           },
           err => {
-            console.log(err);
+            if (err instanceof HttpErrorResponse) {
+              if (err.status === 0) {
+                this.toast.error('Error', 'Servidor Caido: Consulte con el administrador', {
+                  timeOut: 3000
+                });
+              }
+            }
           }
         );
       }

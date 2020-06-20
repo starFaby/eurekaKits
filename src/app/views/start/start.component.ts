@@ -53,12 +53,10 @@ export class StartComponent implements OnInit {
     this.router.navigate(['/clientPromo', btoa(id)]);
   }
   onGetUpdatePromociones(promocionppi: Promocionppi[]) {
-    const updateDate = new Date();
-    const fechaActual = updateDate.getFullYear() + updateDate.getMonth() + updateDate.getDay();
+    const fechaActual = new Date();
     for (const iterator of promocionppi) {
       const id = iterator.idpromociones;
-      const aux = new Date(iterator.fechafin);
-      const fechaFin = aux.getFullYear() + aux.getMonth() + aux.getDay();
+      const fechaFin = new Date(iterator.fechafin);
       if (fechaActual > fechaFin) {
         this.onDelete(id);
       }

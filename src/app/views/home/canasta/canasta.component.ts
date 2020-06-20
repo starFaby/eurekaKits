@@ -82,13 +82,11 @@ export class CanastaComponent implements OnInit {
   onGetViewNumFactura() {
     const aux = localStorage.getItem('idfactura');
     this.numFactura = this.addCero(aux);
-    console.log(this.numFactura);
   }
   onGetDetaVentaAll() {
     const idFactura = localStorage.getItem('idfactura');
     this.consultasService.onGetDetaVentadvp(idFactura).subscribe(
       res => {
-        console.log(res);
         if (res != null) {
           this.detalleVenta = res;
           this.newFactura.subtotal = this.detalleVenta.map(t => t.total).reduce((acc, value) => acc + value);
@@ -103,7 +101,7 @@ export class CanastaComponent implements OnInit {
           this.authBottom = true;
         } else {
           this.authBottom = false;
-          this.toast.info('Lo siento', 'No has Añadido productos a tu cesta', {
+          this.toast.info('Lo siento', 'No has Añadido productos a tu cesta Añada 1 producto para continuar', {
             timeOut: 3000
           });
         }

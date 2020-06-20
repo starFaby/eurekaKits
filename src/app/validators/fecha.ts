@@ -12,7 +12,6 @@ export class Fecha {
         const mm1 = this.addCero(mm);
         const dd1 = this.addCero(dd);
         const fechaHoy = `${mm1}/${dd1}/${yyyy}`;
-        console.log(fechaHoy);
         return fechaHoy ;
     }
     dateExatParam(getFecha: any) {

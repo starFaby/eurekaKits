@@ -75,7 +75,6 @@ export class ClientprodComponent implements OnInit {
               this.detalleVentas.estado = this.productuni[0].estado;
               this.detalleVentas.precio = this.productuni[0].precio;
               this.detalleVentas.total = this.productuni[0].precio;
-              console.log(this.productuni);
             } else {
               this.toast.info('Lo siento', 'Existe un error en el producto', {
                 timeOut: 3000
@@ -169,14 +168,12 @@ export class ClientprodComponent implements OnInit {
     if (localStorage.getItem('idpersona') != null) {
       this.consultasService.onGetNumFact().subscribe(
         res => {
-          console.log(res);
           this.numFactura = res.map(t => t);
           if (this.numFactura[0].numfactura != null) {
             this.factura.idpersona = localStorage.getItem('idpersona');
             this.factura.numfactura = this.numFactura[0].numfactura;
             this.facturaService.onSaveFactura(this.factura).subscribe(
               dates => {
-                console.log(dates);
                 // tslint:disable-next-line:no-string-literal
                 localStorage.setItem('idfactura', dates['result']);
                 this.onGetValiBottom();

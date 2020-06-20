@@ -64,7 +64,6 @@ export class ClientpromoComponent implements OnInit {
         this.id = atob(params['id']);
         this.consultasService.onGetPromocionuni(this.id).subscribe(
           res => {
-            console.log(res);
             if (res !== null) {
               this.promouni = res.map(t => t);
               this.detalleVentas.idproducto = this.promouni[0].idproducto;
