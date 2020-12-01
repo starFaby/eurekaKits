@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Consultas } from '../models/consultas';
 import { Promocionpp } from '../models/promocionpp';
@@ -25,7 +25,9 @@ import { Reportpromociones } from '../models/reportpromociones';
 import { Productoview } from '../models/productoview';
 import { Dto } from '../models/dto';
 import { Email } from '../models/email';
-
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 @Injectable({
   providedIn: 'root'
 })

@@ -44,7 +44,7 @@
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field>
-                        <mat-label>Choose a date</mat-label>
+                        <mat-label>Fecha Nacimiento</mat-label>
                         <input matInput [matDatepicker]="picker" formControlName="fechanacimiento">
                         <mat-error
                             *ngIf="formPersonaAdmin.controls && (formPersonaAdmin.dirty || formPersonaAdmin.touched)">
@@ -128,7 +128,7 @@
                         </button>
                     </mat-form-field>
                     <mat-form-field>
-                        <mat-label>Select Requerimiento</mat-label>
+                        <mat-label>Seleccione el Requerimiento</mat-label>
                         <mat-select formControlName="requerimiento">
                             <mat-option *ngFor="let item of arregloCategoria" value="{{item.nombre}}">
                                 {{item.nombre}}</mat-option>

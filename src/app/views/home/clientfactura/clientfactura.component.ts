@@ -108,7 +108,7 @@ export class ClientfacturaComponent implements OnInit, OnDestroy {
               datat => {
                 this.facturatotal = datat.map(t => t);
                 const date = new Date(this.facturatotal[0].created_at);
-                this.fechaFactura = `${date.getFullYear()}/${date.getMonth()}/${date.getDay()}`;
+                this.fechaFactura = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
                 this.numFactura = this.addCero1(this.facturatotal[0].numfactura);
                 if (this.facturatotal[0].idtipopago === 1) {
                   this.tipoPago = 'Paypal';

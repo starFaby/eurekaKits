@@ -100,7 +100,7 @@ export class ReportcategoriaComponent implements OnInit {
   getColumns() {
     const columns = [
       { title: 'NOMBRE', dataKey: 'nombre' },
-      { title: 'IMAGE', dataKey: 'image' }
+      { title: 'IMAGEN', dataKey: 'image' }
     ];
     return columns;
   }

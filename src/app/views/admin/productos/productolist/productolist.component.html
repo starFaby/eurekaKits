@@ -16,7 +16,7 @@
 </div>
 <div class="card">
     <div class="card-body">
-        <h6 class="text-center">List Productos</h6>
+        <h6 class="text-center">Lista de Productos</h6>
         <div>
             <div class="mat-elevation-z8 ">
                 <mat-table [dataSource]="listProductos" matSort>
@@ -33,7 +33,7 @@
                         <mat-cell *matCellDef="let element">{{ element.describir}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="image">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>image</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>imagen</mat-header-cell>
                         <mat-cell *matCellDef="let element">{{element.image}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="precio">

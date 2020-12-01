@@ -100,7 +100,7 @@ export class ReportproductosComponent implements OnInit {
     const columns = [
       { title: 'CATEGORIA', dataKey: 'categoria' },
       { title: 'NOMBRE', dataKey: 'nombre' },
-      { title: 'IMAGE', dataKey: 'image' },
+      { title: 'IMAGEN', dataKey: 'image' },
       { title: 'STOCK', dataKey: 'stock' },
       { title: 'CREATED_AT', dataKey: 'created_at' }
     ];
