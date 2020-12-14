@@ -25,6 +25,7 @@ import { ReportproductosComponent } from 'src/app/views/admin/reportproductos/re
 import { ReportpromocionComponent } from 'src/app/views/admin/reportpromocion/reportpromocion.component';
 import { DtoComponent } from 'src/app/views/admin/dto/dto.component';
 import { AdminGuard } from 'src/app/guard/admin.guard';
+import { FactadminComponent } from 'src/app/views/admin/factadmin/factadmin.component';
 
 export const AdminlayoutRoutingModule: Routes = [
     {path: '' , component: StartComponent},
@@ -51,5 +52,6 @@ export const AdminlayoutRoutingModule: Routes = [
     {path: 'reportcategoria' , component: ReportcategoriaComponent, canActivate: [AdminGuard]},
     {path: 'reportproductos' , component: ReportproductosComponent, canActivate: [AdminGuard]},
     {path: 'reportpromociones' , component: ReportpromocionComponent, canActivate: [AdminGuard]},
-    {path: 'dto' , component: DtoComponent, canActivate: [AdminGuard]}
+    {path: 'dto' , component: DtoComponent, canActivate: [AdminGuard]},
+    {path: 'factAdmin' , component: FactadminComponent, canActivate: [AdminGuard]}
 ];

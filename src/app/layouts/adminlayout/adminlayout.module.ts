@@ -41,6 +41,7 @@ import { DtoformComponent } from 'src/app/views/admin/dto/dtoform/dtoform.compon
 import { DtoComponent } from 'src/app/views/admin/dto/dto.component';
 import { DtolistComponent } from 'src/app/views/admin/dto/dtolist/dtolist.component';
 import { ToastrModule } from 'ngx-toastr';
+import { FactadminComponent } from 'src/app/views/admin/factadmin/factadmin.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { ToastrModule } from 'ngx-toastr';
     ReportpromocionComponent,
     DtoformComponent,
     DtoComponent,
-    DtolistComponent
+    DtolistComponent,
+    FactadminComponent
   ],
   imports: [
     CommonModule,

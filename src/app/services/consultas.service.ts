@@ -25,6 +25,7 @@ import { Reportpromociones } from '../models/reportpromociones';
 import { Productoview } from '../models/productoview';
 import { Dto } from '../models/dto';
 import { Email } from '../models/email';
+import { Factadmin } from '../models/factadmin';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -121,6 +122,9 @@ export class ConsultasService {
    }
    onGetReportPromociones() { // ver facturas pagadas por el numero de factura
     return this.http.get<Reportpromociones[]>(`${this.API_URI}/consultas/reportpromo`);
+   }
+   onGetFactAdmin() { // ver todas las facturas de todos los clientes
+    return this.http.get<Factadmin[]>(`${this.API_URI}/consultas/factAdmin`);
    }
    onGetSuccess() { // ver facturas pagadas por el numero de factura
     return this.http.get(`${this.API_URI}/paypalbuy/success`);
