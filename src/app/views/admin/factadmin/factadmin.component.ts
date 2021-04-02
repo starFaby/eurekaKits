@@ -13,6 +13,7 @@ import { ConsultasService } from 'src/app/services/consultas.service';
 })
 export class FactadminComponent implements OnInit {
   private factadmin: Factadmin[];
+  fcaturaTotal;
   constructor(
     private consultasService: ConsultasService,
     private router: Router,
@@ -30,6 +31,7 @@ export class FactadminComponent implements OnInit {
       res => {
         if (res != null) {
           this.factadmin = res;
+          this.fcaturaTotal = this.factadmin.map(t => t.total).reduce((acc, value) => acc + value);
           this.listfactadmin = new MatTableDataSource(this.factadmin);
           this.listfactadmin.sort = this.sort;
           this.listfactadmin.paginator = this.paginator;
